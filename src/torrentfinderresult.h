@@ -6,14 +6,28 @@
 class TorrentFinderResult
 {
 public:
+
+    //----------------------------------------------------------------------------------------------
     explicit TorrentFinderResult (const QString & name,
                                   const QString & url ,
                                   uint            seed);
 
     // Queries:
-    const QString &    name() const;
-    const QString &    url()  const;
-    const uint         seed() const;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Name is returned.]
+    const QString & name() const;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Url where torrent is located is returned.]
+    const QString & url()  const;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Number of seed is returned.]
+    const uint  seed() const;
 
 private :
     QString       _name;

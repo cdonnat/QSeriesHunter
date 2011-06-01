@@ -12,17 +12,26 @@ class QNetworkAccessManager;
 class NetworkAccess : public INetworkAccess
 {
 public:
+    // Constructors & Destructors
+
+    //----------------------------------------------------------------------------------------------
     NetworkAccess();
+
+    //----------------------------------------------------------------------------------------------
     ~NetworkAccess();
 
     // Commands:
 
+    //----------------------------------------------------------------------------------------------
     virtual void read (const QString & url);
 
     // Queries:
 
-    virtual bool               contentIsReady() const;
-    virtual const QByteArray & content()        const;
+    //----------------------------------------------------------------------------------------------
+    virtual bool  contentIsReady() const;
+
+    //----------------------------------------------------------------------------------------------
+    virtual const QByteArray & content()  const;
 
 private:
   QByteArray               _contentRead;

@@ -10,13 +10,14 @@
 //--------------------------------------------------------------------------------------------------
 Isohunt::Isohunt(INetworkAccess * const networkAccess)
 {
+    Q_ASSERT (networkAccess != NULL);
     _networkAccess = networkAccess;
 }
 
 //--------------------------------------------------------------------------------------------------
-void Isohunt::startRequest(const QString & name)
+void Isohunt::startRequest(const QString & serieTitle)
 {
-    QString          convert = name;
+    QString          convert = serieTitle;
     QString          request = "http://ca.isohunt.com/js/json.php?ihq=" +
                                 convert.replace(" ","+");
     _networkAccess->read(request);
@@ -35,11 +36,10 @@ void Isohunt::addItemToResults(const QVariant & item)
 //--------------------------------------------------------------------------------------------------
 void Isohunt::retrieveResults ()
 {
+    Q_ASSERT (_networkAccess->contentIsReady ());
     bool           parsingIsOk;
     QJson::Parser  parser;
     QVariantMap    jsonResult = parser.parse(_networkAccess->content(), &parsingIsOk).toMap();
-
-     _results.clear ();
 
      if (parsingIsOk)
      {
@@ -54,6 +54,7 @@ void Isohunt::retrieveResults ()
 //--------------------------------------------------------------------------------------------------
 void Isohunt::search (const QString & name)
 {
+    _results.clear ();
     this->startRequest(name);
     if(_networkAccess->contentIsReady())
     {       

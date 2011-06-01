@@ -10,14 +10,17 @@
 
 const int timeoutInMs = 3000;
 
+//----------------------------------------------------------------------------------------------
 NetworkAccess::NetworkAccess():
     _networkAccessReply(NULL), _networkAccessManager(new QNetworkAccessManager()) {}
 
+//----------------------------------------------------------------------------------------------
 NetworkAccess::~NetworkAccess()
 {
     _networkAccessManager->deleteLater();
 }
 
+//----------------------------------------------------------------------------------------------
 void NetworkAccess::read (const QString & url)
 {
     QNetworkRequest  networkRequest(url);
@@ -39,12 +42,14 @@ void NetworkAccess::read (const QString & url)
     }
 }
 
+//----------------------------------------------------------------------------------------------
 bool NetworkAccess::contentIsReady() const
 {
     return (_networkAccessReply != NULL) &&
             (_networkAccessReply->error() == QNetworkReply::NoError);
 }
 
+//----------------------------------------------------------------------------------------------
 const QByteArray & NetworkAccess::content() const
 {
     Q_ASSERT(this->contentIsReady());

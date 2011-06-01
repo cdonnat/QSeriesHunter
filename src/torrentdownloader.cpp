@@ -5,13 +5,16 @@
 #include <QUrl>
 #include "inetworkaccess.h"
 
+//----------------------------------------------------------------------------------------------
 TorrentDownloader::TorrentDownloader(INetworkAccess * const networkAccess, QObject *parent) :
     QObject(parent), _networkAccess(networkAccess)
 {
+    Q_ASSERT (_networkAccess != NULL);
     _tmpFile.open ();
     _tmpFile.setAutoRemove (true);
 }
 
+//----------------------------------------------------------------------------------------------
 void TorrentDownloader::download(const QString & torrentUrl)
 {     
     _networkAccess->read(torrentUrl);

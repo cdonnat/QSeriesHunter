@@ -29,12 +29,18 @@ private :
   // Commands:
 
   //------------------------------------------------------------------------------------------------
-  void startRequest (const QString & name);
+  // REQ [None.]
+  // ENS [A request is sent to isoHunt server.]
+  void startRequest (const QString & serieTitle);
 
   //------------------------------------------------------------------------------------------------
+  // REQ [None.]
+  // ENS [Item is added to request results.]
   void addItemToResults (const QVariant & item);
 
   //------------------------------------------------------------------------------------------------
+  // REQ [Request is successful.]
+  // ENS [Results are filled.]
   void retrieveResults ();
 };
 
