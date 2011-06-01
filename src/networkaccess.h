@@ -25,9 +25,9 @@ public:
     virtual const QByteArray & content()        const;
 
 private:
-  QByteArray               contentRead;
-  QNetworkReply          * networkAccessReply;
-  QNetworkAccessManager  * networkAccessManager;
+  QByteArray               _contentRead;
+  QNetworkReply          * _networkAccessReply;
+  QNetworkAccessManager  * _networkAccessManager;
 };
 
 #endif // NETWORKACCESS_H

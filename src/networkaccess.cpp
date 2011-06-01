@@ -11,11 +11,11 @@
 const int timeoutInMs = 3000;
 
 NetworkAccess::NetworkAccess():
-    networkAccessReply(NULL), networkAccessManager(new QNetworkAccessManager()) {}
+    _networkAccessReply(NULL), _networkAccessManager(new QNetworkAccessManager()) {}
 
 NetworkAccess::~NetworkAccess()
 {
-    this->networkAccessManager->deleteLater();
+    _networkAccessManager->deleteLater();
 }
 
 void NetworkAccess::read (const QString & url)
@@ -25,28 +25,28 @@ void NetworkAccess::read (const QString & url)
     QTimer           timer;
 
     timer.setInterval(timeoutInMs);
-    this->networkAccessReply = this->networkAccessManager->get(networkRequest);
+    _networkAccessReply = _networkAccessManager->get(networkRequest);
 
-    QObject::connect (this->networkAccessReply, SIGNAL(finished()), &loop, SLOT(quit()));
+    QObject::connect (_networkAccessReply, SIGNAL(finished()), &loop, SLOT(quit()));
     QObject::connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
 
     loop.exec();
 
     if (this->contentIsReady())
     {
-        this->contentRead = this->networkAccessReply->readAll();
-        this->networkAccessReply->deleteLater();
+        _contentRead = _networkAccessReply->readAll();
+        _networkAccessReply->deleteLater();
     }
 }
 
 bool NetworkAccess::contentIsReady() const
 {
-    return (this->networkAccessReply != NULL) &&
-            (this->networkAccessReply->error() == QNetworkReply::NoError);
+    return (_networkAccessReply != NULL) &&
+            (_networkAccessReply->error() == QNetworkReply::NoError);
 }
 
 const QByteArray & NetworkAccess::content() const
 {
     Q_ASSERT(this->contentIsReady());
-    return this->contentRead;
+    return _contentRead;
 }
