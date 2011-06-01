@@ -2,7 +2,6 @@
 #define TST_TORRENTDOWNLOADER_H
 
 #include <QObject>
-#include <QString>
 
 class NetworkAccessStub;
 class TorrentDownloader;
@@ -17,11 +16,9 @@ public:
 
 private Q_SLOTS:
     void testNominalCase();
-    void testFailCase();
 
 private :
-    QString              fileName;
-    NetworkAccessStub  * networkAccess;
+    NetworkAccessStub    * networkAccess;
     TorrentDownloader    * sut;
 };
 

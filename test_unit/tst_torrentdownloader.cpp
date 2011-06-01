@@ -8,9 +8,7 @@
 TestTorrentDownloader::TestTorrentDownloader()
 {
     this->networkAccess  = new NetworkAccessStub();
-    this->sut            = new TorrentDownloader(this->networkAccess, NULL);
-    this->fileName       = "torrentProviderTest.txt";
-    QFile::remove(this->fileName);
+    this->sut            = new TorrentDownloader(this->networkAccess, NULL);   
 }
 
 TestTorrentDownloader::~TestTorrentDownloader()
@@ -26,18 +24,8 @@ void TestTorrentDownloader::testNominalCase()
 
     fixture.networkAccess->setContent("Torrent");
     fixture.networkAccess->setIsReady(true);
-    fixture.sut->download(urlToRead, fixture.fileName);
+    fixture.sut->download(urlToRead);
 
-    QVERIFY2(QFile::exists(fixture.fileName), "File successfully downloaded");
     QVERIFY2(fixture.networkAccess->url() == urlToRead,
              "Correct url");
-}
-
-void TestTorrentDownloader::testFailCase()
-{
-    TestTorrentDownloader fixture;
-
-    fixture.sut->download("", fixture.fileName);
-
-    QVERIFY2(!QFile::exists(fixture.fileName), "File download failed");
 }

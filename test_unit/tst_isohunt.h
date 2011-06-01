@@ -15,8 +15,13 @@ public:
     ~TestIsohunt();
 
 private Q_SLOTS:
-    void testNominalCase();
-    void testFailCase();
+    void testRequestFailed();
+    void testNominalCaseTwice();
+    void testEmptyJsonContent();
+    void testCorruptedJsonContent();
+
+private:
+    void nominalCase();
 
 private :
     NetworkAccessStub  * networkAccess;

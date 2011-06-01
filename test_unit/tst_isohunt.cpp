@@ -27,20 +27,27 @@ TestIsohunt::~TestIsohunt()
     delete this->networkAccess;
 }
 
-void TestIsohunt::testNominalCase()
+void TestIsohunt::testRequestFailed()
 {
-    TestIsohunt fixture;
-
-    fixture.networkAccess->setContent(getJsonInput());
-    fixture.networkAccess->setIsReady(true);
+    TestIsohunt          fixture;
+    TorrentFinderResults results;
 
     fixture.sut->search("How I Met Your Mother");
+    results = fixture.sut->getResults();
+    QVERIFY2(results.isEmpty(), "Empty list");
+}
 
-    TorrentFinderResults results = fixture.sut->getResults();
+void TestIsohunt::nominalCase ()
+{
+    this->networkAccess->setContent(getJsonInput());
+    this->networkAccess->setIsReady(true);
 
-    QVERIFY2(fixture.networkAccess->url() == "http://ca.isohunt.com/js/json.php?ihq=How+I+Met+Your+Mother",
+    this->sut->search("How I Met Your Mother");
+    TorrentFinderResults results = this->sut->getResults();
+
+    QVERIFY2(this->networkAccess->url() == "http://ca.isohunt.com/js/json.php?ihq=How+I+Met+Your+Mother",
              "Expected request");
-    QVERIFY2(!results.isEmpty(), "Results are retrieved");
+    QVERIFY2(results.size() == 100, "Results are retrieved");
     QVERIFY2(results.front().name() == "<b>HIMYM</b> - Season 1",
              "Expected name");
     QVERIFY2(results.front().url() == "http://ca.isohunt.com/download/29646977/himym.torrent",
@@ -48,5 +55,37 @@ void TestIsohunt::testNominalCase()
     QVERIFY2(results.front().seed() == 133, "Expected number of seed");
 }
 
-void TestIsohunt::testFailCase()
-{}
+void TestIsohunt::testNominalCaseTwice()
+{
+    TestIsohunt fixture;
+    fixture.nominalCase ();
+    fixture.nominalCase ();
+}
+
+void TestIsohunt::testEmptyJsonContent()
+{
+    TestIsohunt fixture;
+    fixture.networkAccess->setIsReady(true);
+
+    fixture.sut->search("House");
+
+    TorrentFinderResults results = fixture.sut->getResults();
+
+    QVERIFY2(fixture.networkAccess->url() == "http://ca.isohunt.com/js/json.php?ihq=House",
+             "Expected request");
+    QVERIFY2(results.isEmpty(), "Empty list");
+}
+
+void TestIsohunt::testCorruptedJsonContent()
+{
+    TestIsohunt fixture;
+    fixture.networkAccess->setContent ("title:");
+    fixture.networkAccess->setIsReady(true);
+
+    fixture.sut->search("House");
+
+    TorrentFinderResults results = fixture.sut->getResults();
+
+    QVERIFY2(fixture.networkAccess->url() == "http://ca.isohunt.com/js/json.php?ihq=House",
+             "Expected request");
+}

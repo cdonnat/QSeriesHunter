@@ -1,23 +1,24 @@
 #include "torrentdownloader.h"
 
+#include <QDesktopServices>
 #include <QFile>
+#include <QUrl>
 #include "inetworkaccess.h"
 
-TorrentDownloader::TorrentDownloader(INetworkAccess * networkAccess, QObject *parent) :
+TorrentDownloader::TorrentDownloader(INetworkAccess * const networkAccess, QObject *parent) :
     QObject(parent), _networkAccess(networkAccess)
 {
+    _tmpFile.open ();
+    _tmpFile.setAutoRemove (true);
 }
 
-void TorrentDownloader::download(const QString & fileToDownload, const QString & absolutePathToFile)
+void TorrentDownloader::download(const QString & torrentUrl)
 {     
-    _networkAccess->read(fileToDownload);
+    _networkAccess->read(torrentUrl);
 
     if (_networkAccess->contentIsReady())
     {
-        QFile output(absolutePathToFile);
-        output.open(QIODevice::WriteOnly);
-        output.write(_networkAccess->content());
-        output.close();
+        _tmpFile.write(_networkAccess->content());
     }
 }
 
