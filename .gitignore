@@ -1,0 +1,5 @@
+*.o
+Makefile
+exe/
+src/moc/
+test_unit/moc/
