@@ -14,14 +14,20 @@ HEADERS += \
     stub_networkaccess.h \
     tst_torrentdownloader.h \
     tst_networkaccess.h \
-    tst_serie.h
+    tst_serie.h \
+    tst_torrentfindercontroller.h \
+    stub_torrentfinder.h \
+    tst_seriescontroller.h
 SOURCES += \
            main.cpp \
     tst_isohunt.cpp \
     stub_networkaccess.cpp \
     tst_torrentdownloader.cpp \
     tst_networkaccess.cpp \
-    tst_serie.cpp
+    tst_serie.cpp \
+    tst_torrentfindercontroller.cpp \
+    stub_torrentfinder.cpp \
+    tst_seriescontroller.cpp
 
 OTHER_FILES += \
     input/json_input.txt

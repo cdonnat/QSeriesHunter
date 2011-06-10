@@ -43,7 +43,7 @@ void Isohunt::retrieveResults ()
 
      if (parsingIsOk)
      {
-        QVariantList   list       = jsonResult["items"].toMap()["list"].toList();
+        QVariantList   list = jsonResult["items"].toMap()["list"].toList();
         foreach (const QVariant & item, list)
         {
             this->addItemToResults (item);

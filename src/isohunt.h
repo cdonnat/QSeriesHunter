@@ -10,7 +10,7 @@ class Isohunt : public ITorrentFinder
 {
 public:
     //----------------------------------------------------------------------------------------------
-    Isohunt(INetworkAccess * const networkAccess);
+    explicit Isohunt(INetworkAccess * const networkAccess);
 
     // Commands:
 

@@ -27,7 +27,8 @@ void NetworkAccess::read (const QString & url)
     QEventLoop       loop;
     QTimer           timer;
 
-    timer.setInterval(timeoutInMs);
+    timer.start(timeoutInMs);
+
     _networkAccessReply = _networkAccessManager->get(networkRequest);
 
     QObject::connect (_networkAccessReply, SIGNAL(finished()), &loop, SLOT(quit()));

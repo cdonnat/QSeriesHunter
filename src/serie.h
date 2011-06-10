@@ -7,14 +7,14 @@ class Serie
 {
 public:
     // Constructors:
-    explicit Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeSeen);
+    explicit Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeDownloaded);
 
     // Commands:
 
     //----------------------------------------------------------------------------------------------
     // REQ [Season is not finished.]
     // ENS [Last episode seen is incremented.]
-    void nextEpisode();
+    void inc();
 
     // Queries:
 
@@ -34,15 +34,20 @@ public:
     uint season() const;
 
     //----------------------------------------------------------------------------------------------
+    // REQ [Season is not finished.]
+    // ENS [Next episode to download is returned.]
+    uint nextEpisode () const;
+
+    //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Last episode seen is returned.]
-    uint lastEpisodeSeen() const;
+    uint lastEpisodeDownloaded() const;
 
 private:
     QString    _name;
     uint       _season;
     uint       _nbEpisodes;
-    uint       _lastEpisodeSeen;
+    uint       _lastEpisodeDownloaded;
 };
 
 #endif // SERIE_H

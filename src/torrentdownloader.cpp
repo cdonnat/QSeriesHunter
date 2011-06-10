@@ -10,8 +10,7 @@ TorrentDownloader::TorrentDownloader(INetworkAccess * const networkAccess, QObje
     QObject(parent), _networkAccess(networkAccess)
 {
     Q_ASSERT (_networkAccess != NULL);
-    _tmpFile.open ();
-    _tmpFile.setAutoRemove (true);
+     _tmpFile.setAutoRemove (true);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -21,7 +20,9 @@ void TorrentDownloader::download(const QString & torrentUrl)
 
     if (_networkAccess->contentIsReady())
     {
+        _tmpFile.open ();
         _tmpFile.write(_networkAccess->content());
+        _tmpFile.close ();
     }
 }
 

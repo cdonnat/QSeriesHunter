@@ -4,8 +4,7 @@
 #include "torrentfinderresult.h"
 #include <QList>
 
-class  TorrentFinderResults : public QList<TorrentFinderResult>
-{};
+typedef QList<TorrentFinderResult> TorrentFinderResults;
 
 class ITorrentFinder
 {

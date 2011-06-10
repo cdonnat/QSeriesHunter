@@ -1,25 +1,28 @@
 #include "serie.h"
 
 //----------------------------------------------------------------------------------------------
-Serie::Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeSeen)
-    : _name(name), _season(season), _nbEpisodes(nbEpisodes), _lastEpisodeSeen(lastEpisodeSeen)
+Serie::Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeDownloaded)
+    : _name(name),
+      _season(season),
+      _nbEpisodes(nbEpisodes),
+      _lastEpisodeDownloaded(lastEpisodeDownloaded)
 {
     Q_ASSERT (_season > 0);
     Q_ASSERT (_nbEpisodes > 0);
-    Q_ASSERT (_lastEpisodeSeen <= _nbEpisodes);
+    Q_ASSERT (_lastEpisodeDownloaded < _nbEpisodes);
 }
 
 //----------------------------------------------------------------------------------------------
-void Serie::nextEpisode()
+void Serie::inc()
 {
     Q_ASSERT (!this->isFinished ());
-    _lastEpisodeSeen++;
+    _lastEpisodeDownloaded++;
 }
 
 //----------------------------------------------------------------------------------------------
 bool Serie::isFinished() const
 {
-    return _lastEpisodeSeen == _nbEpisodes;
+    return _lastEpisodeDownloaded == _nbEpisodes;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -35,7 +38,14 @@ uint Serie::season() const
 }
 
 //----------------------------------------------------------------------------------------------
-uint Serie::lastEpisodeSeen() const
+uint Serie::nextEpisode () const
 {
-    return _lastEpisodeSeen;
+    Q_ASSERT(!this->isFinished ());
+    return _lastEpisodeDownloaded + 1;
+}
+
+//----------------------------------------------------------------------------------------------
+uint Serie::lastEpisodeDownloaded() const
+{
+    return _lastEpisodeDownloaded;
 }

@@ -14,10 +14,14 @@ HEADERS += \
     networkaccess.h \
     torrentdownloader.h \
     torrentfinderresult.h \
-    serie.h
+    serie.h \
+    torrentfindercontroller.h \
+    seriescontroller.h
 SOURCES += \  
     isohunt.cpp \
     networkaccess.cpp \
     torrentdownloader.cpp \
     torrentfinderresult.cpp \
-    serie.cpp
+    serie.cpp \
+    torrentfindercontroller.cpp \
+    seriescontroller.cpp
