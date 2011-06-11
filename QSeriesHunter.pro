@@ -6,4 +6,4 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = src test_unit
+SUBDIRS = src main test_unit

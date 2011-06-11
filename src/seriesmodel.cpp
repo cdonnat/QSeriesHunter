@@ -12,12 +12,14 @@ SeriesModel::SeriesModel(QObject *parent):QAbstractTableModel(parent)
 //----------------------------------------------------------------------------------------------
 int SeriesModel::rowCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return _series.nbSeries ();
 }
 
 //----------------------------------------------------------------------------------------------
 int SeriesModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent);
     return NB_COLUMNS;
 }
 
@@ -59,11 +61,15 @@ QVariant SeriesModel::headerData(int              section,
 //----------------------------------------------------------------------------------------------
 void SeriesModel::addSerie (const Serie & serie)
 {
+    beginInsertRows (QModelIndex(), _series.nbSeries (), _series.nbSeries ());
     _series.addSerie (serie);
+    endInsertRows ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesModel::removeSerie (const Serie & serie)
 {
+    beginRemoveRows (QModelIndex(), _series.nbSeries (), _series.nbSeries ());
     _series.removeSerie (serie);
+    endRemoveRows ();
 }

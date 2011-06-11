@@ -1,6 +1,8 @@
 #include "tst_seriesmodel.h"
 
 #include <QTest>
+#include <QSignalSpy>
+
 #include "serie.h"
 
 const int nbColumns = 3;
@@ -95,3 +97,4 @@ void TestSeriesModel::testHeaderData()
     checkHeaderData (fixture._sut, 0, Qt::Vertical, Qt::DecorationRole, "", "Vertical");
     checkHeaderData (fixture._sut, -1, Qt::Horizontal, Qt::DecorationRole, "", "Invalid Section");
 }
+
