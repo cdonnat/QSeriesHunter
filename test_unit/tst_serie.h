@@ -13,6 +13,7 @@ public:
 
 private Q_SLOTS:
     void testCase();
+    void testOperators ();
 
 private :
     Serie    * sut;

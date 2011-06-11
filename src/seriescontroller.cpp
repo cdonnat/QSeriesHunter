@@ -6,33 +6,33 @@ SeriesController::SeriesController()
 }
 
 //----------------------------------------------------------------------------------------------
-bool SeriesController::exists (const Serie & serie) const
+bool SeriesController::contains (const Serie & serie) const
 {
-    return false;
+    return _series.contains (serie);
 }
 
 //----------------------------------------------------------------------------------------------
 uint SeriesController::nbSeries() const
 {
-    return 0;
+    return _series.size ();
 }
 
 //----------------------------------------------------------------------------------------------
 SeriesIterator SeriesController::series() const
 {
+    return _series.constBegin ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesController::addSerie (const Serie & serie)
 {
+    Q_ASSERT (!this->contains (serie));
+    _series.append (serie);
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesController::removeSerie(const Serie & serie)
 {
-}
-
-//----------------------------------------------------------------------------------------------
-void SeriesController::modifySerie(const Serie & serieToChange, const Serie & newSerie)
-{
+    Q_ASSERT (this->contains (serie));
+    _series.removeOne (serie);
 }

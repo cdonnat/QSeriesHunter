@@ -33,3 +33,12 @@ void TestSerie::testCase ()
     QVERIFY2(fixture.sut->lastEpisodeDownloaded () == lastEpisodeDownloaded + 2, "lastEpisodeSeen + 2");
     QVERIFY2(fixture.sut->isFinished (), "is Finished");
 }
+
+void TestSerie::testOperators ()
+{
+    QVERIFY2 (Serie("House", 1, 22, 1) == Serie("House", 1, 22, 1), "1");
+    QVERIFY2 (Serie("House", 1, 22, 1) == Serie("House", 1, 22, 2), "2");
+    QVERIFY2 (Serie("House", 1, 22, 1) == Serie("House", 1, 21, 1), "3");
+    QVERIFY2 (Serie("House", 1, 22, 1) != Serie("House", 2, 22, 1), "4");
+    QVERIFY2 (Serie("House", 1, 22, 1) != Serie("house", 1, 22, 1), "5");
+}

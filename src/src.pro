@@ -16,7 +16,8 @@ HEADERS += \
     torrentfinderresult.h \
     serie.h \
     torrentfindercontroller.h \
-    seriescontroller.h
+    seriescontroller.h \
+    seriesmodel.h
 SOURCES += \  
     isohunt.cpp \
     networkaccess.cpp \
@@ -24,4 +25,5 @@ SOURCES += \
     torrentfinderresult.cpp \
     serie.cpp \
     torrentfindercontroller.cpp \
-    seriescontroller.cpp
+    seriescontroller.cpp \
+    seriesmodel.cpp

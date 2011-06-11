@@ -50,4 +50,16 @@ private:
     uint       _lastEpisodeDownloaded;
 };
 
+// Operators:
+
+//----------------------------------------------------------------------------------------------
+// REQ [None.]
+// ENS [True is returned if l and r have the same name and the same season.]
+bool operator==(const Serie & l, const Serie & r);
+
+//----------------------------------------------------------------------------------------------
+// REQ [None.]
+// ENS [True is returned if l and r have don't have the same name and the same season.]
+bool operator!=(const Serie & l, const Serie & r);
+
 #endif // SERIE_H

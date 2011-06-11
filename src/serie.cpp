@@ -49,3 +49,15 @@ uint Serie::lastEpisodeDownloaded() const
 {
     return _lastEpisodeDownloaded;
 }
+
+//----------------------------------------------------------------------------------------------
+bool operator==(const Serie & l, const Serie & r)
+{
+    return (l.name () == r.name ()) && (l.season () == r.season ());
+}
+
+//----------------------------------------------------------------------------------------------
+bool operator!=(const Serie & l, const Serie & r)
+{
+    return !(l == r);
+}

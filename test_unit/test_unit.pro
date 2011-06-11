@@ -17,7 +17,8 @@ HEADERS += \
     tst_serie.h \
     tst_torrentfindercontroller.h \
     stub_torrentfinder.h \
-    tst_seriescontroller.h
+    tst_seriescontroller.h \
+    tst_seriesmodel.h
 SOURCES += \
            main.cpp \
     tst_isohunt.cpp \
@@ -27,7 +28,8 @@ SOURCES += \
     tst_serie.cpp \
     tst_torrentfindercontroller.cpp \
     stub_torrentfinder.cpp \
-    tst_seriescontroller.cpp
+    tst_seriescontroller.cpp \
+    tst_seriesmodel.cpp
 
 OTHER_FILES += \
     input/json_input.txt
