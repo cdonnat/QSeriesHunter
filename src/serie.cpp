@@ -13,6 +13,15 @@ Serie::Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisod
 }
 
 //----------------------------------------------------------------------------------------------
+Serie::Serie (const Serie & serie)
+    :_name(serie.name()),
+     _season(serie.season()),
+     _nbEpisodes(serie._nbEpisodes),
+     _lastEpisodeDownloaded(serie.lastEpisodeDownloaded())
+{
+}
+
+//----------------------------------------------------------------------------------------------
 void Serie::inc()
 {
     Q_ASSERT (!this->isFinished ());

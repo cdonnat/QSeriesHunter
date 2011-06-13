@@ -25,11 +25,6 @@ void TestSeriesController::test ()
     QVERIFY2(fixture._sut.contains (house_season_1), "Exists when in");
     QVERIFY2(fixture._sut.nbSeries () == 2, "Size when 2");
 
-    SeriesIterator iter = fixture._sut.series ();
-    QVERIFY2 (*iter == house_season_2, "Iterator on first serie");
-    iter++;
-    QVERIFY2 (*iter == house_season_1, "Iterator on second serie");
-
     fixture._sut.removeSerie (house_season_1);
     QVERIFY2(fixture._sut.nbSeries () == 1, "Size when 1'");
 }

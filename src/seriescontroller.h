@@ -5,7 +5,6 @@
 
 #include <QList>
 
-typedef QList<Serie>::const_iterator SeriesIterator;
 
 class SeriesController
 {
@@ -27,9 +26,9 @@ public:
     uint nbSeries() const;
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [An iterator on all series is returned.]
-    SeriesIterator series() const;
+    // REQ [0 <= index < nbSerie.]
+    // ENS [Serie at given index is returned.]
+    const Serie & at(uint index) const;
 
     // Commands :
 
@@ -43,6 +42,7 @@ public:
     // ENS [Serie is added.]
     void removeSerie(const Serie & serie);
 
+    void inc (const Serie & serie);
 
 private :
     QList<Serie>  _series;

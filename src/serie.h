@@ -7,7 +7,9 @@ class Serie
 {
 public:
     // Constructors:
-    explicit Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeDownloaded);
+    Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeDownloaded);
+
+    Serie (const Serie & serie);
 
     // Commands:
 

@@ -18,9 +18,10 @@ uint SeriesController::nbSeries() const
 }
 
 //----------------------------------------------------------------------------------------------
-SeriesIterator SeriesController::series() const
+const Serie & SeriesController::at(uint index) const
 {
-    return _series.constBegin ();
+    Q_ASSERT (index < nbSeries());
+    return _series.at (index);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -35,4 +36,12 @@ void SeriesController::removeSerie(const Serie & serie)
 {
     Q_ASSERT (this->contains (serie));
     _series.removeOne (serie);
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesController::inc (const Serie & serie)
+{
+    Q_ASSERT (this->contains (serie));
+    int index = _series.indexOf (serie);
+    _series[index].inc();
 }

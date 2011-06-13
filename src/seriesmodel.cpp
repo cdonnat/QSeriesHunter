@@ -13,7 +13,7 @@ SeriesModel::SeriesModel(QObject *parent):QAbstractTableModel(parent)
 int SeriesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return _series.nbSeries ();
+    return nbSeries();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -30,9 +30,9 @@ QVariant SeriesModel::data(const QModelIndex &index, int role) const
     {
         switch (index.column ())
         {
-        case 0 : return (_series.series () + index.row ())->name();
-        case 1 : return (_series.series () + index.row ())->season();
-        case 2 : return (_series.series () + index.row ())->lastEpisodeDownloaded();
+        case 0 : return _series.at(index.row ()).name();
+        case 1 : return _series.at(index.row ()).season();
+        case 2 : return _series.at(index.row ()).lastEpisodeDownloaded();
         default : break;
         }
     }
@@ -59,6 +59,18 @@ QVariant SeriesModel::headerData(int              section,
 }
 
 //----------------------------------------------------------------------------------------------
+uint SeriesModel::nbSeries () const
+{
+    return _series.nbSeries ();
+}
+
+//----------------------------------------------------------------------------------------------
+const Serie & SeriesModel::at (uint index) const
+{
+    return _series.at (index);
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesModel::addSerie (const Serie & serie)
 {
     beginInsertRows (QModelIndex(), _series.nbSeries (), _series.nbSeries ());
@@ -72,4 +84,9 @@ void SeriesModel::removeSerie (const Serie & serie)
     beginRemoveRows (QModelIndex(), _series.nbSeries (), _series.nbSeries ());
     _series.removeSerie (serie);
     endRemoveRows ();
+}
+
+void SeriesModel::inc (const Serie & serie)
+{
+    _series.inc (serie);
 }
