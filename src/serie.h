@@ -7,25 +7,20 @@ class Serie
 {
 public:
     // Constructors:
-    Serie(const QString & name, uint season, uint nbEpisodes, uint lastEpisodeDownloaded);
+    Serie(const QString & name, uint season, uint lastEpisodeDownloaded);
 
     Serie (const Serie & serie);
 
     // Commands:
 
     //----------------------------------------------------------------------------------------------
-    // REQ [Season is not finished.]
+    // REQ [None.]
     // ENS [Last episode seen is incremented.]
     void inc();
 
     // Queries:
 
-    //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [True is returned if season is finished (ie lastEpisodeSeen = nbEpisodes).]
-    bool isFinished() const;
-
-    //----------------------------------------------------------------------------------------------
+     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Name of the serie is returned.]
     const QString & name() const;
@@ -36,7 +31,7 @@ public:
     uint season() const;
 
     //----------------------------------------------------------------------------------------------
-    // REQ [Season is not finished.]
+    // REQ [None.]
     // ENS [Next episode to download is returned.]
     uint nextEpisode () const;
 
@@ -48,7 +43,6 @@ public:
 private:
     QString    _name;
     uint       _season;
-    uint       _nbEpisodes;
     uint       _lastEpisodeDownloaded;
 };
 

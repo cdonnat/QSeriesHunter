@@ -1,6 +1,5 @@
 #include "downloader.h"
 
-#include <QDesktopServices>
 #include <QFile>
 #include <QFileInfo>
 #include <QUrl>

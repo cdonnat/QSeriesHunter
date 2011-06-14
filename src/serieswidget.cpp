@@ -1,3 +1,4 @@
+#include "serie.h"
 #include "serieswidget.h"
 #include "seriesmodel.h"
 #include "adddialog.h"
@@ -15,7 +16,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QMessageBox>
 
+//----------------------------------------------------------------------------------------------
 SeriesWidget::SeriesWidget(QWidget *parent) :
     QWidget(parent)
 {
@@ -25,6 +28,7 @@ SeriesWidget::SeriesWidget(QWidget *parent) :
     doConnections ();
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAttributes ()
 {
     _logger = new LoggerWidget();
@@ -42,6 +46,7 @@ void SeriesWidget::buildAttributes ()
     _updateButton = new QPushButton(tr("Update"), this);
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAndConfigureLayouts ()
 {
     QVBoxLayout * buttonLayout = new QVBoxLayout;
@@ -59,19 +64,23 @@ void SeriesWidget::buildAndConfigureLayouts ()
     setLayout (mainLayout);
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::configureView ()
 {
     _view.setModel (_model);
     _view.verticalHeader ()->hide ();
     _view.horizontalHeader()->setStretchLastSection(true);
+    _view.horizontalHeader ()->setResizeMode (QHeaderView::ResizeToContents);
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::doConnections ()
 {
     connect (_addButton, SIGNAL(clicked()), this, SLOT(add()));
     connect (_updateButton, SIGNAL(clicked()), this, SLOT(update()));
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::add()
 {
     AddDialog  dialog;
@@ -80,13 +89,21 @@ void SeriesWidget::add()
     {
         Serie  serie(dialog.name (),
                      dialog.season (),
-                     22,
                      dialog.lastEpisodeDl());
-        _model->addSerie (serie);
+        if (!_model->contains (serie))
+        {
+            _model->addSerie (serie);
+        }
+        else
+        {
+            QMessageBox::warning (this,
+                                  tr("Warning"),
+                                  tr("You are already following this serie!"));
+        }
     }
 }
 
-
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::update ()
 {
     _scheduler->update ();

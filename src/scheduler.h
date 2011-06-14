@@ -1,11 +1,11 @@
 #ifndef SCHEDULER_H
 #define SCHEDULER_H
 
-class ILogger;
-class Serie;
-class SeriesModel;
-class TorrentFinderController;
 class Downloader;
+class ILogger;
+class ISeriesController;
+class Serie;
+class TorrentFinderController;
 
 class Scheduler
 {
@@ -13,9 +13,10 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // Constructors
-    explicit Scheduler(SeriesModel             * seriesModel,
+    // [Inputs are not null.]
+    explicit Scheduler(ISeriesController       * seriesController,
                        TorrentFinderController * finder,
-                       Downloader       * downloader,
+                       Downloader              * downloader,
                        ILogger                 * logger);
 
     // Commands:
@@ -38,9 +39,9 @@ private:
     void lookForNewEpisode (const Serie & serie);
 
 private:
-    SeriesModel             * _seriesModel;
+    ISeriesController       * _seriesController;
     TorrentFinderController * _finder;
-    Downloader       * _downloader;
+    Downloader              * _downloader;
     ILogger                 * _logger;
 };
 

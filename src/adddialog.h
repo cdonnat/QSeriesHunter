@@ -11,10 +11,24 @@ class AddDialog : public QDialog
 {
     Q_OBJECT
 public:
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [.]
     explicit AddDialog(QWidget *parent = 0);
 
-    QString  name() const;
-    uint     season () const;
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Name of the serie is returned.]
+    QString  name()           const;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Serie's season is returned.]
+    uint     season ()        const;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Last episode downloaded is returned.]
     uint     lastEpisodeDl () const;
 
 private:

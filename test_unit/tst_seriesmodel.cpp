@@ -7,8 +7,8 @@
 
 const int nbColumns = 3;
 
-const Serie house_season_1 ("House", 1, 22, 0);
-const Serie himym_season_2 ("How I Met Your Mother", 2, 23, 2);
+const Serie house_season_1 ("House", 1, 0);
+const Serie himym_season_2 ("How I Met Your Mother", 2, 2);
 
 TestSeriesModel::TestSeriesModel(QObject *parent) :
     QObject(parent)

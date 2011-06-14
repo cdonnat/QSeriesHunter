@@ -3,11 +3,11 @@
 
 #include <QAbstractTableModel>
 
-#include "seriescontroller.h"
+#include "iseriescontroller.h"
 
 class Serie;
 
-class SeriesModel : public QAbstractTableModel
+class SeriesModel : public ISeriesController, public QAbstractTableModel
 {
 public:
     // Constructor
@@ -30,24 +30,27 @@ public:
                                 int              role = Qt::DisplayRole) const;
 
     //----------------------------------------------------------------------------------------------
-    uint nbSeries () const;
+    virtual bool contains (const Serie & serie) const;
 
     //----------------------------------------------------------------------------------------------
-    const Serie & at (uint index) const;
+    virtual uint nbSeries () const;
+
+    //----------------------------------------------------------------------------------------------
+    virtual const Serie & at (uint index) const;
 
     // Commands:
 
     //----------------------------------------------------------------------------------------------
-    void addSerie (const Serie & serie);
+    virtual void addSerie (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
-    void removeSerie (const Serie & serie);
+    virtual void removeSerie (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
-    void inc (const Serie & serie);
+    virtual void inc (const Serie & serie);
 
 private:
-    SeriesController  _series;
+    ISeriesController  * _series;
 };
 
 #endif // SERIESMODEL_H

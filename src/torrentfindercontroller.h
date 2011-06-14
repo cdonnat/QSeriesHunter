@@ -25,7 +25,7 @@ public:
     void addTorrentFinder (ITorrentFinder * torrentFinder);
 
     //----------------------------------------------------------------------------------------------
-    // REQ [Serie is not finished.]
+    // REQ [None.]
     // ENS [A request to find the next episode of the serie is returned.]
     void searchNextEpisode (const Serie & serie);
 
@@ -49,12 +49,12 @@ private:
     void reset ();
 
     //----------------------------------------------------------------------------------------------
-    // REQ [Serie is not finished.]
+    // REQ [None.]
     // ENS [Results are ready and sorted by seed.]
     void searchNextEpisodeInAllFinders(const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
-    // REQ [Serie is not finished.]
+    // REQ [None.]
     // ENS [The url of the next episode is returned as a string.]
     void findBestMatch (const Serie & serie);
 

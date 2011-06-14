@@ -18,7 +18,7 @@ public:
     explicit NetworkAccess();
 
     //----------------------------------------------------------------------------------------------
-    ~NetworkAccess();
+    virtual ~NetworkAccess();
 
     // Commands:
 

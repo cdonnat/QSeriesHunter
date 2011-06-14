@@ -47,16 +47,19 @@ AddDialog::AddDialog(QWidget *parent) :
     setWindowTitle(tr("Add a Serie"));
 }
 
+//----------------------------------------------------------------------------------------------
 QString AddDialog::name() const
 {
     return _nameEdit->text ();
 }
 
+//----------------------------------------------------------------------------------------------
 uint AddDialog::season () const
 {
     return _seasonEdit->text ().toUInt ();
 }
 
+//----------------------------------------------------------------------------------------------
 uint AddDialog::lastEpisodeDl () const
 {
     return _lastEpisodeDownloadedEdit->text ().toUInt ();

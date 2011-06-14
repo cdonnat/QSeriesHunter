@@ -26,7 +26,8 @@ HEADERS += \
     loggerwidget.h \
     downloader.h \
     iseriedownloader.h \
-    seriedownloader.h
+    seriedownloader.h \
+    iseriescontroller.h
 SOURCES += \  
     isohunt.cpp \
     networkaccess.cpp \

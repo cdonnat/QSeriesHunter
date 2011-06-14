@@ -1,7 +1,7 @@
 #ifndef ILOGGER_H
 #define ILOGGER_H
 
-#include <QString>
+class QString;
 
 class ILogger
 {

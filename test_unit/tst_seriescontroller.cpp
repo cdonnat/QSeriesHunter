@@ -2,8 +2,8 @@
 
 #include <QTest>
 
-const Serie house_season_1 ("House", 1, 22, 1);
-const Serie house_season_2 ("House", 2, 21, 2);
+const Serie house_season_1 ("House", 1, 1);
+const Serie house_season_2 ("House", 2, 2);
 
 TestSeriesController::TestSeriesController(QObject *parent) :
     QObject(parent)

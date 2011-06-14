@@ -30,7 +30,6 @@ QString getFormatSeason (const Serie & serie)
 // ENS [Format next episode on 2 digits.]
 QString getFormatNextEpisode (const Serie & serie)
 {
-    Q_ASSERT(!serie.isFinished ());
     return QString::number (serie.nextEpisode ()).rightJustified (2, '0');
 }
 
@@ -50,7 +49,6 @@ void TorrentFinderController::addTorrentFinder (ITorrentFinder * torrentFinder)
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::searchNextEpisode (const Serie & serie)
 {
-    Q_ASSERT(!serie.isFinished ());
     this->reset();
     this->searchNextEpisodeInAllFinders (serie);
     this->findBestMatch (serie);
@@ -66,7 +64,6 @@ void TorrentFinderController::reset ()
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::searchNextEpisodeInAllFinders(const Serie & serie)
 {
-    Q_ASSERT(!serie.isFinished ());
     foreach (ITorrentFinder * finder, _finders)
     {
         finder->search (QString("%1 S%2E%3")
@@ -82,7 +79,6 @@ void TorrentFinderController::searchNextEpisodeInAllFinders(const Serie & serie)
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::findBestMatch (const Serie & serie)
 {
-    Q_ASSERT(!serie.isFinished ());
     _regExp.setPattern (QString(".*%1.*%2.*%3.*")
                         .arg (getNameForMatch (serie))
                         .arg (getFormatSeason (serie))

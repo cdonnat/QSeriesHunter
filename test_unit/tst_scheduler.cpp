@@ -2,6 +2,7 @@
 
 #include "log.h"
 #include "scheduler.h"
+#include "serie.h"
 #include "seriesmodel.h"
 #include "downloader.h"
 #include "torrentfindercontroller.h"
@@ -12,10 +13,9 @@
 #include "stub_seriedownloader.h"
 
 #include <QTest>
-#include <QDebug>
 
-const Serie house_season_1("House", 1, 22, 1);
-const Serie house_season_1_inc ("House", 1, 22, 2);
+const Serie house_season_1("House", 1, 1);
+const Serie house_season_1_inc ("House", 1, 2);
 
 TestScheduler::TestScheduler(QObject *parent) :
     QObject(parent)
