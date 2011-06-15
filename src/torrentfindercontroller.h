@@ -26,20 +26,20 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [A request to find the next episode of the serie is returned.]
-    void searchNextEpisode (const Serie & serie);
+    // ENS [A request to find the episode of the serie is returned.]
+    void searchEpisode (const Serie & serie, uint episode);
 
     // Queries:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [True is returned if the next episode is found.]
-    bool nextEpisodeIsFound () const;
+    // ENS [True is returned if the episode is found.]
+    bool episodeIsFound () const;
 
     //----------------------------------------------------------------------------------------------
     // REQ [Next episode has been found.]
-    // ENS [The url of the next episode is returned as a string.]
-    const QString & getNextEpisodeUrl () const;
+    // ENS [The url of the episode is returned as a string.]
+    const QString & getEpisodeUrl () const;
 
 private:
 
@@ -51,17 +51,17 @@ private:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Results are ready and sorted by seed.]
-    void searchNextEpisodeInAllFinders(const Serie & serie);
+    void searchEpisodeInAllFinders(const Serie & serie, uint episode);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [The url of the next episode is returned as a string.]
-    void findBestMatch (const Serie & serie);
+    // ENS [The best url is stored.]
+    void findBestMatch (const Serie & serie, uint episode);
 
 private:
     QSet<ITorrentFinder *>     _finders;
     TorrentFinderResults       _results;
-    bool                       _nextEpisodeIsFound;
+    bool                       _episodeIsFound;
     QString                    _url;
     QRegExp                    _regExp;
 };

@@ -54,18 +54,19 @@ void Scheduler::lookForNewEpisodes()
 //----------------------------------------------------------------------------------------------
 void Scheduler::lookForNewEpisode (const Serie & serie)
 {
+
     const QString episodeName = QObject::tr("%1 Season %2 Episode %3")
             .arg(serie.name ())
             .arg(serie.season ())
-            .arg(serie.nextEpisode ());
+            .arg(_seriesController->nextEpisode (serie));
 
     _logger->logInfo (QObject::tr ("Looking for %1 ...").arg (episodeName));
 
-    _finder->searchNextEpisode (serie);
-    if (_finder->nextEpisodeIsFound ())
+    _finder->searchEpisode (serie, _seriesController->nextEpisode (serie));
+    if (_finder->episodeIsFound ())
     {
         _logger->logSuccess (QObject::tr ("%1 found").arg (episodeName));
-        _downloader->downloadTorrent (_finder->getNextEpisodeUrl ());
+        _downloader->downloadTorrent (_finder->getEpisodeUrl ());
         if (_downloader->downloadIsSuccessful ())
         {
             _downloader->downloadSerie ();

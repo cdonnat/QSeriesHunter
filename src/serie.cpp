@@ -1,10 +1,9 @@
 #include "serie.h"
 
 //----------------------------------------------------------------------------------------------
-Serie::Serie(const QString & name, uint season,uint lastEpisodeDownloaded)
+Serie::Serie(const QString & name, uint season)
     : _name(name),
-      _season(season),
-      _lastEpisodeDownloaded(lastEpisodeDownloaded)
+      _season(season)
 {
     Q_ASSERT (_season > 0);
 }
@@ -12,15 +11,8 @@ Serie::Serie(const QString & name, uint season,uint lastEpisodeDownloaded)
 //----------------------------------------------------------------------------------------------
 Serie::Serie (const Serie & serie)
     :_name(serie.name()),
-     _season(serie.season()),
-     _lastEpisodeDownloaded(serie.lastEpisodeDownloaded())
+     _season(serie.season())
 {
-}
-
-//----------------------------------------------------------------------------------------------
-void Serie::inc()
-{
-    _lastEpisodeDownloaded++;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -36,25 +28,20 @@ uint Serie::season() const
 }
 
 //----------------------------------------------------------------------------------------------
-uint Serie::nextEpisode () const
+bool operator<(const Serie & l, const Serie & r)
 {
-    return _lastEpisodeDownloaded + 1;
+    return (l.name () < r.name ()) || (l.season () < r.season ());
+}
+
+
+//----------------------------------------------------------------------------------------------
+bool Serie::operator==(const Serie & r)
+{
+    return (_name == r.name ()) && (_season == r.season ());
 }
 
 //----------------------------------------------------------------------------------------------
-uint Serie::lastEpisodeDownloaded() const
+bool Serie::operator!=(const Serie & r)
 {
-    return _lastEpisodeDownloaded;
-}
-
-//----------------------------------------------------------------------------------------------
-bool operator==(const Serie & l, const Serie & r)
-{
-    return (l.name () == r.name ()) && (l.season () == r.season ());
-}
-
-//----------------------------------------------------------------------------------------------
-bool operator!=(const Serie & l, const Serie & r)
-{
-    return !(l == r);
+    return !this->operator == (r);
 }

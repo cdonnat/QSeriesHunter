@@ -1,7 +1,10 @@
 #include "seriesmodel.h"
 #include "seriescontroller.h"
 
-const int NB_COLUMNS = 3;
+const int NB_COLUMNS     = 3;
+const int COLUMN_NAME    = 0;
+const int COLUMN_SEASON  = 1;
+const int COLUMN_EPISODE = 2;
 
 //----------------------------------------------------------------------------------------------
 SeriesModel::SeriesModel (QObject *parent) : QAbstractTableModel(parent)
@@ -26,14 +29,17 @@ int SeriesModel::columnCount (const QModelIndex &parent) const
 //----------------------------------------------------------------------------------------------
 QVariant SeriesModel::data (const QModelIndex &index, int role) const
 {
+    if (!index.isValid ()) return QVariant();
+
     if (role == Qt::DisplayRole)
     {
+        Serie  current = _series->at (index.row ());
         switch (index.column ())
         {
-        case 0 : return _series->at (index.row ()).name();
-        case 1 : return _series->at (index.row ()).season();
-        case 2 : return _series->at (index.row ()).lastEpisodeDownloaded();
-        default : break;
+        case COLUMN_NAME    : return current.name();
+        case COLUMN_SEASON  : return current.season();
+        case COLUMN_EPISODE : return _series->lastEpisodeDl(current);
+        default             : break;
         }
     }
     return QVariant();
@@ -49,10 +55,10 @@ QVariant SeriesModel::headerData (int              section,
 
     if (orientation == Qt::Horizontal) {
         switch (section) {
-            case 0:  return tr("Name");
-            case 1:  return tr("Season");
-            case 2:  return tr("Last Episode Downloaded");
-            default: break;
+            case COLUMN_NAME    : return tr("Name");
+            case COLUMN_SEASON  : return tr("Season");
+            case COLUMN_EPISODE : return tr("Last Episode Downloaded");
+            default             : break;
         }
     }
     return QVariant();
@@ -77,21 +83,34 @@ const Serie & SeriesModel::at (uint index) const
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesModel::addSerie (const Serie & serie)
+uint SeriesModel::lastEpisodeDl (const Serie & serie) const
 {
-    beginInsertRows (QModelIndex(), _series->nbSeries (), _series->nbSeries ());
-    _series->addSerie (serie);
-    endInsertRows ();
+    return _series->lastEpisodeDl (serie);
+}
+
+//----------------------------------------------------------------------------------------------
+uint SeriesModel::nextEpisode (const Serie & serie) const
+{
+    return _series->nextEpisode (serie);
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesModel::addSerie (const Serie & serie, uint episode)
+{
+    beginResetModel ();
+    _series->addSerie (serie, episode);
+    endResetModel ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesModel::removeSerie (const Serie & serie)
 {
-    beginRemoveRows (QModelIndex(), _series->nbSeries (), _series->nbSeries ());
+    beginResetModel ();
     _series->removeSerie (serie);
-    endRemoveRows ();
+    endResetModel ();
 }
 
+//----------------------------------------------------------------------------------------------
 void SeriesModel::inc (const Serie & serie)
 {
     _series->inc (serie);

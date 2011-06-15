@@ -21,7 +21,8 @@ HEADERS += \
     stub_logger.h \
     tst_scheduler.h \
     stub_seriedownloader.h \
-    tst_downloader.h
+    tst_downloader.h \
+    shared.h
 SOURCES += \
     tst_isohunt.cpp \
     stub_networkaccess.cpp \

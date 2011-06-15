@@ -3,12 +3,9 @@
 #include <QTest>
 #include <QSignalSpy>
 
-#include "serie.h"
+#include "shared.h"
 
 const int nbColumns = 3;
-
-const Serie house_season_1 ("House", 1, 0);
-const Serie himym_season_2 ("How I Met Your Mother", 2, 2);
 
 TestSeriesModel::TestSeriesModel(QObject *parent) :
     QObject(parent)
@@ -20,10 +17,10 @@ void TestSeriesModel::testRows()
     TestSeriesModel fixture;
     QVERIFY2 (fixture._sut.rowCount () == 0, "Rows equals 0");
 
-    fixture._sut.addSerie (house_season_1);
+    fixture._sut.addSerie (houseSeason1);
     QVERIFY2 (fixture._sut.rowCount () == 1, "Rows equals 1");
 
-    fixture._sut.removeSerie (house_season_1);
+    fixture._sut.removeSerie (houseSeason1);
     QVERIFY2 (fixture._sut.rowCount () == 0, "Rows equals 0");
 }
 
@@ -55,21 +52,21 @@ void TestSeriesModel::testData()
 
     checkDisplayRole (fixture._sut, 0, 0, QVariant (), "no data");
 
-    fixture._sut.addSerie (house_season_1);
-    fixture._sut.addSerie (himym_season_2);
+    fixture._sut.addSerie (houseSeason1, 2);
+    fixture._sut.addSerie (himymSeason3, 3);
 
     checkDecorationRole (fixture._sut, 0, 0, QVariant (), "decoration role");
-    checkDisplayRole (fixture._sut, 0, 0, QVariant (house_season_1.name ()),
+    checkDisplayRole (fixture._sut, 0, 0, QVariant (houseSeason1.name ()),
                       "index (1,1)");
-    checkDisplayRole (fixture._sut, 0, 1, QVariant (house_season_1.season ()),
+    checkDisplayRole (fixture._sut, 0, 1, QVariant (houseSeason1.season ()),
                       "index (1,2)");
-    checkDisplayRole (fixture._sut, 0, 2, QVariant (house_season_1.lastEpisodeDownloaded ()),
+    checkDisplayRole (fixture._sut, 0, 2, QVariant (fixture._sut.lastEpisodeDl (houseSeason1)),
                       "index (1,3)");
-    checkDisplayRole (fixture._sut, 1, 0, QVariant (himym_season_2.name ()),
+    checkDisplayRole (fixture._sut, 1, 0, QVariant (himymSeason3.name ()),
                       "index (2,1)");
-    checkDisplayRole (fixture._sut, 1, 1, QVariant (himym_season_2.season ()),
+    checkDisplayRole (fixture._sut, 1, 1, QVariant (himymSeason3.season ()),
                       "index (2,2)");
-    checkDisplayRole (fixture._sut, 1, 2, QVariant (himym_season_2.lastEpisodeDownloaded ()),
+    checkDisplayRole (fixture._sut, 1, 2, QVariant (fixture._sut.lastEpisodeDl (himymSeason3)),
                       "index (2,3)");
     checkDisplayRole (fixture._sut, 4, 0, QVariant (), "invalid index");
 }

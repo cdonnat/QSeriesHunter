@@ -26,11 +26,11 @@ QString getFormatSeason (const Serie & serie)
 
 
 //----------------------------------------------------------------------------------------------
-// REQ [Season is not finished.]
-// ENS [Format next episode on 2 digits.]
-QString getFormatNextEpisode (const Serie & serie)
+// REQ [None.]
+// ENS [Format episode on 2 digits.]
+QString getFormatEpisode (uint episode)
 {
-    return QString::number (serie.nextEpisode ()).rightJustified (2, '0');
+   return QString::number (episode).rightJustified (2, '0');
 }
 
 //----------------------------------------------------------------------------------------------
@@ -47,29 +47,29 @@ void TorrentFinderController::addTorrentFinder (ITorrentFinder * torrentFinder)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::searchNextEpisode (const Serie & serie)
+void TorrentFinderController::searchEpisode (const Serie & serie, uint episode)
 {
     this->reset();
-    this->searchNextEpisodeInAllFinders (serie);
-    this->findBestMatch (serie);
+    this->searchEpisodeInAllFinders (serie, episode);
+    this->findBestMatch (serie, episode);
 }
 
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::reset ()
 {
-    _nextEpisodeIsFound = false;
+    _episodeIsFound = false;
     _results.clear ();
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::searchNextEpisodeInAllFinders(const Serie & serie)
+void TorrentFinderController::searchEpisodeInAllFinders(const Serie & serie, uint episode)
 {
     foreach (ITorrentFinder * finder, _finders)
     {
         finder->search (QString("%1 S%2E%3")
                         .arg (serie.name ())
                         .arg (getFormatSeason (serie))
-                        .arg (getFormatNextEpisode (serie)));
+                        .arg (getFormatEpisode (episode)));
         _results.append (finder->getResults ());
     }
     //
@@ -77,33 +77,33 @@ void TorrentFinderController::searchNextEpisodeInAllFinders(const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findBestMatch (const Serie & serie)
+void TorrentFinderController::findBestMatch (const Serie & serie, uint episode)
 {
     _regExp.setPattern (QString(".*%1.*%2.*%3.*")
                         .arg (getNameForMatch (serie))
                         .arg (getFormatSeason (serie))
-                        .arg (getFormatNextEpisode (serie)));
+                        .arg (getFormatEpisode (episode)));
 
     foreach(TorrentFinderResult res, _results)
     {
         if (_regExp.exactMatch (res.name ()))
         {
-            _nextEpisodeIsFound = true;
-            _url                = res.url ();
+            _episodeIsFound = true;
+            _url            = res.url ();
             break;
         }
     }
 }
 
 //----------------------------------------------------------------------------------------------
-bool TorrentFinderController::nextEpisodeIsFound () const
+bool TorrentFinderController::episodeIsFound () const
 {
-    return _nextEpisodeIsFound;
+    return _episodeIsFound;
 }
 
 //----------------------------------------------------------------------------------------------
-const QString & TorrentFinderController::getNextEpisodeUrl () const
+const QString & TorrentFinderController::getEpisodeUrl () const
 {
-    Q_ASSERT (this->nextEpisodeIsFound ());
+    Q_ASSERT (this->episodeIsFound ());
     return _url;
 }

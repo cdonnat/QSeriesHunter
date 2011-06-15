@@ -17,21 +17,31 @@ public:
     virtual bool contains (const Serie & serie) const = 0;
 
     //----------------------------------------------------------------------------------------------
+    // REQ [0 <= index < nbEpisode.]
+    // ENS [True is returned if serie already exists (i.e: same name and same season).]
+    virtual const Serie & at (uint index) const = 0;
+
+    //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Number of series is returned.]
     virtual uint nbSeries () const = 0;
 
     //----------------------------------------------------------------------------------------------
-    // REQ [0 <= index < nbSerie.]
-    // ENS [Serie at given index is returned.]
-    virtual const Serie & at (uint index) const = 0;
+    // REQ [contains (serie).]
+    // ENS [The last episode downloaded is returned (0 if none).]
+    virtual uint lastEpisodeDl (const Serie & serie) const = 0;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [containts (serie).]
+    // ENS [The next episode is returned (>0).]
+    virtual uint nextEpisode (const Serie & serie) const = 0;
 
     // Commands :
 
     //----------------------------------------------------------------------------------------------
     // REQ [Serie does not exist.]
     // ENS [Serie is added.]
-    virtual void addSerie (const Serie & serie) = 0;
+    virtual void addSerie (const Serie & serie, uint episode = 0) = 0;
 
     //----------------------------------------------------------------------------------------------
     // REQ [Serie exists.]

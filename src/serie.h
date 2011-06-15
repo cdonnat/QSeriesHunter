@@ -6,21 +6,17 @@
 class Serie
 {
 public:
-    // Constructors:
-    Serie(const QString & name, uint season, uint lastEpisodeDownloaded);
-
-    Serie (const Serie & serie);
-
-    // Commands:
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [Last episode seen is incremented.]
-    void inc();
+    // Constructors:
+    Serie(const QString & name, uint season);
+
+    //----------------------------------------------------------------------------------------------
+    Serie (const Serie & serie);
 
     // Queries:
 
-     //----------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Name of the serie is returned.]
     const QString & name() const;
@@ -32,30 +28,26 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Next episode to download is returned.]
-    uint nextEpisode () const;
+    // ENS [True is returned if l and r have the same name and the same season.]
+    bool operator==(const Serie & r);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Last episode seen is returned.]
-    uint lastEpisodeDownloaded() const;
+    // ENS [True is returned if l and r have don't have the same name and the same season.]
+    bool operator!=(const Serie & r);
 
 private:
     QString    _name;
     uint       _season;
-    uint       _lastEpisodeDownloaded;
 };
 
 // Operators:
 
 //----------------------------------------------------------------------------------------------
 // REQ [None.]
-// ENS [True is returned if l and r have the same name and the same season.]
-bool operator==(const Serie & l, const Serie & r);
+// ENS [True is returned if l.name < r.name and l.season < r.season.]
+bool operator<(const Serie & l, const Serie & r);
 
-//----------------------------------------------------------------------------------------------
-// REQ [None.]
-// ENS [True is returned if l and r have don't have the same name and the same season.]
-bool operator!=(const Serie & l, const Serie & r);
+
 
 #endif // SERIE_H

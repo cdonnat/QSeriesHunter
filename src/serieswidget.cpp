@@ -70,7 +70,6 @@ void SeriesWidget::configureView ()
     _view.setModel (_model);
     _view.verticalHeader ()->hide ();
     _view.horizontalHeader()->setStretchLastSection(true);
-    _view.horizontalHeader ()->setResizeMode (QHeaderView::ResizeToContents);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -87,12 +86,10 @@ void SeriesWidget::add()
 
     if (dialog.exec ())
     {
-        Serie  serie(dialog.name (),
-                     dialog.season (),
-                     dialog.lastEpisodeDl());
+        Serie  serie(dialog.name (), dialog.season ());
         if (!_model->contains (serie))
         {
-            _model->addSerie (serie);
+            _model->addSerie (serie, dialog.lastEpisodeDl ());
         }
         else
         {
