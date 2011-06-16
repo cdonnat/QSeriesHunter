@@ -1,7 +1,7 @@
 #include "serie.h"
 #include "serieswidget.h"
 #include "seriesmodel.h"
-#include "adddialog.h"
+#include "editseriedialog.h"
 #include "loggerwidget.h"
 #include "scheduler.h"
 #include "torrentfindercontroller.h"
@@ -9,6 +9,8 @@
 #include "downloader.h"
 #include "networkaccess.h"
 #include "seriedownloader.h"
+#include "editserie.h"
+#include "messagebox.h"
 
 #include <QTextEdit>
 #include <QHeaderView>
@@ -31,8 +33,12 @@ SeriesWidget::SeriesWidget(QWidget *parent) :
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAttributes ()
 {
-    _logger = new LoggerWidget();
-    _model  = new SeriesModel(this);
+    _logger     = new LoggerWidget();
+    _model      = new SeriesModel(this);
+    _messageBox = new MessageBox();
+    _editSerie  = new EditSerie(new EditSerieDialog(),
+                               _model,
+                               _messageBox);
 
     NetworkAccess            * networkAccess     = new NetworkAccess();
     TorrentFinderController  * findersController = new TorrentFinderController();
@@ -82,22 +88,7 @@ void SeriesWidget::doConnections ()
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::add()
 {
-    AddDialog  dialog;
-
-    if (dialog.exec ())
-    {
-        Serie  serie(dialog.name (), dialog.season ());
-        if (!_model->contains (serie))
-        {
-            _model->addSerie (serie, dialog.lastEpisodeDl ());
-        }
-        else
-        {
-            QMessageBox::warning (this,
-                                  tr("Warning"),
-                                  tr("You are already following this serie!"));
-        }
-    }
+    _editSerie->add ();
 }
 
 //----------------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@
 #include "tst_seriescontroller.h"
 #include "tst_seriesmodel.h"
 #include "tst_scheduler.h"
+#include "tst_editserie.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,5 +22,6 @@ int main(int argc, char *argv[])
             QTest::qExec (new TestTorrentFinderController) ||
             QTest::qExec (new TestSeriesController) ||
             QTest::qExec (new TestSeriesModel) ||
-            QTest::qExec (new TestScheduler);
+            QTest::qExec (new TestScheduler) ||
+            QTest::qExec (new TestEditSerie);
 }

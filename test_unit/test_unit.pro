@@ -22,7 +22,10 @@ HEADERS += \
     tst_scheduler.h \
     stub_seriedownloader.h \
     tst_downloader.h \
-    shared.h
+    shared.h \
+    tst_editserie.h \
+    stub_editseriedialog.h \
+    stub_messagebox.h
 SOURCES += \
     tst_isohunt.cpp \
     stub_networkaccess.cpp \
@@ -36,7 +39,10 @@ SOURCES += \
     stub_logger.cpp \
     tst_scheduler.cpp \
     stub_seriedownloader.cpp \
-    tst_downloader.cpp
+    tst_downloader.cpp \
+    tst_editserie.cpp \
+    stub_editseriedialog.cpp \
+    stub_messagebox.cpp
 
 OTHER_FILES += \
     input/json_input.txt

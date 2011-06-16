@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTableView>
 
+class EditSerie;
+class IMessageBox;
 class Scheduler;
 class LoggerWidget;
 class SeriesModel;
@@ -39,10 +41,12 @@ private:
     void doConnections();
 
 private:
-    Scheduler    * _scheduler;
     QTableView     _view;
-    SeriesModel  * _model;
+    IMessageBox  * _messageBox;
     LoggerWidget * _logger;
+    EditSerie    * _editSerie;
+    SeriesModel  * _model;
+    Scheduler    * _scheduler;
 
     QPushButton  * _addButton;
     QPushButton  * _updateButton;

@@ -1,24 +1,25 @@
-#include "adddialog.h"
+#include "editseriedialog.h"
 
+#include <QDialog>
 #include <QGridLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 
-AddDialog::AddDialog(QWidget *parent) :
-    QDialog(parent)
+EditSerieDialog::EditSerieDialog()
 {
-    _nameLabel = new QLabel(tr("Name"));
+    _dialog    = new QDialog();
+    _nameLabel = new QLabel(QObject::tr("Name"));
     _nameEdit  = new QLineEdit();
 
-    _seasonLabel = new QLabel(tr("Season"));
+    _seasonLabel = new QLabel(QObject::tr("Season"));
     _seasonEdit  = new QLineEdit();
 
-    _lastEpisodeDownloadedLabel = new QLabel(tr("Last Episoded Downloaded"));
+    _lastEpisodeDownloadedLabel = new QLabel(QObject::tr("Last Episoded Downloaded"));
     _lastEpisodeDownloadedEdit  = new QLineEdit();
 
-    _okButton = new QPushButton(tr("Ok"));
-    _cancelButton = new QPushButton(tr("Cancel"));
+    _okButton = new QPushButton(QObject::tr("Ok"));
+    _cancelButton = new QPushButton(QObject::tr("Cancel"));
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(_okButton);
@@ -36,31 +37,37 @@ AddDialog::AddDialog(QWidget *parent) :
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addLayout(gLayout);
-    setLayout(mainLayout);
+    _dialog->setLayout(mainLayout);
 
-    connect(_okButton, SIGNAL(clicked()),
-            this, SLOT(accept()));
+    QObject::connect(_okButton, SIGNAL(clicked()),
+                     _dialog, SLOT(accept()));
 
-    connect(_cancelButton, SIGNAL(clicked()),
-            this, SLOT(reject()));
+    QObject::connect(_cancelButton, SIGNAL(clicked()),
+                     _dialog, SLOT(reject()));
 
-    setWindowTitle(tr("Add a Serie"));
+    _dialog->setWindowTitle(QObject::tr("Add a Serie"));
 }
 
 //----------------------------------------------------------------------------------------------
-QString AddDialog::name() const
+bool EditSerieDialog::exec ()
+{
+   return _dialog->exec ();
+}
+
+//----------------------------------------------------------------------------------------------
+QString EditSerieDialog::name() const
 {
     return _nameEdit->text ();
 }
 
 //----------------------------------------------------------------------------------------------
-uint AddDialog::season () const
+QString EditSerieDialog::season () const
 {
-    return _seasonEdit->text ().toUInt ();
+    return _seasonEdit->text ();
 }
 
 //----------------------------------------------------------------------------------------------
-uint AddDialog::lastEpisodeDl () const
+QString EditSerieDialog::lastEpisodeDl () const
 {
-    return _lastEpisodeDownloadedEdit->text ().toUInt ();
+    return _lastEpisodeDownloadedEdit->text ();
 }

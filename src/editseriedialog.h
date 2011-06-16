@@ -1,37 +1,37 @@
-#ifndef ADDDIALOG_H
-#define ADDDIALOG_H
+#ifndef EDITSERIEDIALOG_H
+#define EDITSERIEDIALOG_H
 
-#include <QDialog>
+#include "ieditseriedialog.h"
 
+class QDialog;
 class QLabel;
 class QLineEdit;
 class QPushButton;
 
-class AddDialog : public QDialog
+class EditSerieDialog : public IEditSerieDialog
 {
-    Q_OBJECT
 public:
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [.]
-    explicit AddDialog(QWidget *parent = 0);
+    explicit EditSerieDialog();
+
+    // Commands:
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [Name of the serie is returned.]
-    QString  name()           const;
+    virtual bool exec();
+
+    // Queries:
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [Serie's season is returned.]
-    uint     season ()        const;
+    virtual QString name() const;
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [Last episode downloaded is returned.]
-    uint     lastEpisodeDl () const;
+    virtual QString season () const;
+
+    //----------------------------------------------------------------------------------------------
+    virtual QString lastEpisodeDl () const;
 
 private:
+    QDialog     * _dialog;
     QLabel      * _nameLabel;    
     QLabel      * _seasonLabel;
     QLabel      * _lastEpisodeDownloadedLabel;
@@ -44,4 +44,4 @@ private:
     QLineEdit   * _lastEpisodeDownloadedEdit;
 };
 
-#endif // ADDDIALOG_H
+#endif // EDITSERIEDIALOG_H

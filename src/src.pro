@@ -18,7 +18,6 @@ HEADERS += \
     seriescontroller.h \
     seriesmodel.h \
     mainwindow.h \
-    adddialog.h \
     serieswidget.h \
     scheduler.h \
     ilogger.h \
@@ -27,7 +26,12 @@ HEADERS += \
     downloader.h \
     iseriedownloader.h \
     seriedownloader.h \
-    iseriescontroller.h
+    iseriescontroller.h \
+    editseriedialog.h \
+    ieditseriedialog.h \
+    editserie.h \
+    imessagebox.h \
+    messagebox.h
 SOURCES += \  
     isohunt.cpp \
     networkaccess.cpp \
@@ -37,9 +41,11 @@ SOURCES += \
     seriescontroller.cpp \
     seriesmodel.cpp \
     mainwindow.cpp \
-    adddialog.cpp \
     serieswidget.cpp \
     scheduler.cpp \
     loggerwidget.cpp \
     downloader.cpp \
-    seriedownloader.cpp
+    seriedownloader.cpp \
+    editseriedialog.cpp \
+    editserie.cpp \
+    messagebox.cpp
