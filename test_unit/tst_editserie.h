@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class SeriesController;
+class SeriesModel;
 class EditSerie;
 class MessageBoxStub;
 class EditSerieDialogStub;
@@ -17,6 +17,7 @@ public:
 
 private Q_SLOTS:
     void testAdd ();
+    void testRemove ();
 
 private:
     void testAddRobustness (const QString & name,
@@ -26,7 +27,7 @@ private:
 
 private:
     EditSerieDialogStub * _editDialog;
-    SeriesController    * _series;
+    SeriesModel         * _series;
     MessageBoxStub      * _message;
     EditSerie           * _sut;
 };

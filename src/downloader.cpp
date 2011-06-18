@@ -2,6 +2,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QTemporaryFile>
 #include <QUrl>
 
 #include "inetworkaccess.h"
@@ -14,7 +15,6 @@ Downloader::Downloader(INetworkAccess   * const networkAccess,
 {
     Q_ASSERT (_networkAccess != NULL);
     Q_ASSERT (_serieDownloader != NULL);
-    _tmpFile.setAutoRemove (true);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -23,19 +23,28 @@ void Downloader::downloadTorrent (const QString & torrentUrl)
     _networkAccess->read(torrentUrl);
     if (_networkAccess->contentIsReady())
     {
-        _tmpFile.open ();
-        _tmpFile.write(_networkAccess->content());
-        _tmpFile.close ();
+        captureDownloadInTorrentFile ();
     }
+}
+
+void Downloader::captureDownloadInTorrentFile ()
+{
+    Q_ASSERT(downloadIsSuccessful ());
+    QTemporaryFile tmpFile;
+    tmpFile.open ();
+    tmpFile.write(_networkAccess->content());
+    tmpFile.close ();
+    //
+    QFileInfo             fileInfo (tmpFile);
+    _lastDownloadedFile = fileInfo.absoluteFilePath ().append (".torrent");
+    QFile::copy (fileInfo.absoluteFilePath (), _lastDownloadedFile);
 }
 
 //----------------------------------------------------------------------------------------------
 void Downloader::downloadSerie ()
 {
-    QFileInfo   fileInfo (_tmpFile);
-    QString     torrentFile(fileInfo.absoluteFilePath ().append (".torrent"));
-    QFile::copy (fileInfo.absoluteFilePath (), torrentFile);
-    _serieDownloader->download (torrentFile);
+    Q_ASSERT(downloadIsSuccessful ());
+    _serieDownloader->download (_lastDownloadedFile);
 }
 
 //----------------------------------------------------------------------------------------------

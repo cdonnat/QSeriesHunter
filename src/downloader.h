@@ -1,10 +1,8 @@
 #ifndef TORRENTDOWNLOADER_H
 #define TORRENTDOWNLOADER_H
 
-#include <QObject>
-#include <QTemporaryFile>
+#include <QString>
 
-class QString;
 class INetworkAccess;
 class ISerieDownloader;
 
@@ -38,9 +36,16 @@ public:
     bool downloadIsSuccessful () const;
 
 private:
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [downloadIsSuccessful.]
+    // ENS [Torrent located at torrentUrl is downloaded.]
+    void captureDownloadInTorrentFile();
+
+private:
     INetworkAccess   * const _networkAccess;
     ISerieDownloader * const _serieDownloader;
-    QTemporaryFile           _tmpFile;
+    QString            _lastDownloadedFile;
 };
 
 #endif // TORRENTDOWNLOADER_H

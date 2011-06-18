@@ -12,6 +12,7 @@
 #include "editserie.h"
 #include "messagebox.h"
 
+#include <QItemSelectionModel>
 #include <QTextEdit>
 #include <QHeaderView>
 #include <QLineEdit>
@@ -49,24 +50,22 @@ void SeriesWidget::buildAttributes ()
                                _logger);
 
     _addButton    = new QPushButton(tr("Add"), this);
+    _removeButton = new QPushButton(tr("Remove"), this);
     _updateButton = new QPushButton(tr("Update"), this);
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAndConfigureLayouts ()
 {
-    QVBoxLayout * buttonLayout = new QVBoxLayout;
+    QHBoxLayout * buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget (_addButton);
+    buttonLayout->addWidget (_removeButton);
     buttonLayout->addWidget (_updateButton);
 
-    QHBoxLayout * centralLayout = new QHBoxLayout;
-    centralLayout->addWidget (&_view);
-    centralLayout->addLayout (buttonLayout);
-
-    QVBoxLayout * mainLayout = new QVBoxLayout;
-    mainLayout->addLayout (centralLayout);
-    mainLayout->addWidget (_logger->getTextEdit ());
-
+    QGridLayout * mainLayout = new QGridLayout;
+    mainLayout->addLayout (buttonLayout, 0, 0);
+    mainLayout->addWidget (&_view, 1, 0);
+    mainLayout->addWidget (_logger->getTextEdit (), 2, 0);
     setLayout (mainLayout);
 }
 
@@ -76,12 +75,17 @@ void SeriesWidget::configureView ()
     _view.setModel (_model);
     _view.verticalHeader ()->hide ();
     _view.horizontalHeader()->setStretchLastSection(true);
+    _view.setSelectionBehavior(QAbstractItemView::SelectRows);
+    _view.setEditTriggers(QAbstractItemView::NoEditTriggers);
+    _view.setSelectionMode(QAbstractItemView::SingleSelection);
+    _view.setAlternatingRowColors (true);
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::doConnections ()
 {
     connect (_addButton, SIGNAL(clicked()), this, SLOT(add()));
+    connect (_removeButton, SIGNAL(clicked()), this, SLOT(remove()));
     connect (_updateButton, SIGNAL(clicked()), this, SLOT(update()));
 }
 
@@ -92,7 +96,21 @@ void SeriesWidget::add()
 }
 
 //----------------------------------------------------------------------------------------------
+void SeriesWidget::remove()
+{
+    QModelIndexList  selectedRows = _view.selectionModel ()->selectedRows ();
+    QModelIndex      indexToRemove;
+    if (!selectedRows.isEmpty ())
+    {
+        indexToRemove = selectedRows.front ();
+    }
+    _editSerie->remove (indexToRemove);
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::update ()
 {
+    _addButton->setEnabled (false);
     _scheduler->update ();
+    _addButton->setEnabled (true);
 }

@@ -4,6 +4,7 @@
 class IEditSerieDialog;
 class ISeriesController;
 class IMessageBox;
+class QModelIndex;
 
 class EditSerie
 {
@@ -18,6 +19,8 @@ public:
     // REQ [None]
     // ENS [A new serie is added if it does not already exists.]
     void add ();
+
+    void remove (const QModelIndex & selection);
 
 private:
 

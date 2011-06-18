@@ -24,6 +24,9 @@ private slots:
     void add();
 
     //----------------------------------------------------------------------------------------------
+    void remove();
+
+    //----------------------------------------------------------------------------------------------
     void update();
 
 private:
@@ -49,6 +52,7 @@ private:
     Scheduler    * _scheduler;
 
     QPushButton  * _addButton;
+    QPushButton  * _removeButton;
     QPushButton  * _updateButton;
 };
 

@@ -13,6 +13,7 @@
 #include "stub_torrentfinder.h"
 #include "stub_seriedownloader.h"
 
+#include <QFile>
 #include <QTest>
 
 TestScheduler::TestScheduler(QObject *parent) :

@@ -1,12 +1,15 @@
 #include "editserie.h"
 
 #include <QObject>
+#include <QModelIndex>
 #include <QString>
 #include <QStringList>
 #include "ieditseriedialog.h"
 #include "iseriescontroller.h"
 #include "imessagebox.h"
 #include "serie.h"
+
+#include <QDebug>
 
 //----------------------------------------------------------------------------------------------
 EditSerie::EditSerie(IEditSerieDialog  * const dialog,
@@ -75,3 +78,16 @@ void EditSerie::add ()
     }
 }
 
+//----------------------------------------------------------------------------------------------
+void EditSerie::remove (const QModelIndex & selection)
+{
+    if (selection.isValid ())
+    {
+        _series->removeSerie (_series->at (selection.row ()));
+    }
+    else
+    {
+        _messageBox->displayWarning (QObject::tr("Warning"),
+                                     QObject::tr("You have to select a serie if you want to remove one"));
+    }
+}
