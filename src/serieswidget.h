@@ -9,7 +9,6 @@ class IMessageBox;
 class Scheduler;
 class LoggerWidget;
 class SeriesModel;
-class QPushButton;
 
 class SeriesWidget : public QWidget
 {
@@ -18,7 +17,7 @@ public:
     //----------------------------------------------------------------------------------------------
     explicit SeriesWidget(QWidget *parent = 0);
 
-private slots:
+public slots:
 
     //----------------------------------------------------------------------------------------------
     void add();
@@ -44,9 +43,6 @@ private:
     //----------------------------------------------------------------------------------------------
     void configureView();
 
-    //----------------------------------------------------------------------------------------------
-    void doConnections();
-
 private:
     QTableView     _view;
     IMessageBox  * _messageBox;
@@ -54,11 +50,6 @@ private:
     EditSerie    * _editSerie;
     SeriesModel  * _model;
     Scheduler    * _scheduler;
-
-    QPushButton  * _addButton;
-    QPushButton  * _removeButton;
-    QPushButton  * _editButton;
-    QPushButton  * _updateButton;
 };
 
 #endif // SERIESWIDGET_H

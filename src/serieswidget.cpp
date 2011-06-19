@@ -18,7 +18,6 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QPushButton>
 #include <QMessageBox>
 
 //----------------------------------------------------------------------------------------------
@@ -28,7 +27,6 @@ SeriesWidget::SeriesWidget(QWidget *parent) :
     buildAttributes();
     buildAndConfigureLayouts ();
     configureView ();
-    doConnections ();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -48,26 +46,14 @@ void SeriesWidget::buildAttributes ()
     _scheduler = new Scheduler(_model, findersController,
                                new Downloader(networkAccess, new SerieDownloader()),
                                _logger);
-
-    _addButton    = new QPushButton(tr("Add"), this);
-    _editButton   = new QPushButton(tr("Edit"), this);
-    _removeButton = new QPushButton(tr("Remove"), this);
-    _updateButton = new QPushButton(tr("Update"), this);
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAndConfigureLayouts ()
 {
-    QHBoxLayout * buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget (_addButton);
-    buttonLayout->addWidget (_editButton);
-    buttonLayout->addWidget (_removeButton);
-    buttonLayout->addWidget (_updateButton);
-
     QGridLayout * mainLayout = new QGridLayout;
-    mainLayout->addLayout (buttonLayout, 0, 0);
-    mainLayout->addWidget (&_view, 1, 0);
-    mainLayout->addWidget (_logger->getTextEdit (), 2, 0);
+    mainLayout->addWidget (&_view, 0, 0);
+    mainLayout->addWidget (_logger->getTextEdit (), 1, 0);
     setLayout (mainLayout);
 }
 
@@ -81,15 +67,6 @@ void SeriesWidget::configureView ()
     _view.setEditTriggers(QAbstractItemView::NoEditTriggers);
     _view.setSelectionMode(QAbstractItemView::SingleSelection);
     _view.setAlternatingRowColors (true);
-}
-
-//----------------------------------------------------------------------------------------------
-void SeriesWidget::doConnections ()
-{
-    connect (_addButton, SIGNAL(clicked()), this, SLOT(add()));
-    connect (_removeButton, SIGNAL(clicked()), this, SLOT(remove()));
-    connect (_updateButton, SIGNAL(clicked()), this, SLOT(update()));
-    connect (_editButton, SIGNAL(clicked()), this, SLOT(edit()));
 }
 
 //----------------------------------------------------------------------------------------------
@@ -125,7 +102,5 @@ void SeriesWidget::remove()
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::update ()
 {
-    _addButton->setEnabled (false);
     _scheduler->update ();
-    _addButton->setEnabled (true);
 }

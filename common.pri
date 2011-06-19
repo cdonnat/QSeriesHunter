@@ -3,6 +3,8 @@ INCLUDEPATH += . ..
 QT          += core
 DESTDIR     = ../exe
 
+RESOURCES   = ../QSeriesHunter.qrc
+
 # The following keeps the generated files at least somewhat separate
 # from the source files.
 UI_DIR = uic

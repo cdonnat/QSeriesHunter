@@ -22,6 +22,9 @@ bool EditSerieDialogStub::exec(const QString & name         ,
                                const QString & season       ,
                                const QString & lastEpisodeDl)
 {
+    Q_UNUSED(name);
+    Q_UNUSED(season);
+    Q_UNUSED(lastEpisodeDl);
     return _execIsOk;
 }
 
