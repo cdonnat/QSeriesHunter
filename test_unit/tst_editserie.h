@@ -18,6 +18,7 @@ public:
 private Q_SLOTS:
     void testAdd ();
     void testRemove ();
+    void testEdit ();
 
 private:
     void testAddRobustness (const QString & name,

@@ -18,7 +18,9 @@ void EditSerieDialogStub::setup(bool execIsOk,
 }
 
 //----------------------------------------------------------------------------------------------
-bool EditSerieDialogStub::exec()
+bool EditSerieDialogStub::exec(const QString & name         ,
+                               const QString & season       ,
+                               const QString & lastEpisodeDl)
 {
     return _execIsOk;
 }

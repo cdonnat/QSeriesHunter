@@ -12,7 +12,9 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Display the dialog box.]
-    virtual bool exec() = 0;
+    virtual bool exec(const QString & name          = "",
+                      const QString & season        = "",
+                      const QString & lastEpisodeDl = "") = 0;
 
     // Queries:
 

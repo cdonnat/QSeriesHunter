@@ -27,7 +27,11 @@ private slots:
     void remove();
 
     //----------------------------------------------------------------------------------------------
+    void edit();
+
+    //----------------------------------------------------------------------------------------------
     void update();
+
 
 private:
 
@@ -53,6 +57,7 @@ private:
 
     QPushButton  * _addButton;
     QPushButton  * _removeButton;
+    QPushButton  * _editButton;
     QPushButton  * _updateButton;
 };
 

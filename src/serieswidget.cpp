@@ -50,6 +50,7 @@ void SeriesWidget::buildAttributes ()
                                _logger);
 
     _addButton    = new QPushButton(tr("Add"), this);
+    _editButton   = new QPushButton(tr("Edit"), this);
     _removeButton = new QPushButton(tr("Remove"), this);
     _updateButton = new QPushButton(tr("Update"), this);
 }
@@ -59,6 +60,7 @@ void SeriesWidget::buildAndConfigureLayouts ()
 {
     QHBoxLayout * buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget (_addButton);
+    buttonLayout->addWidget (_editButton);
     buttonLayout->addWidget (_removeButton);
     buttonLayout->addWidget (_updateButton);
 
@@ -87,12 +89,25 @@ void SeriesWidget::doConnections ()
     connect (_addButton, SIGNAL(clicked()), this, SLOT(add()));
     connect (_removeButton, SIGNAL(clicked()), this, SLOT(remove()));
     connect (_updateButton, SIGNAL(clicked()), this, SLOT(update()));
+    connect (_editButton, SIGNAL(clicked()), this, SLOT(edit()));
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::add()
 {
     _editSerie->add ();
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesWidget::edit()
+{
+    QModelIndexList  selectedRows = _view.selectionModel ()->selectedRows ();
+    QModelIndex      index;
+    if (!selectedRows.isEmpty ())
+    {
+        index = selectedRows.front ();
+    }
+    _editSerie->edit(index);
 }
 
 //----------------------------------------------------------------------------------------------

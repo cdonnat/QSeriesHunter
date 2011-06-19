@@ -62,8 +62,52 @@ void TestEditSerie::testRemove ()
     fixture._sut->remove (fixture._series->index (0,0));
 
     QVERIFY2(fixture._series->nbSeries () == 1, "Only one serie left");
-    QVERIFY2(fixture._series->contains (Serie("Dr House", 2)), "Only series in list have been removed");
-
+    QVERIFY2(fixture._series->contains (Serie("Dr House", 2)),
+             "Only series in list have been removed");
+    // Robustness
     fixture._sut->remove (QModelIndex());
     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning called");
 }
+
+ void TestEditSerie::testEdit ()
+ {
+     TestEditSerie fixture;
+     fixture._editDialog->setup (true, "dr  house", "1", "2");
+     fixture._sut->add ();
+     fixture._editDialog->setup (true, "dr  house", "2", "6");
+     fixture._sut->add ();
+
+     // Nominal case
+     fixture._editDialog->setup (true, "himym", "3", "4");
+     fixture._sut->edit (fixture._series->index (1,0));
+     QVERIFY2(fixture._series->contains (Serie("Himym", 3)),
+              "1 - Serie correctly edited");
+     QVERIFY2(fixture._series->lastEpisodeDl (Serie("Himym", 3)) == 4,
+              "2 - Serie correctly edited");
+
+     // Change only last episode
+     fixture._editDialog->setup (true, "himym", "3", "5");
+     fixture._sut->edit (fixture._series->index (1,0));
+     QVERIFY2(fixture._series->lastEpisodeDl (Serie("Himym", 3)) == 5,
+              "Only last episode changed");
+
+     // Try to add an existing serie
+     // Change only last episode
+     fixture._editDialog->setup (true, "himym", "3", "5");
+     fixture._sut->edit (fixture._series->index (0,0));
+     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning serie already exists");
+     QVERIFY2(fixture._series->nbSeries () == 2, "Nothing changed");
+
+     // Try to edit invalid selection
+     fixture._message->clear ();
+     fixture._sut->edit(QModelIndex());
+     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning choose a serie");
+
+     // Try to add an existing serie
+     // Change only last episode
+     fixture._message->clear ();
+     fixture._editDialog->setup (true, "", "3", "5");
+     fixture._sut->edit (fixture._series->index (0,0));
+     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning bad inputs");
+     QVERIFY2(fixture._series->nbSeries () == 2, "Nothing changed");
+ }

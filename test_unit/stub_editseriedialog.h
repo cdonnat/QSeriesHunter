@@ -19,7 +19,9 @@ public:
                const QString & lastEpisodeDl = "");
 
     //----------------------------------------------------------------------------------------------
-    virtual bool exec();
+    virtual bool exec(const QString & name          = "",
+                      const QString & season        = "",
+                      const QString & lastEpisodeDl = "");
 
     // Queries:
 
