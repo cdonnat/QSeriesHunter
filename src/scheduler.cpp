@@ -19,10 +19,10 @@ Scheduler::Scheduler(ISeriesController       * seriesController,
       _downloader(downloader),
       _logger(logger)
 {
-    Q_ASSERT (seriesController != NULL);
-    Q_ASSERT (finder != NULL);
-    Q_ASSERT (downloader != NULL);
-    Q_ASSERT (logger != NULL);
+    Q_ASSERT (_seriesController != NULL);
+    Q_ASSERT (_finder != NULL);
+    Q_ASSERT (_downloader != NULL);
+    Q_ASSERT (_logger != NULL);
 }
 
 

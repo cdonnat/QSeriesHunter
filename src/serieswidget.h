@@ -9,6 +9,7 @@ class IMessageBox;
 class Scheduler;
 class LoggerWidget;
 class SeriesModel;
+class MementoController;
 
 class SeriesWidget : public QWidget
 {
@@ -44,12 +45,13 @@ private:
     void configureView();
 
 private:
-    QTableView     _view;
-    IMessageBox  * _messageBox;
-    LoggerWidget * _logger;
-    EditSerie    * _editSerie;
-    SeriesModel  * _model;
-    Scheduler    * _scheduler;
+    QTableView          _view;
+    IMessageBox       * _messageBox;
+    LoggerWidget      * _logger;
+    EditSerie         * _editSerie;
+    SeriesModel       * _model;
+    Scheduler         * _scheduler;
+    MementoController * _mementoController;
 };
 
 #endif // SERIESWIDGET_H

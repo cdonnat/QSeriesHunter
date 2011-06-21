@@ -11,6 +11,7 @@
 #include "seriedownloader.h"
 #include "editserie.h"
 #include "messagebox.h"
+#include "mementocontroller.h"
 
 #include <QItemSelectionModel>
 #include <QTextEdit>
@@ -45,6 +46,9 @@ void SeriesWidget::buildAttributes ()
     TorrentFinderController  * findersController = new TorrentFinderController();
     findersController->addTorrentFinder (new Isohunt(networkAccess));
 
+    _mementoController = new MementoController(_model);
+    _mementoController->loadMemento ();
+
     _scheduler = new Scheduler(_model, findersController,
                                new Downloader(networkAccess, new SerieDownloader()),
                                _logger);
@@ -78,6 +82,7 @@ void SeriesWidget::configureView ()
 void SeriesWidget::add()
 {
     _editSerie->add ();
+    _mementoController->saveMemento ();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -90,6 +95,7 @@ void SeriesWidget::edit()
         index = selectedRows.front ();
     }
     _editSerie->edit(index);
+    _mementoController->saveMemento ();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -102,10 +108,12 @@ void SeriesWidget::remove()
         indexToRemove = selectedRows.front ();
     }
     _editSerie->remove (indexToRemove);
+    _mementoController->saveMemento ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::update ()
 {
     _scheduler->update ();
+    _mementoController->saveMemento ();
 }
