@@ -3,9 +3,10 @@
 #include "serieswidget.h"
 
 #include <QAction>
+#include <QCloseEvent>
 #include <QToolBar>
 
-MainWindow::MainWindow():QMainWindow()
+MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 {
     _seriesWidget = new SeriesWidget(this);
 
@@ -28,4 +29,24 @@ MainWindow::MainWindow():QMainWindow()
     this->addToolBar (_toolBar);
     this->setCentralWidget (_seriesWidget);
     this->setWindowTitle ("QSeriesHunter");
+
+    loadSettings();
+}
+
+void MainWindow::loadSettings()
+{
+    move (_settings.value ("position").toPoint ());
+    resize (_settings.value ("size").toRect ());
+}
+
+void MainWindow::saveSettings()
+{
+    _settings.setValue ("position", pos ());
+    _settings.setValue ("size", size ());
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    saveSettings();
+    event->accept ();
 }
