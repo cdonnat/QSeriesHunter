@@ -13,6 +13,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow();
+    virtual ~MainWindow() {}
 
 private:
     QToolBar      * _toolBar;

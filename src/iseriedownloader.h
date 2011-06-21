@@ -6,6 +6,10 @@ class QString;
 class ISerieDownloader
 {
 public:
+
+    //----------------------------------------------------------------------------------------------
+    virtual ~ISerieDownloader() {}
+
     //----------------------------------------------------------------------------------------------
     // REQ [absoluteFileName exists]
     // ENS [The file pointed by given filename is downloaded with default software.]
