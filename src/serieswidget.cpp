@@ -79,6 +79,18 @@ void SeriesWidget::configureView ()
 }
 
 //----------------------------------------------------------------------------------------------
+QModelIndex SeriesWidget::getModelIndexSelected() const
+{
+    QModelIndexList  selectedRows = _view.selectionModel ()->selectedRows ();
+    QModelIndex      index;
+    if (!selectedRows.isEmpty ())
+    {
+        index = selectedRows.front ();
+    }
+    return index;
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::add()
 {
     _editSerie->add ();
@@ -88,26 +100,14 @@ void SeriesWidget::add()
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::edit()
 {
-    QModelIndexList  selectedRows = _view.selectionModel ()->selectedRows ();
-    QModelIndex      index;
-    if (!selectedRows.isEmpty ())
-    {
-        index = selectedRows.front ();
-    }
-    _editSerie->edit(index);
+    _editSerie->edit(getModelIndexSelected());
     _mementoController->saveMemento ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::remove()
 {
-    QModelIndexList  selectedRows = _view.selectionModel ()->selectedRows ();
-    QModelIndex      indexToRemove;
-    if (!selectedRows.isEmpty ())
-    {
-        indexToRemove = selectedRows.front ();
-    }
-    _editSerie->remove (indexToRemove);
+    _editSerie->remove (getModelIndexSelected ());
     _mementoController->saveMemento ();
 }
 

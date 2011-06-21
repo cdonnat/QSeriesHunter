@@ -8,7 +8,7 @@
 #include <QNetworkRequest>
 #include <QTimer>
 
-const int timeoutInMs = 3000;
+const int timeoutInMs = 10000;
 
 //----------------------------------------------------------------------------------------------
 NetworkAccess::NetworkAccess():

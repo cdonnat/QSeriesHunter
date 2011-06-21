@@ -44,6 +44,9 @@ private:
     //----------------------------------------------------------------------------------------------
     void configureView();
 
+    //----------------------------------------------------------------------------------------------
+    QModelIndex getModelIndexSelected() const;
+
 private:
     QTableView          _view;
     IMessageBox       * _messageBox;
