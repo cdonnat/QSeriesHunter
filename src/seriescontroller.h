@@ -2,6 +2,7 @@
 #define SERIESCONTROLLER_H
 
 #include "iseriescontroller.h"
+#include "seriesmemento.h"
 #include "serie.h"
 
 #include <QMap>
@@ -30,6 +31,9 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual uint nextEpisode (const Serie & serie) const;
 
+    //----------------------------------------------------------------------------------------------
+    virtual SeriesMemento createMemento () const;
+
     // Commands :
 
     //----------------------------------------------------------------------------------------------
@@ -40,6 +44,9 @@ public:
 
     //----------------------------------------------------------------------------------------------
     virtual void inc (const Serie & serie);
+
+    //----------------------------------------------------------------------------------------------
+    virtual void loadFrom (const SeriesMemento &memento);
 
 private :
     typedef QMap<Serie, uint> MapSeries;

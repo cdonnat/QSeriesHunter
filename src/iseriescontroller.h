@@ -4,6 +4,7 @@
 #include <QtGlobal>
 
 class Serie;
+class SeriesMemento;
 
 class ISeriesController
 {
@@ -36,6 +37,11 @@ public:
     // ENS [The next episode is returned (>0).]
     virtual uint nextEpisode (const Serie & serie) const = 0;
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Return a memento that represents the state of the series controller.]
+    virtual SeriesMemento createMemento() const = 0;
+
     // Commands :
 
     //----------------------------------------------------------------------------------------------
@@ -53,6 +59,10 @@ public:
     // ENS [Last episode downloaded of the serie is incremented.]
     virtual void inc (const Serie & serie) = 0;
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Series controller is created from memento.]
+    virtual void loadFrom (const SeriesMemento & memento) = 0;
 };
 
 #endif // ISERIESCONTROLLER_H

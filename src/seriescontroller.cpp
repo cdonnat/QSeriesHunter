@@ -37,6 +37,11 @@ uint SeriesController::nextEpisode (const Serie & serie) const
     return _series.value (serie) + 1;
 }
 
+//----------------------------------------------------------------------------------------------
+SeriesMemento SeriesController::createMemento () const
+{
+    return SeriesMemento(_series);
+}
 
 //----------------------------------------------------------------------------------------------
 void SeriesController::addSerie (const Serie & serie, uint episode)
@@ -57,4 +62,10 @@ void SeriesController::inc (const Serie & serie)
 {
     Q_ASSERT (this->contains (serie));
     _series[serie]++;
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesController::loadFrom (const SeriesMemento &memento)
+{
+    _series = memento.get ();
 }

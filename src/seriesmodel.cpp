@@ -77,6 +77,12 @@ uint SeriesModel::nbSeries () const
 }
 
 //----------------------------------------------------------------------------------------------
+SeriesMemento SeriesModel::createMemento () const
+{
+    return _series->createMemento ();
+}
+
+//----------------------------------------------------------------------------------------------
 const Serie & SeriesModel::at (uint index) const
 {
     return _series->at (index);
@@ -114,4 +120,10 @@ void SeriesModel::removeSerie (const Serie & serie)
 void SeriesModel::inc (const Serie & serie)
 {
     _series->inc (serie);
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesModel::loadFrom (const SeriesMemento &memento)
+{
+    _series->loadFrom (memento);
 }

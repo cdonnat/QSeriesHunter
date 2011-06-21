@@ -3,6 +3,7 @@
 
 #include <QAbstractTableModel>
 
+#include "seriesmemento.h"
 #include "iseriescontroller.h"
 
 class Serie;
@@ -44,6 +45,9 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual uint nbSeries () const;
 
+    //----------------------------------------------------------------------------------------------
+    virtual SeriesMemento createMemento () const;
+
     // Commands:
 
     //----------------------------------------------------------------------------------------------
@@ -54,6 +58,9 @@ public:
 
     //----------------------------------------------------------------------------------------------
     virtual void inc (const Serie & serie);
+
+    //----------------------------------------------------------------------------------------------
+    virtual void loadFrom (const SeriesMemento &memento);
 
 private:
     ISeriesController  * _series;

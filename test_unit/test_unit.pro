@@ -25,7 +25,8 @@ HEADERS += \
     shared.h \
     tst_editserie.h \
     stub_editseriedialog.h \
-    stub_messagebox.h
+    stub_messagebox.h \
+    tst_mementocontroller.h
 SOURCES += \
     tst_isohunt.cpp \
     stub_networkaccess.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     tst_downloader.cpp \
     tst_editserie.cpp \
     stub_editseriedialog.cpp \
-    stub_messagebox.cpp
+    stub_messagebox.cpp \
+    tst_mementocontroller.cpp
 
 OTHER_FILES += \
     input/json_input.txt

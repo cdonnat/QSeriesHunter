@@ -32,7 +32,9 @@ HEADERS += \
     ieditseriedialog.h \
     editserie.h \
     imessagebox.h \
-    messagebox.h
+    messagebox.h \
+    seriesmemento.h \
+    mementocontroller.h
 SOURCES += \  
     isohunt.cpp \
     networkaccess.cpp \
@@ -49,4 +51,6 @@ SOURCES += \
     seriedownloader.cpp \
     editseriedialog.cpp \
     editserie.cpp \
-    messagebox.cpp
+    messagebox.cpp \
+    seriesmemento.cpp \
+    mementocontroller.cpp

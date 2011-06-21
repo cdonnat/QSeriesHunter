@@ -19,6 +19,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
+#include <QSplitter>
+#include <QDockWidget>
 
 //----------------------------------------------------------------------------------------------
 SeriesWidget::SeriesWidget(QWidget *parent) :
@@ -51,10 +53,13 @@ void SeriesWidget::buildAttributes ()
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::buildAndConfigureLayouts ()
 {
-    QGridLayout * mainLayout = new QGridLayout;
-    mainLayout->addWidget (&_view, 0, 0);
-    mainLayout->addWidget (_logger->getTextEdit (), 1, 0);
-    setLayout (mainLayout);
+    QSplitter    * splitter = new QSplitter(Qt::Vertical, this);
+    splitter->addWidget (&_view);
+    splitter->addWidget (_logger->getTextEdit ());
+
+    QVBoxLayout  * layout = new QVBoxLayout(this);
+    layout->addWidget (splitter);
+    setLayout (layout);
 }
 
 //----------------------------------------------------------------------------------------------
