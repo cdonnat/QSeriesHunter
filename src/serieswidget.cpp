@@ -13,6 +13,7 @@
 #include "messagebox.h"
 #include "mementocontroller.h"
 
+#include <QDir>
 #include <QItemSelectionModel>
 #include <QTextEdit>
 #include <QHeaderView>
@@ -22,6 +23,8 @@
 #include <QMessageBox>
 #include <QSplitter>
 #include <QDockWidget>
+
+const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
 //----------------------------------------------------------------------------------------------
 SeriesWidget::SeriesWidget(QWidget *parent) :
@@ -46,7 +49,7 @@ void SeriesWidget::buildAttributes ()
     TorrentFinderController  * findersController = new TorrentFinderController();
     findersController->addTorrentFinder (new Isohunt(networkAccess));
 
-    _mementoController = new MementoController(_model);
+    _mementoController = new MementoController(_model, initFile);
     _mementoController->loadMemento ();
 
     _scheduler = new Scheduler(_model, findersController,

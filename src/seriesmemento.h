@@ -4,18 +4,20 @@
 #include <QMap>
 #include "serie.h"
 
+class QString;
+
 class SeriesMemento
 {
 public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Last save memento is returned. An empty memento is returned if none are found.]
-    static SeriesMemento loadFromInitFile();
+    static SeriesMemento loadFromInitFile(const QString & absolutePathInitFile);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Memento is written in init file.]
-    void saveInInitFile();
+    void saveInInitFile(const QString & absolutePathInitFile);
 
 private:
     //----------------------------------------------------------------------------------------------

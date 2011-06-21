@@ -7,21 +7,21 @@
 
 #include "shared.h"
 
+const QString initFile = "test.ini";
+
 TestMementoController::TestMementoController(QObject *parent) :
-    QObject(parent), _sut(&_series)
+    QObject(parent), _sut(&_series, initFile)
 {
 }
 
-QString file = QDir::homePath () + QDir::separator () + ".QSeriesHunter.ini";
-
 void TestMementoController::initTestCase()
 {
-    QFile::remove (file);
+    QFile::remove (initFile);
 }
 
 void TestMementoController::cleanUpTestCase()
 {
-    QFile::remove (file);
+    QFile::remove (initFile);
 }
 
 void TestMementoController::testCase ()

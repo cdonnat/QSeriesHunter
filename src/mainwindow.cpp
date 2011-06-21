@@ -36,13 +36,13 @@ MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 void MainWindow::loadSettings()
 {
     move (_settings.value ("position").toPoint ());
-    resize (_settings.value ("size").toRect ());
+    setGeometry (_settings.value ("size").toRect ());
 }
 
 void MainWindow::saveSettings()
 {
     _settings.setValue ("position", pos ());
-    _settings.setValue ("size", size ());
+    _settings.setValue ("size", geometry ());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

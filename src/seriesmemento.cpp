@@ -5,8 +5,6 @@
 #include <QDir>
 #include <QString>
 
-const QString _initFile = QDir::homePath () + QDir::separator () + ".QSeriesHunter.ini";
-
 //----------------------------------------------------------------------------------------------
 SeriesMemento::SeriesMemento(const QMap<Serie, uint> & series): _save(series)
 {
@@ -19,9 +17,9 @@ const QMap<Serie, uint> & SeriesMemento::get () const
 }
 
 //----------------------------------------------------------------------------------------------
-SeriesMemento SeriesMemento::loadFromInitFile()
+SeriesMemento SeriesMemento::loadFromInitFile(const QString & absolutePathInitFile)
 {
-    QFile  initFile(_initFile);
+    QFile  initFile(absolutePathInitFile);
     initFile.open(QIODevice::ReadOnly);
 
     QDataStream in(&initFile);
@@ -53,9 +51,9 @@ QDataStream & operator<< (QDataStream & dataStream, const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesMemento::saveInInitFile()
+void SeriesMemento::saveInInitFile(const QString & absolutePathInitFile)
 {
-    QFile  initFile(_initFile);
+    QFile  initFile(absolutePathInitFile);
     initFile.open(QIODevice::WriteOnly);
 
     QDataStream out(&initFile);
