@@ -15,9 +15,7 @@ TestIsohunt::TestIsohunt()
 
 QString  getJsonInput()
 {
-    QString path = QCoreApplication::applicationDirPath() +
-                   "/../test_unit/input/json_input.txt";
-    QFile  input (path);
+    QFile  input (":input/json_input.txt");
     input.open(QIODevice::ReadOnly);
     return input.readAll();
 }
