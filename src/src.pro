@@ -8,6 +8,8 @@ QT      += network
 INCLUDEPATH += /usr/local/include
 LIBS    += -lqjson
 
+RESOURCES   = QSeriesHunter.qrc
+
 HEADERS += \
     isohunt.h \
     itorrentfinder.h \

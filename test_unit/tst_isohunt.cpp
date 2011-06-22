@@ -5,6 +5,7 @@
 
 #include <QtTest>
 #include <QString>
+#include <QDebug>
 
 TestIsohunt::TestIsohunt()
 {
@@ -47,6 +48,7 @@ void TestIsohunt::nominalCase ()
 
     QVERIFY2(this->networkAccess->url() == "http://ca.isohunt.com/js/json.php?ihq=How+I+Met+Your+Mother",
              "Expected request");
+    qDebug() << results.size ();
     QVERIFY2(results.size() == 100, "Results are retrieved");
     QVERIFY2(results.front().name() == "<b>HIMYM</b> - Season 1",
              "Expected name");
