@@ -1,0 +1,12 @@
+find_package (Qt4 REQUIRED)
+
+INCLUDE_DIRECTORIES(
+  ../src
+)
+
+INCLUDE(${QT_USE_FILE})
+ADD_DEFINITIONS(${QT_DEFINITIONS})
+  
+ADD_EXECUTABLE(qserieshunter main.cpp)
+TARGET_LINK_LIBRARIES(qserieshunter ${QT_LIBRARIES} src)
+
