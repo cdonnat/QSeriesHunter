@@ -24,8 +24,8 @@ private:
     void nominalCase();
 
 private :
-    NetworkAccessStub  * networkAccess;
-    Isohunt            * sut;
+    NetworkAccessStub  * _networkAccess;
+    Isohunt            * _sut;
 };
 
 #endif // TESTISOHUNT_H

@@ -12,7 +12,9 @@ const int timeoutInMs = 10000;
 
 //----------------------------------------------------------------------------------------------
 NetworkAccess::NetworkAccess():
-    _networkAccessReply(NULL), _networkAccessManager(new QNetworkAccessManager()) {}
+    _networkAccessReply(NULL),
+    _networkAccessManager(new QNetworkAccessManager())
+{}
 
 //----------------------------------------------------------------------------------------------
 NetworkAccess::~NetworkAccess()

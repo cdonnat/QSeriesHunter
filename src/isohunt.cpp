@@ -1,25 +1,25 @@
 #include "isohunt.h"
 #include "networkaccess.h"
 
-#include <QStringList>
 #include <QObject>
+#include <QStringList>
 #include <QVariantMap>
 
 #include <qjson/parser.h>
 
 //--------------------------------------------------------------------------------------------------
-Isohunt::Isohunt(INetworkAccess * const networkAccess)
+Isohunt::Isohunt(INetworkAccess * const networkAccess) : _networkAccess(networkAccess)
 {
-    Q_ASSERT (networkAccess != NULL);
-    _networkAccess = networkAccess;
+    Q_ASSERT (_networkAccess != NULL);
 }
 
 //--------------------------------------------------------------------------------------------------
 void Isohunt::startRequest(const QString & serieTitle)
 {
-    QString          convert = serieTitle;
-    QString          request = "http://ca.isohunt.com/js/json.php?ihq=" +
-                                convert.replace(" ","+");
+    QString          convertedTitle = serieTitle;
+    QString          request        =
+            "http://ca.isohunt.com/js/json.php?ihq=" +
+            convertedTitle.replace(" ","+");
     _networkAccess->read(request);
 }
 
@@ -27,10 +27,9 @@ void Isohunt::startRequest(const QString & serieTitle)
 void Isohunt::addItemToResults(const QVariant & item)
 {
     QVariantMap  map = item.toMap();
-    _results.append(TorrentFinderResult(
-                        map["title"].toString(),
-                        map["enclosure_url"].toString(),
-                        map["Seeds"].toUInt()));
+    _results.append(TorrentFinderResult(map["title"].toString(),
+                                        map["enclosure_url"].toString(),
+                                        map["Seeds"].toUInt()));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -39,7 +38,8 @@ void Isohunt::retrieveResults ()
     Q_ASSERT (_networkAccess->contentIsReady ());
     bool           parsingIsOk;
     QJson::Parser  parser;
-    QVariantMap    jsonResult = parser.parse(_networkAccess->content(), &parsingIsOk).toMap();
+    QVariantMap    jsonResult = parser.parse(_networkAccess->content(),
+                                             &parsingIsOk).toMap();
 
      if (parsingIsOk)
      {

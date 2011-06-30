@@ -4,7 +4,7 @@
 #include <QObject>
 
 class NetworkAccessStub;
-class SerieDownloaderStub;
+class DefaultAppRunnerStub;
 class Downloader;
 
 class TestDownloader : public QObject
@@ -21,7 +21,7 @@ private Q_SLOTS:
 
 private :
     NetworkAccessStub    * _networkAccess;
-    SerieDownloaderStub  * _serieDownloader;
+    DefaultAppRunnerStub * _defaultAppRunner;
     Downloader           * _sut;
 };
 

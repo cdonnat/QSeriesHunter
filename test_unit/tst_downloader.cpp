@@ -2,22 +2,23 @@
 
 #include "downloader.h"
 
-#include "stub_seriedownloader.h"
+#include "stub_defaultapprunner.h"
 #include "stub_networkaccess.h"
 #include "tst_downloader.h"
 
 TestDownloader::TestDownloader()
 {
-    this->_networkAccess   = new NetworkAccessStub();
-    this->_serieDownloader = new SerieDownloaderStub();
-    this->_sut             = new Downloader(this->_networkAccess, this->_serieDownloader);
+    this->_networkAccess    = new NetworkAccessStub();
+    this->_defaultAppRunner = new DefaultAppRunnerStub();
+    this->_sut              = new Downloader(this->_networkAccess,
+                                             this->_defaultAppRunner);
 }
 
 TestDownloader::~TestDownloader()
 {
     delete this->_sut;
     delete this->_networkAccess;
-    delete this->_serieDownloader;
+    delete this->_defaultAppRunner;
 }
 
 void TestDownloader::testNominalCase()
@@ -32,8 +33,9 @@ void TestDownloader::testNominalCase()
     QVERIFY2(fixture._networkAccess->url() == urlToRead, "Correct url");
     QVERIFY2(fixture._sut->downloadIsSuccessful (), "Download is successful");
 
-    fixture._sut->downloadSerie ();
-    QVERIFY2(QFile::exists (fixture._serieDownloader->_absoluteFileName), "Torrent file created");
+    fixture._sut->runTorrentWithExternalDefaultApp ();
+    QVERIFY2(QFile::exists (fixture._defaultAppRunner->_absoluteFileName),
+             "Torrent file created");
 }
 
 void TestDownloader::testFailCase()
@@ -43,5 +45,6 @@ void TestDownloader::testFailCase()
     fixture._networkAccess->setIsReady(false);
     fixture._sut->downloadTorrent ("http:://whatever");
 
-    QVERIFY2(!fixture._sut->downloadIsSuccessful (), "Download is not successful");
+    QVERIFY2(!fixture._sut->downloadIsSuccessful (),
+             "Download is not successful");
 }

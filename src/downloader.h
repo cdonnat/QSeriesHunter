@@ -4,7 +4,7 @@
 #include <QString>
 
 class INetworkAccess;
-class ISerieDownloader;
+class IDefaultExternalAppRunner;
 
 class Downloader
 {
@@ -13,8 +13,8 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [Inputs are not null.]
     // ENS [.]
-    explicit Downloader(INetworkAccess   * const networkAccess,
-                        ISerieDownloader * const serieDownloader);
+    explicit Downloader(INetworkAccess            * const networkAccess,
+                        IDefaultExternalAppRunner * const defaultAppRunner);
 
     // Commands:
 
@@ -25,8 +25,8 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [downloadIsSuccessful.]
-    // ENS [The serie is downloaded.]
-    void downloadSerie ();
+    // ENS [The torrent is run with the default external application associated to .torrent.]
+    void runTorrentWithExternalDefaultApp ();
 
     // Queries:
 
@@ -43,9 +43,9 @@ private:
     void captureDownloadInTorrentFile();
 
 private:
-    INetworkAccess   * const _networkAccess;
-    ISerieDownloader * const _serieDownloader;
-    QString            _lastDownloadedFile;
+    INetworkAccess            * const _networkAccess;
+    IDefaultExternalAppRunner * const _defaultAppRunner;
+    QString                           _lastDownloadedFile;
 };
 
 #endif // TORRENTDOWNLOADER_H

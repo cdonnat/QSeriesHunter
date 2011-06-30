@@ -69,7 +69,7 @@ void Scheduler::lookForNewEpisode (const Serie & serie)
         _downloader->downloadTorrent (_finder->getEpisodeUrl ());
         if (_downloader->downloadIsSuccessful ())
         {
-            _downloader->downloadSerie ();
+            _downloader->runTorrentWithExternalDefaultApp ();
             _seriesController->inc (serie);
             _logger->logSuccess (QObject::tr ("%1 download started").arg (episodeName));
         }

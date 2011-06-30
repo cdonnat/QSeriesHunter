@@ -23,8 +23,8 @@ public:
     virtual const TorrentFinderResults & getResults  () const;
 
 private :
-    INetworkAccess         * _networkAccess;
-    TorrentFinderResults     _results;
+    INetworkAccess         * const _networkAccess;
+    TorrentFinderResults           _results;
 
   // Commands:
 

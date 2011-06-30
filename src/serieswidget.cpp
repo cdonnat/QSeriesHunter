@@ -8,7 +8,7 @@
 #include "isohunt.h"
 #include "downloader.h"
 #include "networkaccess.h"
-#include "seriedownloader.h"
+#include "defaultexternalapprunner.h"
 #include "editserie.h"
 #include "messagebox.h"
 #include "mementocontroller.h"
@@ -53,7 +53,7 @@ void SeriesWidget::buildAttributes ()
     _mementoController->loadMemento ();
 
     _scheduler = new Scheduler(_model, findersController,
-                               new Downloader(networkAccess, new SerieDownloader()),
+                               new Downloader(networkAccess, new DefaultExternalAppRunner()),
                                _logger);
 }
 

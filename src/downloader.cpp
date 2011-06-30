@@ -6,15 +6,16 @@
 #include <QUrl>
 
 #include "inetworkaccess.h"
-#include "iseriedownloader.h"
+#include "idefaultexternalapprunner.h"
+
 
 //----------------------------------------------------------------------------------------------
-Downloader::Downloader(INetworkAccess   * const networkAccess,
-                       ISerieDownloader * const serieDownloader) :
-    _networkAccess(networkAccess), _serieDownloader(serieDownloader)
+Downloader::Downloader(INetworkAccess            * const networkAccess,
+                       IDefaultExternalAppRunner * const defaultAppRunner) :
+    _networkAccess(networkAccess), _defaultAppRunner(defaultAppRunner)
 {
     Q_ASSERT (_networkAccess != NULL);
-    Q_ASSERT (_serieDownloader != NULL);
+    Q_ASSERT (_defaultAppRunner != NULL);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -27,6 +28,7 @@ void Downloader::downloadTorrent (const QString & torrentUrl)
     }
 }
 
+//----------------------------------------------------------------------------------------------
 void Downloader::captureDownloadInTorrentFile ()
 {
     Q_ASSERT(downloadIsSuccessful ());
@@ -41,10 +43,10 @@ void Downloader::captureDownloadInTorrentFile ()
 }
 
 //----------------------------------------------------------------------------------------------
-void Downloader::downloadSerie ()
+void Downloader::runTorrentWithExternalDefaultApp ()
 {
     Q_ASSERT(downloadIsSuccessful ());
-    _serieDownloader->download (_lastDownloadedFile);
+    _defaultAppRunner->open (_lastDownloadedFile);
 }
 
 //----------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 #include "stub_logger.h"
 #include "stub_networkaccess.h"
 #include "stub_torrentfinder.h"
-#include "stub_seriedownloader.h"
+#include "stub_defaultapprunner.h"
 
 #include <QFile>
 #include <QTest>
@@ -23,7 +23,7 @@ TestScheduler::TestScheduler(QObject *parent) :
     _finders         = new TorrentFinderController();
     _finder          = new TorrentFinderStub();
     _network         = new NetworkAccessStub;
-    _serieDownloader = new SerieDownloaderStub;
+    _serieDownloader = new DefaultAppRunnerStub;
     _downloader      = new Downloader(_network, _serieDownloader);
     _logger          = new LoggerStub;
     _sut             = new Scheduler(_series, _finders, _downloader, _logger);

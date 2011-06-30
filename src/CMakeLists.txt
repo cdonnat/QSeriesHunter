@@ -7,9 +7,12 @@ ADD_DEFINITIONS(${QT_DEFINITIONS})
 
 SET(SOURCES_RC QSeriesHunter.qrc)
 
-SET(SOURCES 
-	isohunt.cpp 
-    networkaccess.cpp 
+SET(SOURCES
+    defaultexternalapprunner.cpp
+    downloader.cpp
+    isohunt.cpp
+    networkaccess.cpp
+
     torrentfinderresult.cpp 
     serie.cpp 
     torrentfindercontroller.cpp 
@@ -19,19 +22,24 @@ SET(SOURCES
     serieswidget.cpp 
     scheduler.cpp 
     loggerwidget.cpp 
-    downloader.cpp 
-    seriedownloader.cpp 
     editseriedialog.cpp 
     editserie.cpp 
     messagebox.cpp
     seriesmemento.cpp 
     mementocontroller.cpp)
-    
-SET(HEADERS 
-	isohunt.h 
-    itorrentfinder.h 
-    inetworkaccess.h 
-    networkaccess.h 
+
+SET(HEADERS
+    downloader.h
+    idefaultexternalapprunner.h
+    inetworkaccess.h
+    isohunt.h
+    defaultexternalapprunner.h
+    networkaccess.h )
+
+SOURCE_GROUP(headers ${MOC_HEADERS})
+
+SET(MOC_HEADERS
+    itorrentfinder.h     
     torrentfinderresult.h 
     serie.h 
     torrentfindercontroller.h 
@@ -43,10 +51,7 @@ SET(HEADERS
     ilogger.h 
     log.h 
     loggerwidget.h 
-    downloader.h 
-    iseriedownloader.h 
-    seriedownloader.h 
-    iseriescontroller.h 
+    iseriescontroller.h
     editseriedialog.h 
     ieditseriedialog.h 
     editserie.h 
@@ -55,7 +60,7 @@ SET(HEADERS
     seriesmemento.h 
     mementocontroller.h)
     
-QT4_WRAP_CPP(HEADERS_MOC ${HEADERS})
+QT4_WRAP_CPP(HEADERS_MOC ${MOC_HEADERS})
 QT4_ADD_RESOURCES(SOURCES_RC_SRC ${SOURCES_RC} )
 
 ADD_LIBRARY(src SHARED ${SOURCES} ${HEADERS_MOC} ${SOURCES_RC_SRC})

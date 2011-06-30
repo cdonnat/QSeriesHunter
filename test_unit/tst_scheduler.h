@@ -6,7 +6,7 @@
 class Scheduler;
 class SeriesModel;
 class TorrentFinderController;
-class SerieDownloaderStub;
+class DefaultAppRunnerStub;
 class Downloader;
 class LoggerStub;
 class NetworkAccessStub;
@@ -27,7 +27,7 @@ private:
     Scheduler                * _sut;
     SeriesModel              * _series;
     TorrentFinderController  * _finders;
-    SerieDownloaderStub      * _serieDownloader;
+    DefaultAppRunnerStub     * _serieDownloader;
     Downloader               * _downloader;
     LoggerStub               * _logger;
     NetworkAccessStub        * _network;
