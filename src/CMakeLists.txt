@@ -5,15 +5,19 @@ SET(QT_USE_QTNETWORK TRUE)
 INCLUDE(${QT_USE_FILE})
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
-SET(SOURCES_RC QSeriesHunter.qrc)
+INCLUDE_DIRECTORIES(network
+                    ${CMAKE_CURRENT_SOURCE_DIR})
+
+SET(SOURCES_RC resources/QSeriesHunter.qrc)
+
+SET(NETWORK_SRC
+    network/defaultexternalapprunner.cpp
+    network/downloader.cpp
+    network/isohunt.cpp
+    network/networkaccess.cpp
+    network/torrentfinderresult.cpp)
 
 SET(SOURCES
-    defaultexternalapprunner.cpp
-    downloader.cpp
-    isohunt.cpp
-    networkaccess.cpp
-
-    torrentfinderresult.cpp 
     serie.cpp 
     torrentfindercontroller.cpp 
     seriescontroller.cpp 
@@ -33,14 +37,13 @@ SET(HEADERS
     idefaultexternalapprunner.h
     inetworkaccess.h
     isohunt.h
+    itorrentfinder.h
     defaultexternalapprunner.h
     networkaccess.h )
 
 SOURCE_GROUP(headers ${MOC_HEADERS})
 
 SET(MOC_HEADERS
-    itorrentfinder.h     
-    torrentfinderresult.h 
     serie.h 
     torrentfindercontroller.h 
     seriescontroller.h 
@@ -63,6 +66,10 @@ SET(MOC_HEADERS
 QT4_WRAP_CPP(HEADERS_MOC ${MOC_HEADERS})
 QT4_ADD_RESOURCES(SOURCES_RC_SRC ${SOURCES_RC} )
 
-ADD_LIBRARY(src SHARED ${SOURCES} ${HEADERS_MOC} ${SOURCES_RC_SRC})
+ADD_LIBRARY(src SHARED
+                ${SOURCES}
+                ${NETWORK_SRC}
+                ${HEADERS_MOC}
+                ${SOURCES_RC_SRC})
 TARGET_LINK_LIBRARIES(src ${QT_LIBRARIES} qjson)
 

@@ -1,7 +1,8 @@
 find_package (Qt4 REQUIRED)
 
 INCLUDE_DIRECTORIES(
-  ../src
+    ../src
+    ../src/network
 )
 
 SET(QT_USE_QTNETWORK TRUE)
