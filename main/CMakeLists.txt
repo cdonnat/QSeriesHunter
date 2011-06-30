@@ -1,7 +1,7 @@
 find_package (Qt4 REQUIRED)
 
 INCLUDE_DIRECTORIES(
-  ../src
+  ../src/gui
 )
 
 INCLUDE(${QT_USE_FILE})

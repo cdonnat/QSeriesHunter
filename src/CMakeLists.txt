@@ -12,13 +12,7 @@ INCLUDE_DIRECTORIES(network
 
 SET(SOURCES_RC resources/QSeriesHunter.qrc)
 
-SET(NETWORK_SRC
-    network/defaultexternalapprunner.cpp
-    network/downloader.cpp
-    network/isohunt.cpp
-    network/networkaccess.cpp
-    network/torrentfindercontroller.cpp
-    network/torrentfinderresult.cpp)
+FILE(GLOB NETWORK_SRC "network/*.cpp")
 
 SET(SERIES_SRC
     series/mementocontroller.cpp

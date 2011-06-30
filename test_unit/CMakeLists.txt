@@ -3,6 +3,8 @@ find_package (Qt4 REQUIRED)
 INCLUDE_DIRECTORIES(
     ../src
     ../src/network
+    ../src/series
+    ../src/gui
 )
 
 SET(QT_USE_QTNETWORK TRUE)
