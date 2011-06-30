@@ -12,7 +12,6 @@ INCLUDE_DIRECTORIES(network
 
 SET(SOURCES_RC resources/QSeriesHunter.qrc)
 
-
 FILE(GLOB NETWORK_SRC "network/*.*")
 FILE(GLOB SERIES_SRC "series/*.*")
 FILE(GLOB GUI_SRC "gui/*.*")

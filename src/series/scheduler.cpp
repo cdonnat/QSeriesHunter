@@ -10,10 +10,10 @@
 #include <QObject>
 
 //----------------------------------------------------------------------------------------------
-Scheduler::Scheduler(ISeriesController       * seriesController,
-                     TorrentFinderController * finder,
-                     Downloader              * downloader,
-                     ILogger                 * logger)
+Scheduler::Scheduler(ISeriesController       * const seriesController,
+                     TorrentFinderController * const finder,
+                     Downloader              * const downloader,
+                     ILogger                 * const logger)
     : _seriesController(seriesController),
       _finder(finder),
       _downloader(downloader),
@@ -29,16 +29,14 @@ Scheduler::Scheduler(ISeriesController       * seriesController,
 //----------------------------------------------------------------------------------------------
 void Scheduler::update ()
 {
-    _logger->logInfo (startLooking);
-    if (_seriesController->nbSeries () > 0)
-    {
+    _logger->logInfo (QObject::tr ("Start updating..."));
+    if (_seriesController->nbSeries () > 0) {
         lookForNewEpisodes ();
     }
-    else
-    {
+    else {
         _logger->logWarning (noSeriesFollowed);
     }
-    _logger->logInfo (endLooking);
+    _logger->logInfo (QObject::tr ("Updating finished!"));
 }
 
 //----------------------------------------------------------------------------------------------
@@ -54,7 +52,6 @@ void Scheduler::lookForNewEpisodes()
 //----------------------------------------------------------------------------------------------
 void Scheduler::lookForNewEpisode (const Serie & serie)
 {
-
     const QString episodeName = QObject::tr("%1 Season %2 Episode %3")
             .arg(serie.name ())
             .arg(serie.season ())

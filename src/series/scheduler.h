@@ -14,10 +14,10 @@ public:
     //----------------------------------------------------------------------------------------------
     // Constructors
     // [Inputs are not null.]
-    explicit Scheduler(ISeriesController       * seriesController,
-                       TorrentFinderController * finder,
-                       Downloader              * downloader,
-                       ILogger                 * logger);
+    explicit Scheduler(ISeriesController       * const seriesController,
+                       TorrentFinderController * const finder,
+                       Downloader              * const downloader,
+                       ILogger                 * const logger);
 
     // Commands:
 
@@ -39,10 +39,10 @@ private:
     void lookForNewEpisode (const Serie & serie);
 
 private:
-    ISeriesController       * _seriesController;
-    TorrentFinderController * _finder;
-    Downloader              * _downloader;
-    ILogger                 * _logger;
+    ISeriesController       * const _seriesController;
+    TorrentFinderController * const _finder;
+    Downloader              * const _downloader;
+    ILogger                 * const _logger;
 };
 
 #endif // SCHEDULER_H

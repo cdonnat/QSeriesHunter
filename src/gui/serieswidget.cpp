@@ -22,7 +22,6 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QSplitter>
-#include <QDockWidget>
 
 const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
@@ -30,13 +29,13 @@ const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.
 SeriesWidget::SeriesWidget(QWidget *parent) :
     QWidget(parent)
 {
-    buildAttributes();
-    buildAndConfigureLayouts ();
-    configureView ();
+    createAttributes();
+    createLayouts ();
+    createView ();
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesWidget::buildAttributes ()
+void SeriesWidget::createAttributes ()
 {
     _logger     = new LoggerWidget();
     _model      = new SeriesModel(this);
@@ -58,7 +57,7 @@ void SeriesWidget::buildAttributes ()
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesWidget::buildAndConfigureLayouts ()
+void SeriesWidget::createLayouts ()
 {
     QSplitter    * splitter = new QSplitter(Qt::Vertical, this);
     splitter->addWidget (&_view);
@@ -70,7 +69,7 @@ void SeriesWidget::buildAndConfigureLayouts ()
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesWidget::configureView ()
+void SeriesWidget::createView ()
 {
     _view.setModel (_model);
     _view.verticalHeader ()->hide ();

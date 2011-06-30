@@ -38,7 +38,7 @@ private:
     //----------------------------------------------------------------------------------------------
     // REQ [InputsAreValid.]
     // ENS [The serie from dialog is returned.]
-    Serie fromDialog () const;
+    Serie seriesFromDialog () const;
 
     //----------------------------------------------------------------------------------------------
     // REQ [InputsAreValid.]

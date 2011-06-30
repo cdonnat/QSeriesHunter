@@ -9,23 +9,23 @@
 EditSerieDialog::EditSerieDialog()
 {
     _dialog    = new QDialog();
-    _nameLabel = new QLabel(QObject::tr("Name"));
-    _nameEdit  = new QLineEdit();
+    _nameLabel = new QLabel(QObject::tr("Name"), _dialog);
+    _nameEdit  = new QLineEdit(_dialog);
 
-    _seasonLabel = new QLabel(QObject::tr("Season"));
-    _seasonEdit  = new QLineEdit();
+    _seasonLabel = new QLabel(QObject::tr("Season"), _dialog);
+    _seasonEdit  = new QLineEdit(_dialog);
 
-    _lastEpisodeDownloadedLabel = new QLabel(QObject::tr("Last Episoded Downloaded"));
-    _lastEpisodeDownloadedEdit  = new QLineEdit();
+    _lastEpisodeDownloadedLabel = new QLabel(QObject::tr("Last Episoded Downloaded"), _dialog);
+    _lastEpisodeDownloadedEdit  = new QLineEdit(_dialog);
 
-    _okButton = new QPushButton(QObject::tr("Ok"));
-    _cancelButton = new QPushButton(QObject::tr("Cancel"));
+    _okButton = new QPushButton(QObject::tr("Ok"), _dialog);
+    _cancelButton = new QPushButton(QObject::tr("Cancel"), _dialog);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(_okButton);
     buttonLayout->addWidget(_cancelButton);
 
-    QGridLayout * gLayout = new QGridLayout;
+    QGridLayout * gLayout = new QGridLayout();
     gLayout->setColumnStretch(1, 2);
     gLayout->addWidget(_nameLabel, 0, 0);
     gLayout->addWidget(_nameEdit, 0, 1);

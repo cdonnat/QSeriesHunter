@@ -35,8 +35,6 @@ TestScheduler::TestScheduler(QObject *parent) :
  {
     TestScheduler  fixture;
     fixture._sut->update ();
-
-    QVERIFY2 (fixture._logger->info () == (startLooking + endLooking), "Start end no series");
     QVERIFY2 (fixture._logger->warning () == noSeriesFollowed, "Warning no series");
  }
 
@@ -54,7 +52,8 @@ TestScheduler::TestScheduler(QObject *parent) :
      QVERIFY2 (fixture._finder->getRequest () == "House S01E02", "Nominal request");
      QVERIFY2 (fixture._network->url () == "house_torrent", "Nominal url");
      QVERIFY2 (fixture._series->lastEpisodeDl (houseSeason1) == 2, "Nominal inc");
-     QVERIFY2 (QFile::exists (fixture._serieDownloader->_absoluteFileName), "Torrent downloaded");
+     QVERIFY2 (QFile::exists (fixture._serieDownloader->_absoluteFileName),
+               "Torrent downloaded");
 }
 
 void TestScheduler::testFail()

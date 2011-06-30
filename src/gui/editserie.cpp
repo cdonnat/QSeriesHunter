@@ -4,12 +4,11 @@
 #include <QModelIndex>
 #include <QString>
 #include <QStringList>
+
 #include "ieditseriedialog.h"
 #include "iseriescontroller.h"
 #include "imessagebox.h"
 #include "serie.h"
-
-#include <QDebug>
 
 //----------------------------------------------------------------------------------------------
 EditSerie::EditSerie(IEditSerieDialog  * const dialog,
@@ -17,9 +16,9 @@ EditSerie::EditSerie(IEditSerieDialog  * const dialog,
                      IMessageBox       * const messageBox):
     _dialog(dialog), _series(series), _messageBox(messageBox)
 {
-    Q_ASSERT (dialog);
-    Q_ASSERT (series);
-    Q_ASSERT (messageBox);
+    Q_ASSERT (_dialog);
+    Q_ASSERT (_series);
+    Q_ASSERT (_messageBox);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -29,8 +28,7 @@ QString toCapitalize (const QString & name)
 {
     QStringList  list = name.simplified ().split (' ');
     QStringList  res;
-    foreach (QString item , list)
-    {
+    foreach (QString item , list) {
         item    = item.toLower ();
         item[0] = item[0].toUpper ();
         res << item;
@@ -46,7 +44,7 @@ bool EditSerie::inputsAreValid() const
 }
 
 //----------------------------------------------------------------------------------------------
-Serie EditSerie::fromDialog () const
+Serie EditSerie::seriesFromDialog () const
 {
     Q_ASSERT(inputsAreValid ());
     return Serie(toCapitalize(_dialog->name ()), _dialog->season ().toUInt ());
@@ -57,9 +55,9 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
 {
     Q_ASSERT (inputsAreValid ());
 
-    if (!_series->contains (fromDialog()))
+    if (!_series->contains (seriesFromDialog()))
     {
-        _series->addSerie (fromDialog(), _dialog->lastEpisodeDl ().toUInt());
+        _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ().toUInt());
     }
     else
     {
@@ -71,14 +69,11 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
 //----------------------------------------------------------------------------------------------
 void EditSerie::add ()
 {
-    if (_dialog->exec ())
-    {
-        if (inputsAreValid())
-        {
+    if (_dialog->exec ()) {
+        if (inputsAreValid()) {
             addSerieIfNotAlreadyFollowed();
         }
-        else
-        {
+        else  {
             _messageBox->displayWarning (QObject::tr("Warning"),
                                          QObject::tr("Inputs are not valid!"));
         }
@@ -88,12 +83,10 @@ void EditSerie::add ()
 //----------------------------------------------------------------------------------------------
 void EditSerie::remove (const QModelIndex & selection)
 {
-    if (selection.isValid ())
-    {
+    if (selection.isValid ()) {
         _series->removeSerie (_series->at (selection.row ()));
     }
-    else
-    {
+    else {
         _messageBox->displayWarning
                 (QObject::tr("Warning"),
                  QObject::tr("You have to select a serie if you want to remove one"));
@@ -103,14 +96,13 @@ void EditSerie::remove (const QModelIndex & selection)
 //----------------------------------------------------------------------------------------------
 void EditSerie::edit (const QModelIndex & selection)
 {
-    if (selection.isValid ())
-    {
+    if (selection.isValid ()) {
         runEditSerieDialog (selection);
     }
-    else
-    {
-        _messageBox->displayWarning (QObject::tr("Warning"),
-                                     QObject::tr("You have to select a serie if you want to edit one"));
+    else {
+        _messageBox->displayWarning
+                (QObject::tr("Warning"),
+                 QObject::tr("You have to select a serie if you want to edit one"));
     }
 }
 
@@ -124,25 +116,20 @@ void EditSerie::runEditSerieDialog (const QModelIndex & selection)
 
     if (_dialog->exec (serieEdited.name (),
                        QString("%1").arg(serieEdited.season ()),
-                       QString("%1").arg(lastEpisode)))
-    {
-        if (inputsAreValid ())
-        {
+                       QString("%1").arg(lastEpisode))) {
+        if (inputsAreValid ())  {
             // FIXME : find a better way of editing
             remove (selection);
-            if (!_series->contains (fromDialog ()))
-            {
-                _series->addSerie (fromDialog(), _dialog->lastEpisodeDl ().toUInt());
+            if (!_series->contains (seriesFromDialog ())) {
+                _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ().toUInt());
             }
-            else
-            {
+            else {
                 _series->addSerie (serieEdited, lastEpisode);
                 _messageBox->displayWarning (QObject::tr("Warning"),
                                              QObject::tr("You are already following this serie!"));
             }
         }
-        else
-        {
+        else {
             _messageBox->displayWarning (QObject::tr("Warning"),
                                          QObject::tr("Inputs are not valid!"));
         }
