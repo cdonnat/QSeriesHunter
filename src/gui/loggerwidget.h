@@ -9,7 +9,11 @@ class QString;
 class LoggerWidget : public ILogger
 {
 public:
+    //----------------------------------------------------------------------------------------------
     explicit LoggerWidget ();
+
+    //----------------------------------------------------------------------------------------------
+    virtual ~LoggerWidget();
 
     //----------------------------------------------------------------------------------------------
     virtual void logSuccess (const QString & success);
@@ -21,7 +25,7 @@ public:
     virtual void logWarning (const QString & warning);
 
     //----------------------------------------------------------------------------------------------
-    QTextEdit * getTextEdit() const;
+    QTextEdit * const getTextEdit() const;
 
 private:
     void display(const QString & text);

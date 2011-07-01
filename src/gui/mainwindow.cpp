@@ -6,6 +6,7 @@
 #include <QCloseEvent>
 #include <QToolBar>
 
+//----------------------------------------------------------------------------------------------
 MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 {
     _seriesWidget = new SeriesWidget(this);
@@ -33,18 +34,21 @@ MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
     loadSettings();
 }
 
+//----------------------------------------------------------------------------------------------
 void MainWindow::loadSettings()
 {
     move (_settings.value ("position").toPoint ());
     setGeometry (_settings.value ("size").toRect ());
 }
 
+//----------------------------------------------------------------------------------------------
 void MainWindow::saveSettings()
 {
     _settings.setValue ("position", pos ());
     _settings.setValue ("size", geometry ());
 }
 
+//----------------------------------------------------------------------------------------------
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     saveSettings();

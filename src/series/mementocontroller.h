@@ -10,8 +10,8 @@ class MementoController
 public:
 
     //----------------------------------------------------------------------------------------------
-    MementoController(ISeriesController * series,
-                      const QString &     absoluteFilePath);
+    MementoController(ISeriesController * const series,
+                      const QString &           absoluteFilePath);
 
     // Commands :
 
@@ -22,8 +22,8 @@ public:
     void saveMemento ();
 
 private:
-    ISeriesController  * _series;
-    QString              _initFile;
+    ISeriesController  * const _series;
+    QString                    _initFile;
 };
 
 #endif // MEMENTOCONTROLLER_H

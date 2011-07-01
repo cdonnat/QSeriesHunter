@@ -57,7 +57,7 @@ bool EditSerieDialog::exec (const QString & name         ,
     _seasonEdit->setText (season);
     _lastEpisodeDownloadedEdit->setText (lastEpisodeDl);
     _nameEdit->setFocus ();
-   return _dialog->exec ();
+    return _dialog->exec ();
 }
 
 //----------------------------------------------------------------------------------------------

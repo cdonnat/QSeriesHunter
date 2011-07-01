@@ -3,10 +3,11 @@
 #include "seriesmemento.h"
 
 //----------------------------------------------------------------------------------------------
-MementoController::MementoController(ISeriesController * series,
-                                     const QString &     absoluteFilePath):
+MementoController::MementoController(ISeriesController * const series,
+                                     const QString &           absoluteFilePath):
     _series(series), _initFile(absoluteFilePath)
 {
+    Q_ASSERT(_series != NULL);
 }
 
 //----------------------------------------------------------------------------------------------

@@ -55,12 +55,10 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
 {
     Q_ASSERT (inputsAreValid ());
 
-    if (!_series->contains (seriesFromDialog()))
-    {
+    if (!_series->contains (seriesFromDialog()))  {
         _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ().toUInt());
     }
-    else
-    {
+    else {
         _messageBox->displayWarning (QObject::tr("Warning"),
                                      QObject::tr("You are already following this serie!"));
     }

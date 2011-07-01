@@ -4,8 +4,15 @@
 #include <QString>
 #include <QTextEdit>
 
+//----------------------------------------------------------------------------------------------
 LoggerWidget::LoggerWidget() : _textEdit (new QTextEdit())
 {
+}
+
+//----------------------------------------------------------------------------------------------
+LoggerWidget::~LoggerWidget()
+{
+    _textEdit->deleteLater ();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -30,7 +37,7 @@ void LoggerWidget::logWarning (const QString & warning)
 }
 
 //----------------------------------------------------------------------------------------------
-QTextEdit * LoggerWidget::getTextEdit() const
+QTextEdit * const LoggerWidget::getTextEdit() const
 {
     return _textEdit;
 }
@@ -38,8 +45,9 @@ QTextEdit * LoggerWidget::getTextEdit() const
 //----------------------------------------------------------------------------------------------
 void LoggerWidget::display(const QString & text)
 {
-    QString toDisplay = QString("[%1] %2").arg(QDateTime::currentDateTime ().toString ("hh:mm:ss"))
-                                          .arg(text);
+    QString currentDate = QDateTime::currentDateTime ().toString ("hh:mm:ss");
+    QString toDisplay   = QString("[%1] %2").arg(currentDate)
+                                            .arg(text);
 
     _textEdit->append (toDisplay);
 }

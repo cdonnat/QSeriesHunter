@@ -13,6 +13,8 @@ public:
     // Commands:
 
     //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Display a warning in message box popup.]
     virtual void displayWarning(const QString & title, const QString & message) = 0;
 };
 

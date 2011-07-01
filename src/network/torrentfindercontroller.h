@@ -58,6 +58,11 @@ private:
     // ENS [The best url is stored.]
     void findBestMatch (const Serie & serie, uint episode);
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Results are sorted by seed.]
+    void sortResultsBySeed ();
+
 private:
     QSet<ITorrentFinder *>     _finders;
     TorrentFinderResults       _results;

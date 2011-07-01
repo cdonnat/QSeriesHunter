@@ -14,13 +14,25 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    //----------------------------------------------------------------------------------------------
     explicit MainWindow();
+
+    //----------------------------------------------------------------------------------------------
     virtual ~MainWindow() {}
 
+    //----------------------------------------------------------------------------------------------
     virtual void closeEvent(QCloseEvent *event);
 
 private:
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Load last position and geometry of the main window.]
     void loadSettings();
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Save last position and geometry of the main window.]
     void saveSettings();
 
 private:

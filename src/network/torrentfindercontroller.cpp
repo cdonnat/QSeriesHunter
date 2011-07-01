@@ -18,19 +18,10 @@ QString getNameForMatch (const Serie & serie)
 
 //----------------------------------------------------------------------------------------------
 // REQ [None.]
-// ENS [Format season on 2 digits.]
-QString getFormatSeason (const Serie & serie)
+// ENS [Return format on 2 digits.]
+QString toTwoDigits (uint number)
 {
-    return QString::number (serie.season ()).rightJustified (2, '0');
-}
-
-
-//----------------------------------------------------------------------------------------------
-// REQ [None.]
-// ENS [Format episode on 2 digits.]
-QString getFormatEpisode (uint episode)
-{
-   return QString::number (episode).rightJustified (2, '0');
+    return QString::number (number).rightJustified (2, '0');
 }
 
 //----------------------------------------------------------------------------------------------
@@ -64,16 +55,14 @@ void TorrentFinderController::reset ()
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::searchEpisodeInAllFinders(const Serie & serie, uint episode)
 {
-    foreach (ITorrentFinder * finder, _finders)
-    {
+    foreach (ITorrentFinder * finder, _finders) {
         finder->search (QString("%1 S%2E%3")
                         .arg (serie.name ())
-                        .arg (getFormatSeason (serie))
-                        .arg (getFormatEpisode (episode)));
+                        .arg (toTwoDigits (serie.season ()))
+                        .arg (toTwoDigits (episode)));
         _results.append (finder->getResults ());
     }
-    //
-    qSort (_results.begin (), _results.end (), greaterThan);
+    sortResultsBySeed ();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -81,19 +70,24 @@ void TorrentFinderController::findBestMatch (const Serie & serie, uint episode)
 {
     _regExp.setPattern (QString(".*%1.*%2.*%3.*")
                         .arg (getNameForMatch (serie))
-                        .arg (getFormatSeason (serie))
-                        .arg (getFormatEpisode (episode)));
+                        .arg (toTwoDigits (serie.season ()))
+                        .arg (toTwoDigits (episode)));
 
-    foreach(TorrentFinderResult res, _results)
-    {
-        if (_regExp.exactMatch (res.name ()))
-        {
-            _episodeIsFound = true;
+    foreach(TorrentFinderResult res, _results) {
+        _episodeIsFound =_regExp.exactMatch (res.name ());
+        if (_episodeIsFound) {
             _url            = res.url ();
             break;
         }
     }
 }
+
+//----------------------------------------------------------------------------------------------
+void TorrentFinderController::sortResultsBySeed ()
+{
+    qSort (_results.begin (), _results.end (), greaterThan);
+}
+
 
 //----------------------------------------------------------------------------------------------
 bool TorrentFinderController::episodeIsFound () const

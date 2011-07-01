@@ -6,6 +6,7 @@ class ILogger;
 class ISeriesController;
 class Serie;
 class TorrentFinderController;
+class QString;
 
 class Scheduler
 {
@@ -27,6 +28,13 @@ public:
     void update ();
 
 private:
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Next episode full name of the serie is returned.
+    //      If serie is House Season 1 and last episode seen is episode 3 then "House S01E04"
+    //      will be returned.]
+    QString nextEpisodeFullName(const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
     // REQ [At least one serie is followed.]
