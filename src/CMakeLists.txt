@@ -1,5 +1,3 @@
-find_package (Qt4 REQUIRED)
-
 SET(QT_USE_QTNETWORK TRUE)
 
 INCLUDE(${QT_USE_FILE})
