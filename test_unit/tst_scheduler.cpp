@@ -52,6 +52,7 @@ TestScheduler::TestScheduler(QObject *parent) :
      QVERIFY2 (fixture._finder->getRequest () == "House S01E02", "Nominal request");
      QVERIFY2 (fixture._network->url () == "house_torrent", "Nominal url");
      QVERIFY2 (fixture._series->lastEpisodeDl (houseSeason1) == 2, "Nominal inc");
+     QVERIFY2 (fixture._logger->success ().contains ("Season 1 Episode 2"), "info display");
      QVERIFY2 (QFile::exists (fixture._serieDownloader->_absoluteFileName),
                "Torrent downloaded");
 }

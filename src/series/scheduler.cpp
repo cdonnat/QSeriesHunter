@@ -71,9 +71,9 @@ void Scheduler::lookForNewEpisode (const Serie & serie)
 
         if (_downloader->downloadIsSuccessful ()) {
             _downloader->runTorrentWithExternalDefaultApp ();
-            _seriesController->inc (serie);
             _logger->logSuccess (QObject::tr ("%1 download started")
                                  .arg (nextEpisodeFullName(serie)));
+            _seriesController->inc (serie);
         }
     }
     else {

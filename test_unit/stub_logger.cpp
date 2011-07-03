@@ -36,6 +36,13 @@ const QString & LoggerStub::warning () const
 }
 
 //----------------------------------------------------------------------------------------------
+const QString & LoggerStub::success () const
+{
+    return _success;
+}
+
+
+//----------------------------------------------------------------------------------------------
 void LoggerStub::clear ()
 {
     _success.clear ();
