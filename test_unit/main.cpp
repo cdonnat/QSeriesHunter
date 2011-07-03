@@ -1,5 +1,5 @@
 #include <QtTest>
-#include <QCoreApplication>
+#include <QApplication>
 
 #include "tst_networkaccess.h"
 #include "tst_downloader.h"
@@ -11,10 +11,11 @@
 #include "tst_scheduler.h"
 #include "tst_editserie.h"
 #include "tst_mementocontroller.h"
+#include "tst_mainwindow.h"
 
 int main(int argc, char *argv[])
 {
-     QCoreApplication app(argc, argv);
+     QApplication app(argc, argv);
 
      return QTest::qExec (new TestNetworkAccess) ||
             QTest::qExec (new TestDownloader) ||
@@ -25,5 +26,6 @@ int main(int argc, char *argv[])
             QTest::qExec (new TestSeriesModel) ||
             QTest::qExec (new TestScheduler) ||
             QTest::qExec (new TestEditSerie) ||
-            QTest::qExec (new TestMementoController);
+            QTest::qExec (new TestMementoController) ||
+            QTest::qExec (new TestMainWindow);
 }
