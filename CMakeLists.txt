@@ -24,4 +24,5 @@ add_subdirectory (src)
 add_subdirectory (test_unit)
 add_subdirectory (main)
 
-
+ENABLE_TESTING()
+ADD_TEST(Test_Unit ${EXECUTABLE_OUTPUT_PATH}/test_qserieshunter)
