@@ -3,10 +3,18 @@ SET(QT_USE_QTNETWORK TRUE)
 INCLUDE(${QT_USE_FILE})
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
+if (WIN32)
+INCLUDE_DIRECTORIES(network
+                    series
+                    gui
+                    ${CMAKE_CURRENT_SOURCE_DIR}
+                    "C:/Program Files/qjson/include")
+else (WIN32)
 INCLUDE_DIRECTORIES(network
                     series
                     gui
                     ${CMAKE_CURRENT_SOURCE_DIR})
+endif (WIN32)
 
 SET(SOURCES_RC resources/QSeriesHunter.qrc)
 
