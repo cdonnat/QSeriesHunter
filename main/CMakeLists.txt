@@ -10,7 +10,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${QT_LIBRARIES} src)
 
 INSTALL(TARGETS ${PROJECT_NAME} 
         BUNDLE DESTINATION . COMPONENT Runtime
-        RUNTIME DESTINATION bin COMPONENT Runtime) 
+        RUNTIME DESTINATION . COMPONENT Runtime) 
 
 SET(DIRS ${QT_LIBRARY_DIR} ${LIBRARY_OUTPUT_PATH})
 if (WIN32)
@@ -28,7 +28,7 @@ elseif (APPLE)
 endif (WIN32)
 
 INSTALL(CODE "include(BundleUtilities)
-             fixup_bundle(\"\${CMAKE_INSTALL_PREFIX}/bin/${PROJECT_NAME}.${PROJECT_EXTENSION}\"   \"\"   \"${DIRS}\")
+             fixup_bundle(\"\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.${PROJECT_EXTENSION}\"   \"\"   \"${DIRS}\")
 			 " COMPONENT Runtime)
 
 SET(CPACK_GENERATOR ${GENERATOR})
