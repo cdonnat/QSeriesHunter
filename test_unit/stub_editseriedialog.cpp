@@ -18,15 +18,20 @@ void EditSerieDialogStub::setup(bool execIsOk,
 }
 
 //----------------------------------------------------------------------------------------------
-bool EditSerieDialogStub::exec(const QString & name         ,
+bool EditSerieDialogStub::exec(const QString & title        ,
+							   const QString & name         ,
                                const QString & season       ,
                                const QString & lastEpisodeDl)
 {
+	_title = title;
     Q_UNUSED(name);
     Q_UNUSED(season);
     Q_UNUSED(lastEpisodeDl);
     return _execIsOk;
 }
+
+//----------------------------------------------------------------------------------------------
+QString EditSerieDialogStub::title() const { return _title; }
 
 //----------------------------------------------------------------------------------------------
 QString EditSerieDialogStub::name() const { return _name; }

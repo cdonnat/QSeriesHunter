@@ -21,6 +21,7 @@ void TestEditSerie::testAdd ()
     TestEditSerie fixture;
     fixture._editDialog->setup (false, "House", "1", "2");
     fixture._sut->add ();
+	QVERIFY2(fixture._editDialog->title() == "Add a new serie", "Add title");
     QVERIFY2(!fixture._series->contains (Serie("House", 1)), "Serie not added");
     QVERIFY2(!fixture._message->displayWarningIsCalled (), "Warning not called");
     //
@@ -80,6 +81,7 @@ void TestEditSerie::testRemove ()
      // Nominal case
      fixture._editDialog->setup (true, "himym", "3", "4");
      fixture._sut->edit (fixture._series->index (1,0));
+	 QVERIFY2(fixture._editDialog->title() == "Edit a serie", "Edit title");
      QVERIFY2(fixture._series->contains (Serie("Himym", 3)),
               "1 - Serie correctly edited");
      QVERIFY2(fixture._series->lastEpisodeDl (Serie("Himym", 3)) == 4,

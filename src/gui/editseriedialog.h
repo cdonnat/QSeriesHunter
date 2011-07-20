@@ -17,7 +17,8 @@ public:
     // Commands:
 
     //----------------------------------------------------------------------------------------------
-    virtual bool exec(const QString & name          = "",
+    virtual bool exec(const QString & title             ,
+					  const QString & name          = "",
                       const QString & season        = "",
                       const QString & lastEpisodeDl = "");
 

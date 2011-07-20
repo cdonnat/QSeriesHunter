@@ -15,7 +15,8 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Display the dialog box.]
-    virtual bool exec(const QString & name          = "",
+    virtual bool exec(const QString & title             ,
+					  const QString & name          = "",
                       const QString & season        = "",
                       const QString & lastEpisodeDl = "") = 0;
 

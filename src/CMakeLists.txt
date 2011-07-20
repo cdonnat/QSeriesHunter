@@ -13,7 +13,8 @@ else (WIN32)
 INCLUDE_DIRECTORIES(network
                     series
                     gui
-                    ${CMAKE_CURRENT_SOURCE_DIR})
+                    ${CMAKE_CURRENT_SOURCE_DIR}
+					/usr/local/include)
 endif (WIN32)
 
 SET(SOURCES_RC resources/QSeriesHunter.qrc)
@@ -26,6 +27,10 @@ SET(MOC_HEADERS gui/mainwindow.h gui/serieswidget.h)
     
 QT4_WRAP_CPP(HEADERS_MOC ${MOC_HEADERS})
 QT4_ADD_RESOURCES(SOURCES_RC_SRC ${SOURCES_RC} )
+
+SOURCE_GROUP(Network FILES ${NETWORK_SRC})
+SOURCE_GROUP(Series FILES ${SERIES_SRC})
+SOURCE_GROUP(Gui FILES ${GUI_SRC})
 
 ADD_LIBRARY(src
             SHARED

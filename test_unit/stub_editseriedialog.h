@@ -19,7 +19,8 @@ public:
                const QString & lastEpisodeDl = "");
 
     //----------------------------------------------------------------------------------------------
-    virtual bool exec(const QString & name          = "",
+    virtual bool exec(const QString & title             ,
+					  const QString & name          = "",
                       const QString & season        = "",
                       const QString & lastEpisodeDl = "");
 
@@ -34,8 +35,12 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual QString lastEpisodeDl() const;
 
+	//----------------------------------------------------------------------------------------------
+	virtual QString title() const;
+	
 private:
     bool      _execIsOk;
+	QString   _title;
     QString   _name;
     QString   _season;
     QString   _lastEpisodeDl;

@@ -44,15 +44,15 @@ EditSerieDialog::EditSerieDialog()
 
     QObject::connect(_cancelButton, SIGNAL(clicked()),
                      _dialog, SLOT(reject()));
-
-    _dialog->setWindowTitle(QObject::tr("Add a Serie"));
 }
 
 //----------------------------------------------------------------------------------------------
-bool EditSerieDialog::exec (const QString & name         ,
+bool EditSerieDialog::exec (const QString & title        ,
+							const QString & name         ,
                             const QString & season       ,
                             const QString & lastEpisodeDl)
 {
+	_dialog->setWindowTitle(title);
     _nameEdit->setText (name);
     _seasonEdit->setText (season);
     _lastEpisodeDownloadedEdit->setText (lastEpisodeDl);

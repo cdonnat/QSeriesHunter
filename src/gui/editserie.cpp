@@ -67,7 +67,7 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
 //----------------------------------------------------------------------------------------------
 void EditSerie::add ()
 {
-    if (_dialog->exec ()) {
+    if (_dialog->exec (QObject::tr("Add a new serie"))) {
         if (inputsAreValid()) {
             addSerieIfNotAlreadyFollowed();
         }
@@ -111,8 +111,9 @@ void EditSerie::runEditSerieDialog (const QModelIndex & selection)
 
     Serie serieEdited = _series->at (selection.row ());
     uint  lastEpisode = _series->lastEpisodeDl (serieEdited);
-
-    if (_dialog->exec (serieEdited.name (),
+	
+    if (_dialog->exec (QObject::tr("Edit a serie"),
+					   serieEdited.name (),
                        QString("%1").arg(serieEdited.season ()),
                        QString("%1").arg(lastEpisode))) {
         if (inputsAreValid ())  {
