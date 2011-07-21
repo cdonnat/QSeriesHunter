@@ -42,8 +42,7 @@ void MainWindow::loadSettings()
 {
 	this->adjustSize();
 	QPointF widgetPosition = 
-		QApplication::desktop()->screen()->rect().center() - this->rect().center();
-	
+		QApplication::desktop()->screen()->rect().center() - this->rect().center();	
 	if (_settings.contains("position")) {
 		widgetPosition = _settings.value ("position").toPoint ();
 		setGeometry (_settings.value ("size").toRect ());		
