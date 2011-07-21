@@ -94,8 +94,9 @@ void Builder::buildView ()
     _view = new QTableView;
     _view->setModel (_model);
     _view->verticalHeader ()->hide ();
-    _view->horizontalHeader()->setStretchLastSection(true);
-    _view->setSelectionBehavior(QAbstractItemView::SelectRows);
+	_view->horizontalHeader()->setStretchLastSection(true);
+    _view->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+	_view->setSelectionBehavior(QAbstractItemView::SelectRows);
     _view->setEditTriggers(QAbstractItemView::NoEditTriggers);
     _view->setSelectionMode(QAbstractItemView::SingleSelection);
     _view->setAlternatingRowColors (true);
