@@ -10,9 +10,7 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wno-unused -Wno-uninitialized")
 
 SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
              "Debug" "Release" "Coverage")
-if(CMAKE_BUILD_TYPE STREQUAL "Coverage")
-	ADD_DEFINITIONS(-DQT_NO_DEBUG)
-endif()
+
 SET(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
 SET(CMAKE_C_FLAGS_COVERAGE "${CMAKE_C_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage")
 SET(CMAKE_EXE_LINKER_FLAGS_COVERAGE "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
