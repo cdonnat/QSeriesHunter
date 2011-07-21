@@ -99,6 +99,7 @@ void Builder::buildView ()
     _view->setEditTriggers(QAbstractItemView::NoEditTriggers);
     _view->setSelectionMode(QAbstractItemView::SingleSelection);
     _view->setAlternatingRowColors (true);
+	_view->resizeColumnsToContents();
 }
 
 //----------------------------------------------------------------------------------------------
