@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include "config.h"
 #include "serieswidget.h"
 
 #include <QApplication>
@@ -42,9 +43,13 @@ MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 //----------------------------------------------------------------------------------------------
 void MainWindow::about()
 {
+	const int major = QSERIESHUNTER_MAJOR;
+	const int minor = QSERIESHUNTER_MINOR;
+	const int patch = QSERIESHUNTER_PATCH;
+	
     QMessageBox::about(this, 
-                       tr("QSeriesHunter"),
-                       tr("QSeriesHunter"));
+                       tr("About QSeriesHunter"),
+                       tr("QSeriesHunter Version %1.%2.%3").arg(major).arg(minor).arg(patch));
 }
 
 //----------------------------------------------------------------------------------------------

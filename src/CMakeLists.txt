@@ -17,6 +17,9 @@ INCLUDE_DIRECTORIES(network
 					/usr/local/include)
 endif (WIN32)
 
+MESSAGE (STATUS ${CMAKE_CURRENT_BINARY_DIR})
+CONFIGURE_FILE (${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
+
 SET(SOURCES_RC resources/src.qrc)
 
 FILE(GLOB NETWORK_SRC "network/*.*")

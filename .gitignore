@@ -5,3 +5,4 @@ exe/
 src/moc/
 test_unit/moc/
 build/
+config.h
