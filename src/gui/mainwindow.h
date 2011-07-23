@@ -23,8 +23,23 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual void closeEvent(QCloseEvent *event);
 
+private slots:
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Display the about dialog box.]
+    void about();
+
+    
 private:
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Display the about dialog box.]
+    void createMenus ();
+    
+    
+    
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Load last position and geometry of the main window.]
@@ -43,6 +58,8 @@ private:
     QAction       * _remove;
     QAction       * _update;
     QAction       * _edit;
+    QAction       * _about;
+    QAction       * _aboutQt;
 
     QSettings       _settings;
 };

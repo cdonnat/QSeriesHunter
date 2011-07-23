@@ -17,7 +17,7 @@ INCLUDE_DIRECTORIES(network
 					/usr/local/include)
 endif (WIN32)
 
-SET(SOURCES_RC resources/QSeriesHunter.qrc)
+SET(SOURCES_RC resources/src.qrc)
 
 FILE(GLOB NETWORK_SRC "network/*.*")
 FILE(GLOB SERIES_SRC "series/*.*")

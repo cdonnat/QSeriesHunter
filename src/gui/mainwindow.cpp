@@ -6,6 +6,8 @@
 #include <QDesktopWidget>
 #include <QAction>
 #include <QCloseEvent>
+#include <QMenuBar>
+#include <QMessageBox>
 #include <QPointF>
 #include <QToolBar>
 
@@ -33,8 +35,32 @@ MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
     this->addToolBar (_toolBar);
     this->setCentralWidget (_seriesWidget);
     this->setWindowTitle ("QSeriesHunter");
-
+    createMenus();
     loadSettings();
+}
+
+//----------------------------------------------------------------------------------------------
+void MainWindow::about()
+{
+    QMessageBox::about(this, 
+                       tr("QSeriesHunter"),
+                       tr("QSeriesHunter"));
+}
+
+//----------------------------------------------------------------------------------------------
+void MainWindow::createMenus()
+{
+    _about = new QAction(tr("&About"), this);
+    _about->setStatusTip(tr("Show the application's About box"));
+    connect(_about, SIGNAL(triggered()), this, SLOT(about()));
+    
+    _aboutQt = new QAction(tr("About &Qt"), this);
+    _aboutQt->setStatusTip(tr("Show the Qt library's About box"));
+    connect(_aboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    
+    QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
+    helpMenu->addAction(_about);
+    helpMenu->addAction(_aboutQt);
 }
 
 //----------------------------------------------------------------------------------------------
