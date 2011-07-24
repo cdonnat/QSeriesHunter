@@ -17,17 +17,16 @@
 #include <QTableView>
 #include <QHeaderView>
 
-const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
 //----------------------------------------------------------------------------------------------
-Builder::Builder(ILogger * logger):_logger(logger)
+Builder::Builder(ILogger * logger, const QString & initFile):_logger(logger)
 {
     Q_ASSERT(logger != NULL);
     buildNetwork ();
     buildMessageBox ();
     buildModel();
     buildEditSerie ();
-    buildMementoController ();
+    buildMementoController (initFile);
     buildScheduler ();
     buildView();
 }
@@ -41,7 +40,7 @@ void Builder::buildEditSerie ()
 }
 
 //----------------------------------------------------------------------------------------------
-void Builder::buildMementoController ()
+void Builder::buildMementoController (const QString & initFile)
 {
     Q_ASSERT (_model != NULL);
     _mementoController = new MementoController(_model, initFile);

@@ -12,17 +12,17 @@
 #include <QVBoxLayout>
 
 //----------------------------------------------------------------------------------------------
-SeriesWidget::SeriesWidget(ILogger * logger, QWidget *parent) :
+SeriesWidget::SeriesWidget(ILogger * logger, const QString & initFile, QWidget *parent) :
     QWidget(parent)
 {
-    createAttributes(logger);
+    createAttributes(logger, initFile);
     createLayouts ();
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesWidget::createAttributes (ILogger * logger)
+void SeriesWidget::createAttributes (ILogger * logger, const QString & initFile)
 {
-    Builder   builder(logger);
+    Builder   builder(logger, initFile);
     _view              = builder.getView();
     _scheduler         = builder.getScheduler ();
     _mementoController = builder.getMementoController ();
@@ -73,6 +73,8 @@ void SeriesWidget::remove()
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::update ()
 {
+    emit updateBegin();
     _scheduler->update ();
     _mementoController->saveMemento ();
+    emit updateEnd();
 }

@@ -10,13 +10,14 @@ class Scheduler;
 class SeriesModel;
 class TorrentFinderController;
 
+class QString;
 class QTableView;
 
 class Builder
 {
 public:
     //----------------------------------------------------------------------------------------------
-    explicit Builder(ILogger * logger);
+    explicit Builder(ILogger * logger, const QString & initFile);
 
     //----------------------------------------------------------------------------------------------
     Scheduler * const getScheduler() const;
@@ -33,7 +34,7 @@ public:
 private:
 
     void buildEditSerie();
-    void buildMementoController();
+    void buildMementoController(const QString & initFile);
     void buildMessageBox();
     void buildModel();
     void buildNetwork();

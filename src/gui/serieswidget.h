@@ -10,14 +10,24 @@ class Scheduler;
 
 class QTableView;
 class QModelIndex;
+class QString;
 
 class SeriesWidget : public QWidget
 {
     Q_OBJECT
 public:
     //----------------------------------------------------------------------------------------------
-    explicit SeriesWidget(ILogger * logger, QWidget *parent = 0);
+    explicit SeriesWidget(ILogger * logger, const QString & initFile, QWidget *parent = 0);
 
+signals:
+    
+    //----------------------------------------------------------------------------------------------
+    void updateBegin();
+
+    //----------------------------------------------------------------------------------------------
+    void updateEnd();
+
+    
 public slots:
 
     //----------------------------------------------------------------------------------------------
@@ -32,11 +42,10 @@ public slots:
     //----------------------------------------------------------------------------------------------
     void update();
 
-
 private:
 
     //----------------------------------------------------------------------------------------------
-    void createAttributes(ILogger * logger);
+    void createAttributes(ILogger * logger, const QString & initFile);
 
     //----------------------------------------------------------------------------------------------
     void createLayouts();
@@ -45,7 +54,7 @@ private:
     QModelIndex getModelIndexSelected() const;
 
 private:
-    QTableView        * _view;;
+    QTableView        * _view;
     EditSerie         * _editSerie;
     Scheduler         * _scheduler;
     MementoController * _mementoController;

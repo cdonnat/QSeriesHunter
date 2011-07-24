@@ -9,15 +9,21 @@
 #include <QDockWidget>
 #include <QAction>
 #include <QCloseEvent>
+#include <QDir>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPointF>
+#include <QProgressBar>
+#include <QStatusBar>
 #include <QToolBar>
+
+const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
 //----------------------------------------------------------------------------------------------
 MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 {
     createWidgets();
+    createStatusBar();
     createToolbar();
     createMenus();
     loadSettings();
@@ -32,7 +38,7 @@ void MainWindow::createWidgets()
     _dockLog->setVisible(false);
     this->addDockWidget(Qt::BottomDockWidgetArea, _dockLog);
 
-    _seriesWidget = new SeriesWidget(_loggerWidget, this);
+    _seriesWidget = new SeriesWidget(_loggerWidget, initFile, this);
     this->setCentralWidget (_seriesWidget);
     this->setWindowTitle ("QSeriesHunter");
 }
@@ -70,6 +76,19 @@ void MainWindow::about()
                        tr("About QSeriesHunter"),
                        tr("QSeriesHunter Version %1.%2.%3").arg(major).arg(minor).arg(patch));
 }
+
+//----------------------------------------------------------------------------------------------
+void MainWindow::createStatusBar()
+{
+    QStatusBar * statusBar = this->statusBar();
+    
+    QProgressBar * progressBar = new QProgressBar(this);
+    progressBar->setMinimum(0);
+    progressBar->setMaximum(0);
+    statusBar->addPermanentWidget(progressBar);
+    statusBar->showMessage(tr("Ready"), 2000);    
+}
+
 
 //----------------------------------------------------------------------------------------------
 void MainWindow::createMenus()

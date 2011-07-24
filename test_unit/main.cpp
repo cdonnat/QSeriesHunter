@@ -11,6 +11,7 @@
 #include "tst_scheduler.h"
 #include "tst_editserie.h"
 #include "tst_mementocontroller.h"
+#include "tst_serieswidget.h"
 #include "tst_mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -27,5 +28,6 @@ int main(int argc, char *argv[])
             QTest::qExec (new TestScheduler) ||
             QTest::qExec (new TestEditSerie) ||
             QTest::qExec (new TestMementoController) ||
-            QTest::qExec (new TestMainWindow);
+            QTest::qExec (new TestMainWindow) ||
+            QTest::qExec (new TestSeriesWidget);
 }
