@@ -4,7 +4,7 @@
 #include <QWidget>
 
 class EditSerie;
-class LoggerWidget;
+class ILogger;
 class MementoController;
 class Scheduler;
 
@@ -16,7 +16,7 @@ class SeriesWidget : public QWidget
     Q_OBJECT
 public:
     //----------------------------------------------------------------------------------------------
-    explicit SeriesWidget(QWidget *parent = 0);
+    explicit SeriesWidget(ILogger * logger, QWidget *parent = 0);
 
 public slots:
 
@@ -36,7 +36,7 @@ public slots:
 private:
 
     //----------------------------------------------------------------------------------------------
-    void createAttributes();
+    void createAttributes(ILogger * logger);
 
     //----------------------------------------------------------------------------------------------
     void createLayouts();
@@ -45,8 +45,7 @@ private:
     QModelIndex getModelIndexSelected() const;
 
 private:
-    QTableView        * _view;
-    LoggerWidget      * _logger;
+    QTableView        * _view;;
     EditSerie         * _editSerie;
     Scheduler         * _scheduler;
     MementoController * _mementoController;

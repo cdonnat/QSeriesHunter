@@ -20,10 +20,10 @@
 const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
 //----------------------------------------------------------------------------------------------
-Builder::Builder()
+Builder::Builder(ILogger * logger):_logger(logger)
 {
+    Q_ASSERT(logger != NULL);
     buildNetwork ();
-    buildLogger ();
     buildMessageBox ();
     buildModel();
     buildEditSerie ();
@@ -38,12 +38,6 @@ void Builder::buildEditSerie ()
     Q_ASSERT (_model != NULL);
     Q_ASSERT (_messageBox != NULL);
     _editSerie  = new EditSerie(new EditSerieDialog(), _model, _messageBox);
-}
-
-//----------------------------------------------------------------------------------------------
-void Builder::buildLogger()
-{
-    _logger = new LoggerWidget();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -119,12 +113,6 @@ MementoController * const Builder::getMementoController() const
 EditSerie * const Builder::getEditSerie() const
 {
     return _editSerie;
-}
-
-//----------------------------------------------------------------------------------------------
-LoggerWidget * const Builder::getLogger() const
-{
-    return _logger;
 }
 
 //----------------------------------------------------------------------------------------------

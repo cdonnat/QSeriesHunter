@@ -6,7 +6,9 @@
 
 class QAction;
 class QCloseEvent;
+class QDockWidget;
 class QToolBar;
+class LoggerWidget;
 class SeriesWidget;
 
 class MainWindow : public QMainWindow
@@ -35,10 +37,18 @@ private:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Display the about dialog box.]
+    // ENS [Create widget series and log.]
+    void createWidgets();
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Create the toolbar.]
+    void createToolbar();
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Create menus.]
     void createMenus ();
-    
-    
     
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
@@ -51,8 +61,10 @@ private:
     void saveSettings();
 
 private:
+    QDockWidget   * _dockLog;
     QToolBar      * _toolBar;
     SeriesWidget  * _seriesWidget;
+    LoggerWidget  * _loggerWidget;
 
     QAction       * _add;
     QAction       * _remove;

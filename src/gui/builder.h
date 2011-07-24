@@ -3,7 +3,7 @@
 
 class EditSerie;
 class IMessageBox;
-class LoggerWidget;
+class ILogger;
 class MementoController;
 class NetworkAccess;
 class Scheduler;
@@ -16,7 +16,7 @@ class Builder
 {
 public:
     //----------------------------------------------------------------------------------------------
-    explicit Builder();
+    explicit Builder(ILogger * logger);
 
     //----------------------------------------------------------------------------------------------
     Scheduler * const getScheduler() const;
@@ -28,15 +28,11 @@ public:
     EditSerie * const getEditSerie() const;
 
     //----------------------------------------------------------------------------------------------
-    LoggerWidget * const getLogger() const;
-
-    //----------------------------------------------------------------------------------------------
     QTableView * const getView() const;
 
 private:
 
     void buildEditSerie();
-    void buildLogger();
     void buildMementoController();
     void buildMessageBox();
     void buildModel();
@@ -44,10 +40,10 @@ private:
     void buildScheduler();
     void buildView();
 
+    ILogger                 * _logger;
     QTableView              * _view;
     EditSerie               * _editSerie;
     IMessageBox             * _messageBox;
-    LoggerWidget            * _logger;
     MementoController       * _mementoController;
     NetworkAccess           * _networkAccess;
     SeriesModel             * _model;

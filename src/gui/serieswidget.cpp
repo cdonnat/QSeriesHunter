@@ -12,33 +12,28 @@
 #include <QVBoxLayout>
 
 //----------------------------------------------------------------------------------------------
-SeriesWidget::SeriesWidget(QWidget *parent) :
+SeriesWidget::SeriesWidget(ILogger * logger, QWidget *parent) :
     QWidget(parent)
 {
-    createAttributes();
+    createAttributes(logger);
     createLayouts ();
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesWidget::createAttributes ()
+void SeriesWidget::createAttributes (ILogger * logger)
 {
-    Builder   builder;
+    Builder   builder(logger);
     _view              = builder.getView();
     _scheduler         = builder.getScheduler ();
     _mementoController = builder.getMementoController ();
     _editSerie         = builder.getEditSerie ();
-    _logger            = builder.getLogger ();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::createLayouts ()
 {
-    QSplitter    * splitter = new QSplitter(Qt::Vertical, this);
-    splitter->addWidget (_view);
-    splitter->addWidget (_logger->getTextEdit ());
-
     QVBoxLayout  * layout = new QVBoxLayout(this);
-    layout->addWidget (splitter);
+    layout->addWidget(_view);
     setLayout (layout);
 }
 
