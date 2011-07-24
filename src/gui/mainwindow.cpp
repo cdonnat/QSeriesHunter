@@ -65,6 +65,17 @@ void MainWindow::createToolbar()
     this->addToolBar (_toolBar);
 }
 
+void MainWindow::showProgressBar()
+{
+    _progressBar->setVisible(true);
+}
+
+void MainWindow::hideProgressBar()
+{
+    _progressBar->setVisible(false);
+}
+
+
 //----------------------------------------------------------------------------------------------
 void MainWindow::about()
 {
@@ -82,11 +93,15 @@ void MainWindow::createStatusBar()
 {
     QStatusBar * statusBar = this->statusBar();
     
-    QProgressBar * progressBar = new QProgressBar(this);
-    progressBar->setMinimum(0);
-    progressBar->setMaximum(0);
-    statusBar->addPermanentWidget(progressBar);
-    statusBar->showMessage(tr("Ready"), 2000);    
+    _progressBar = new QProgressBar(this);
+    _progressBar->setMinimum(0);
+    _progressBar->setMaximum(0);
+    _progressBar->setVisible(false);
+    statusBar->addPermanentWidget(_progressBar);
+    statusBar->showMessage(tr("Ready"), 2000);  
+    
+    connect (_seriesWidget, SIGNAL(updateBegin()), this, SLOT(showProgressBar()));
+    connect (_seriesWidget, SIGNAL(updateEnd()), this, SLOT(hideProgressBar()));
 }
 
 

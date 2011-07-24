@@ -7,6 +7,7 @@
 class QAction;
 class QCloseEvent;
 class QDockWidget;
+class QProgressBar;
 class QToolBar;
 class LoggerWidget;
 class SeriesWidget;
@@ -32,6 +33,9 @@ private slots:
     // ENS [Display the about dialog box.]
     void about();
 
+    void showProgressBar();
+    
+    void hideProgressBar();
     
 private:
 
@@ -67,6 +71,7 @@ private:
 
 private:
     QDockWidget   * _dockLog;
+    QProgressBar  * _progressBar;
     QToolBar      * _toolBar;
     SeriesWidget  * _seriesWidget;
     LoggerWidget  * _loggerWidget;
