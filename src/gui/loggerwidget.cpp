@@ -2,44 +2,44 @@
 
 #include <QDateTime>
 #include <QString>
-#include <QTextEdit>
+#include <QTextBrowser>
 
 //----------------------------------------------------------------------------------------------
-LoggerWidget::LoggerWidget() : _textEdit (new QTextEdit())
+LoggerWidget::LoggerWidget() : _logConsole (new QTextBrowser())
 {
 }
 
 //----------------------------------------------------------------------------------------------
 LoggerWidget::~LoggerWidget()
 {
-    _textEdit->deleteLater ();
+    _logConsole->deleteLater ();
 }
 
 //----------------------------------------------------------------------------------------------
 void LoggerWidget::logSuccess (const QString & info)
 {
-    _textEdit->setTextColor (Qt::green);
+    _logConsole->setTextColor (Qt::green);
     display (info);
 }
 
 //----------------------------------------------------------------------------------------------
 void LoggerWidget::logInfo (const QString & info)
 {
-    _textEdit->setTextColor (Qt::black);
+    _logConsole->setTextColor (Qt::black);
     display (info);
 }
 
 //----------------------------------------------------------------------------------------------
 void LoggerWidget::logWarning (const QString & warning)
 {
-    _textEdit->setTextColor (Qt::red);
+    _logConsole->setTextColor (Qt::red);
     display (warning);
 }
 
 //----------------------------------------------------------------------------------------------
-QTextEdit * const LoggerWidget::getTextEdit() const
+QWidget * const LoggerWidget::getLogConsole() const
 {
-    return _textEdit;
+    return _logConsole;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -49,5 +49,5 @@ void LoggerWidget::display(const QString & text)
     QString toDisplay   = QString("[%1] %2").arg(currentDate)
                                             .arg(text);
 
-    _textEdit->append (toDisplay);
+    _logConsole->append (toDisplay);
 }

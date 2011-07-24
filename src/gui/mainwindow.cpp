@@ -12,7 +12,6 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPointF>
-#include <QTextEdit>
 #include <QToolBar>
 
 //----------------------------------------------------------------------------------------------
@@ -29,7 +28,7 @@ void MainWindow::createWidgets()
 {
     _loggerWidget = new LoggerWidget();
     _dockLog = new QDockWidget(tr("Console Log"), this);
-    _dockLog->setWidget(_loggerWidget->getTextEdit());
+    _dockLog->setWidget(_loggerWidget->getLogConsole());
     _dockLog->setVisible(false);
     this->addDockWidget(Qt::BottomDockWidgetArea, _dockLog);
 
@@ -102,6 +101,7 @@ void MainWindow::loadSettings()
 		setGeometry (_settings.value ("size").toRect ());		
 	}
 	move (widgetPosition.x(), widgetPosition.y());	
+    _dockLog->setVisible(_settings.value("consoleIsVisible").toBool());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -109,6 +109,7 @@ void MainWindow::saveSettings()
 {
     _settings.setValue ("position", pos ());
     _settings.setValue ("size", geometry ());
+    _settings.setValue("consoleIsVisible", _dockLog->isVisible());
 }
 
 //----------------------------------------------------------------------------------------------

@@ -3,8 +3,9 @@
 
 #include "ilogger.h"
 
-class QTextEdit;
 class QString;
+class QTextBrowser;
+class QWidget;
 
 class LoggerWidget : public ILogger
 {
@@ -25,13 +26,13 @@ public:
     virtual void logWarning (const QString & warning);
 
     //----------------------------------------------------------------------------------------------
-    QTextEdit * const getTextEdit() const;
+    QWidget * const getLogConsole() const;
 
 private:
     void display(const QString & text);
 
 private:
-    QTextEdit  * _textEdit;
+    QTextBrowser  * _logConsole;
 };
 
 #endif // LOGGERWIDGET_H
