@@ -119,7 +119,9 @@ void SeriesModel::removeSerie (const Serie & serie)
 //----------------------------------------------------------------------------------------------
 void SeriesModel::inc (const Serie & serie)
 {
+    beginResetModel ();
     _series->inc (serie);
+    endResetModel ();
 }
 
 //----------------------------------------------------------------------------------------------

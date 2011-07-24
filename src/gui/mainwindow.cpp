@@ -98,10 +98,10 @@ void MainWindow::loadSettings()
 		QApplication::desktop()->screen()->rect().center() - this->rect().center();	
 	if (_settings.contains("position")) {
 		widgetPosition = _settings.value ("position").toPoint ();
-		setGeometry (_settings.value ("size").toRect ());		
+		setGeometry (_settings.value ("size").toRect ());
+        _dockLog->setVisible(_settings.value("consoleIsVisible").toBool());
 	}
 	move (widgetPosition.x(), widgetPosition.y());	
-    _dockLog->setVisible(_settings.value("consoleIsVisible").toBool());
 }
 
 //----------------------------------------------------------------------------------------------
