@@ -1,15 +1,15 @@
 #ifndef LOGGERWIDGET_H
 #define LOGGERWIDGET_H
 
-#include <QObject>
+#include <QWidget>
 
 #include "ilogger.h"
 
+class QPushButton;
 class QString;
 class QTextBrowser;
-class QWidget;
 
-class LoggerWidget : public QObject, public ILogger
+class LoggerWidget : public QWidget, public ILogger
 {
     Q_OBJECT
     
@@ -28,15 +28,18 @@ public:
 
     //----------------------------------------------------------------------------------------------
     virtual void logWarning (const QString & warning);
-
+    
+private slots:
+    
     //----------------------------------------------------------------------------------------------
-    QWidget * const getLogConsole() const;
+    void clear();
     
 private:
     void display(const QString & text);
 
 private:
     QTextBrowser  * _logConsole;
+    QPushButton   * _clearButton;
 };
 
 #endif // LOGGERWIDGET_H

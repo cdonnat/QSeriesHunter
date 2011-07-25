@@ -34,7 +34,7 @@ void MainWindow::createWidgets()
 {
     _loggerWidget = new LoggerWidget();
     _dockLog = new QDockWidget(tr("Console Log"), this);
-    _dockLog->setWidget(_loggerWidget->getLogConsole());
+    _dockLog->setWidget(_loggerWidget);
     _dockLog->setVisible(false);
     this->addDockWidget(Qt::BottomDockWidgetArea, _dockLog);
 
@@ -66,15 +66,27 @@ void MainWindow::createToolbar()
 }
 
 //----------------------------------------------------------------------------------------------
-void MainWindow::showProgressBar()
+void MainWindow::setActionsEnabled (bool areEnabled)
+{
+    this->_add->setEnabled(areEnabled);
+    this->_update->setEnabled(areEnabled);
+    this->_edit->setEnabled(areEnabled);
+    this->_remove->setEnabled(areEnabled);
+}
+
+
+//----------------------------------------------------------------------------------------------
+void MainWindow::updateBegin()
 {
     _progressBar->setVisible(true);
+    setActionsEnabled(false);
 }
 
 //----------------------------------------------------------------------------------------------
-void MainWindow::hideProgressBar()
+void MainWindow::updateEnd()
 {
     _progressBar->setVisible(false);
+    setActionsEnabled(true);
 }
 
 
@@ -102,8 +114,8 @@ void MainWindow::createStatusBar()
     statusBar->addPermanentWidget(_progressBar);
     statusBar->showMessage(tr("Ready"), 2000);  
     
-    connect (_seriesWidget, SIGNAL(updateBegin()), this, SLOT(showProgressBar()));
-    connect (_seriesWidget, SIGNAL(updateEnd()), this, SLOT(hideProgressBar()));
+    connect (_seriesWidget, SIGNAL(updateBegin()), this, SLOT(updateBegin()));
+    connect (_seriesWidget, SIGNAL(updateEnd()), this, SLOT(updateEnd()));
 }
 
 

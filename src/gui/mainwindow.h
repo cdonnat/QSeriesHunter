@@ -33,9 +33,15 @@ private slots:
     // ENS [Display the about dialog box.]
     void about();
 
-    void showProgressBar();
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Progress bar is visible and actions are disabled.]
+    void updateBegin();
     
-    void hideProgressBar();
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Progress bar is hidden and actions are enabled.]
+    void updateEnd();
     
 private:
 
@@ -69,6 +75,11 @@ private:
     // ENS [Save last position and geometry of the main window.]
     void saveSettings();
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Enables or disables actions.]    
+    void setActionsEnabled (bool areEnabled);
+    
 private:
     QDockWidget   * _dockLog;
     QProgressBar  * _progressBar;

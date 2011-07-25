@@ -4,16 +4,31 @@
 #include <QPushButton>
 #include <QString>
 #include <QTextBrowser>
+#include <QVBoxLayout>
 
 //----------------------------------------------------------------------------------------------
-LoggerWidget::LoggerWidget() : QObject(),_logConsole (new QTextBrowser())
+LoggerWidget::LoggerWidget() : QWidget(),
+_logConsole (new QTextBrowser(this)), 
+_clearButton(new QPushButton(QIcon(":images/clear.png"), tr("Clear"), this))
 {
+    QVBoxLayout * layout = new QVBoxLayout(this);
+    layout->addWidget(_logConsole);
+    layout->addWidget(_clearButton);
+    setLayout(layout);
+    
+    connect(_clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 }
 
 //----------------------------------------------------------------------------------------------
 LoggerWidget::~LoggerWidget()
 {
     _logConsole->deleteLater ();
+}
+
+//----------------------------------------------------------------------------------------------
+void LoggerWidget::clear()
+{
+    _logConsole->clear();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -35,12 +50,6 @@ void LoggerWidget::logWarning (const QString & warning)
 {
     _logConsole->setTextColor (Qt::red);
     display (warning);
-}
-
-//----------------------------------------------------------------------------------------------
-QWidget * const LoggerWidget::getLogConsole() const
-{
-    return _logConsole;
 }
 
 //----------------------------------------------------------------------------------------------
