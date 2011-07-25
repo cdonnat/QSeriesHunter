@@ -1,14 +1,18 @@
 #ifndef LOGGERWIDGET_H
 #define LOGGERWIDGET_H
 
+#include <QObject>
+
 #include "ilogger.h"
 
 class QString;
 class QTextBrowser;
 class QWidget;
 
-class LoggerWidget : public ILogger
+class LoggerWidget : public QObject, public ILogger
 {
+    Q_OBJECT
+    
 public:
     //----------------------------------------------------------------------------------------------
     explicit LoggerWidget ();
@@ -27,7 +31,7 @@ public:
 
     //----------------------------------------------------------------------------------------------
     QWidget * const getLogConsole() const;
-
+    
 private:
     void display(const QString & text);
 

@@ -1,11 +1,12 @@
 #include "loggerwidget.h"
 
 #include <QDateTime>
+#include <QPushButton>
 #include <QString>
 #include <QTextBrowser>
 
 //----------------------------------------------------------------------------------------------
-LoggerWidget::LoggerWidget() : _logConsole (new QTextBrowser())
+LoggerWidget::LoggerWidget() : QObject(),_logConsole (new QTextBrowser())
 {
 }
 

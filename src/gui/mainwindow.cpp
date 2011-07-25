@@ -65,11 +65,13 @@ void MainWindow::createToolbar()
     this->addToolBar (_toolBar);
 }
 
+//----------------------------------------------------------------------------------------------
 void MainWindow::showProgressBar()
 {
     _progressBar->setVisible(true);
 }
 
+//----------------------------------------------------------------------------------------------
 void MainWindow::hideProgressBar()
 {
     _progressBar->setVisible(false);
