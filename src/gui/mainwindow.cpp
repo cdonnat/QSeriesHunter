@@ -119,6 +119,7 @@ void MainWindow::createMenus()
     connect(_aboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     
     QMenu * viewMenu = menuBar()->addMenu(tr("&View"));
+    _dockLog->toggleViewAction()->setIcon(QIcon(":images/log.png"));
     viewMenu->addAction(_dockLog->toggleViewAction());
     
     QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
