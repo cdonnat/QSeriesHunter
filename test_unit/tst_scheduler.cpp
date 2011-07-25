@@ -49,7 +49,7 @@ TestScheduler::TestScheduler(QObject *parent) :
 
      fixture._sut->update ();
 
-     QVERIFY2 (fixture._finder->getRequest () == "House S01E02", "Nominal request");
+     QVERIFY2 (fixture._finder->getRequest () == "|House S01E02|House 1x02", "Nominal request");
      QVERIFY2 (fixture._network->url () == "house_torrent", "Nominal url");
      QVERIFY2 (fixture._series->lastEpisodeDl (houseSeason1) == 2, "Nominal inc");
      QVERIFY2 (fixture._logger->success ().contains ("Season 1 Episode 2"), "info display");
@@ -66,6 +66,6 @@ void TestScheduler::testFail()
 
     fixture._sut->update ();
 
-    QVERIFY2 (fixture._finder->getRequest () == "House S01E02", "Fail request");
+    QVERIFY2 (fixture._finder->getRequest () == "|House S01E02|House 1x02", "Fail request");
     QVERIFY2 (fixture._series->lastEpisodeDl (houseSeason1) == 1, "not inc");
 }

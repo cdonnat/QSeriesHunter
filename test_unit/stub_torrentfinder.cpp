@@ -8,9 +8,16 @@ TorrentFinderStub::TorrentFinderStub()
 }
 
 //----------------------------------------------------------------------------------------------
+void TorrentFinderStub::reset()
+{
+    _request.clear();
+}
+
+
+//----------------------------------------------------------------------------------------------
 void TorrentFinderStub::search(const QString & name)
 {
-    _request = name;
+    _request.append("|" + name);
 }
 
 void TorrentFinderStub::setResults (const TorrentFinderResults & results)
