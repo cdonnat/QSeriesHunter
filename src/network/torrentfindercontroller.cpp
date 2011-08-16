@@ -25,7 +25,7 @@ QString toTwoDigits (uint number)
 }
 
 //----------------------------------------------------------------------------------------------
-TorrentFinderController::TorrentFinderController()
+TorrentFinderController::TorrentFinderController():_episodeIsFound(false)
 {
     _regExp.setCaseSensitivity (Qt::CaseInsensitive);
 }
