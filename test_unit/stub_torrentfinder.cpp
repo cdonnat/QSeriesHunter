@@ -15,7 +15,7 @@ void TorrentFinderStub::reset()
 
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderStub::search(const QString & name)
+void TorrentFinderStub::find(const QString & name)
 {
     _request.append("|" + name);
 }

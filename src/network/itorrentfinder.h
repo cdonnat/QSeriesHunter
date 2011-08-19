@@ -18,7 +18,7 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [A request is sent to a specific server.]
-    virtual void search(const QString & name) = 0;
+    virtual void find(const QString & name) = 0;
 
     // Queries:
 

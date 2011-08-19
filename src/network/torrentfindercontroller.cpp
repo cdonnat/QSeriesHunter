@@ -38,10 +38,10 @@ void TorrentFinderController::addTorrentFinder (ITorrentFinder * torrentFinder)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::searchEpisode (const Serie & serie, uint episode)
+void TorrentFinderController::findEpisode (const Serie & serie, uint episode)
 {
     this->reset();
-    this->searchEpisodeInAllFinders (serie, episode);
+    this->findEpisodeInAllFinders (serie, episode);
     this->findBestMatch (serie, episode);
 }
 
@@ -53,16 +53,16 @@ void TorrentFinderController::reset ()
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::searchEpisodeInAllFinders(const Serie & serie, uint episode)
+void TorrentFinderController::findEpisodeInAllFinders(const Serie & serie, uint episode)
 {
     foreach (ITorrentFinder * finder, _finders) {
-        finder->search (QString("%1 S%2E%3") // Season S??E??
+        finder->find (QString("%1 S%2E%3") // Season S??E??
                         .arg (serie.name ())
                         .arg (toTwoDigits (serie.season ()))
                         .arg (toTwoDigits (episode)));
         _results.append (finder->getResults ());
         
-        finder->search (QString("%1 %2x%3") // Season ??x??
+        finder->find (QString("%1 %2x%3") // Season ??x??
                         .arg (serie.name ())
                         .arg (serie.season ())
                         .arg (toTwoDigits (episode)));

@@ -13,7 +13,7 @@ public:
     // Commands:
 
     //----------------------------------------------------------------------------------------------
-    virtual void search(const QString & name);
+    virtual void find(const QString & name);
 
     //----------------------------------------------------------------------------------------------
     void setResults (const TorrentFinderResults & results);

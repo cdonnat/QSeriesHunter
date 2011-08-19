@@ -27,7 +27,7 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [A request to find the episode of the serie is returned.]
-    void searchEpisode (const Serie & serie, uint episode);
+    void findEpisode (const Serie & serie, uint episode);
 
     // Queries:
 
@@ -51,7 +51,7 @@ private:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Results are ready and sorted by seed.]
-    void searchEpisodeInAllFinders(const Serie & serie, uint episode);
+    void findEpisodeInAllFinders(const Serie & serie, uint episode);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]

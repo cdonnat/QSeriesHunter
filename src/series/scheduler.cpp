@@ -62,7 +62,7 @@ QString Scheduler::nextEpisodeFullName(const Serie & serie)
 void Scheduler::lookForNewEpisode (const Serie & serie)
 {
     _logger->logInfo (QObject::tr ("Looking for %1 ...").arg (nextEpisodeFullName(serie)));
-    _finder->searchEpisode (serie, _seriesController->nextEpisode (serie));
+    _finder->findEpisode (serie, _seriesController->nextEpisode (serie));
 
     if (_finder->episodeIsFound ()) {
 

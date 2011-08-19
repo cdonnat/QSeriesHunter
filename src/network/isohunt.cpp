@@ -52,7 +52,7 @@ void Isohunt::retrieveResults ()
 }
 
 //--------------------------------------------------------------------------------------------------
-void Isohunt::search (const QString & name)
+void Isohunt::find (const QString & name)
 {
     _results.clear ();
     this->startRequest(name);

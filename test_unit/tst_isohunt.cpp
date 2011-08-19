@@ -30,7 +30,7 @@ void TestIsohunt::testRequestFailed()
     TestIsohunt          fixture;
     TorrentFinderResults results;
 
-    fixture._sut->search("How I Met Your Mother");
+    fixture._sut->find("How I Met Your Mother");
     results = fixture._sut->getResults();
     QVERIFY2(results.isEmpty(), "Empty list");
 }
@@ -40,7 +40,7 @@ void TestIsohunt::nominalCase ()
     this->_networkAccess->setContent(getJsonInput());
     this->_networkAccess->setIsReady(true);
 
-    this->_sut->search("How I Met Your Mother");
+    this->_sut->find("How I Met Your Mother");
     TorrentFinderResults results = this->_sut->getResults();
 
     QVERIFY2(this->_networkAccess->url() ==
@@ -68,7 +68,7 @@ void TestIsohunt::testEmptyJsonContent()
     TestIsohunt fixture;
     fixture._networkAccess->setIsReady(true);
 
-    fixture._sut->search("House");
+    fixture._sut->find("House");
 
     TorrentFinderResults results = fixture._sut->getResults();
 
@@ -84,7 +84,7 @@ void TestIsohunt::testCorruptedJsonContent()
     fixture._networkAccess->setContent ("title:");
     fixture._networkAccess->setIsReady(true);
 
-    fixture._sut->search("House");
+    fixture._sut->find("House");
 
     QVERIFY2(fixture._networkAccess->url() ==
              "http://ca.isohunt.com/js/json.php?ihq=House",
