@@ -17,8 +17,8 @@ public:
     // ENS [Display the dialog box.]
     virtual bool exec(const QString & title             ,
 					  const QString & name          = "",
-                      const QString & season        = "",
-                      const QString & lastEpisodeDl = "") = 0;
+                      uint            season        = 0 ,
+                      uint            lastEpisodeDl = 0 ) = 0;
 
     // Queries:
 
@@ -30,12 +30,12 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Season of the serie is returned.]
-    virtual QString season() const = 0;
+    virtual uint season() const = 0;
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Last episode downloaded of the serie is returned.]
-    virtual QString lastEpisodeDl() const = 0;
+    virtual uint lastEpisodeDl() const = 0;
 };
 
 #endif // IEDITSERIEDIALOG_H

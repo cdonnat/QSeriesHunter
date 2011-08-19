@@ -7,6 +7,7 @@ class QDialog;
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QSpinBox;
 
 class EditSerieDialog : public IEditSerieDialog
 {
@@ -19,8 +20,8 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual bool exec(const QString & title             ,
 					  const QString & name          = "",
-                      const QString & season        = "",
-                      const QString & lastEpisodeDl = "");
+                      uint            season        = 0 ,
+                      uint            lastEpisodeDl = 0);
 
     // Queries:
 
@@ -28,12 +29,18 @@ public:
     virtual QString name() const;
 
     //----------------------------------------------------------------------------------------------
-    virtual QString season () const;
+    virtual uint season () const;
 
     //----------------------------------------------------------------------------------------------
-    virtual QString lastEpisodeDl () const;
+    virtual uint lastEpisodeDl () const;
 
 private:
+    
+    void createForm();
+    void createConnection();
+    void createLayout();
+    
+    
     QDialog     * _dialog;
     QLabel      * _nameLabel;    
     QLabel      * _seasonLabel;
@@ -42,9 +49,9 @@ private:
     QPushButton * _okButton;
     QPushButton * _cancelButton;   
 
-    QLineEdit   * _seasonEdit;
     QLineEdit   * _nameEdit;
-    QLineEdit   * _lastEpisodeDownloadedEdit;
+    QSpinBox    * _seasonEdit;
+    QSpinBox    * _lastEpisodeDownloadedEdit;
 };
 
 #endif // EDITSERIEDIALOG_H

@@ -8,8 +8,8 @@ EditSerieDialogStub::EditSerieDialogStub()
 //----------------------------------------------------------------------------------------------
 void EditSerieDialogStub::setup(bool execIsOk,
            const QString & name,
-           const QString & season,
-           const QString & lastEpisodeDl)
+           uint            season,
+           uint            lastEpisodeDl)
 {
     _execIsOk      = execIsOk;
     _name          = name;
@@ -20,8 +20,8 @@ void EditSerieDialogStub::setup(bool execIsOk,
 //----------------------------------------------------------------------------------------------
 bool EditSerieDialogStub::exec(const QString & title        ,
 							   const QString & name         ,
-                               const QString & season       ,
-                               const QString & lastEpisodeDl)
+                               uint            season       ,
+                               uint            lastEpisodeDl)
 {
 	_title = title;
     Q_UNUSED(name);
@@ -37,7 +37,7 @@ QString EditSerieDialogStub::title() const { return _title; }
 QString EditSerieDialogStub::name() const { return _name; }
 
 //----------------------------------------------------------------------------------------------
-QString EditSerieDialogStub::season() const { return _season; }
+uint EditSerieDialogStub::season() const { return _season; }
 
 //----------------------------------------------------------------------------------------------
-QString EditSerieDialogStub::lastEpisodeDl() const {return _lastEpisodeDl; }
+uint EditSerieDialogStub::lastEpisodeDl() const {return _lastEpisodeDl; }

@@ -15,14 +15,14 @@ public:
     //----------------------------------------------------------------------------------------------
     void setup(bool execIsOk,
                const QString & name = "",
-               const QString & season = "",
-               const QString & lastEpisodeDl = "");
+               uint            season = 0,
+               uint            lastEpisodeDl = 0);
 
     //----------------------------------------------------------------------------------------------
     virtual bool exec(const QString & title             ,
 					  const QString & name          = "",
-                      const QString & season        = "",
-                      const QString & lastEpisodeDl = "");
+                      uint            season        = 0,
+                      uint            lastEpisodeDl = 0);
 
     // Queries:
 
@@ -30,10 +30,10 @@ public:
     virtual QString name() const;
 
     //----------------------------------------------------------------------------------------------
-    virtual QString season() const;
+    virtual uint season() const;
 
     //----------------------------------------------------------------------------------------------
-    virtual QString lastEpisodeDl() const;
+    virtual uint lastEpisodeDl() const;
 
 	//----------------------------------------------------------------------------------------------
 	virtual QString title() const;
@@ -42,8 +42,8 @@ private:
     bool      _execIsOk;
 	QString   _title;
     QString   _name;
-    QString   _season;
-    QString   _lastEpisodeDl;
+    uint      _season;
+    uint      _lastEpisodeDl;
 };
 
 #endif // STUB_EDITSERIEDIALOG_H

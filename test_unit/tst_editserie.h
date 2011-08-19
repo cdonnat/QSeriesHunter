@@ -22,8 +22,8 @@ private Q_SLOTS:
 
 private:
     void testAddRobustness (const QString & name,
-                            const QString & season,
-                            const QString & lastEpisode,
+                            uint            season,
+                            uint            lastEpisode,
                             const QString & comment);
 
 private:

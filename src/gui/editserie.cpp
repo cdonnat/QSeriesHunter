@@ -39,15 +39,14 @@ QString toCapitalize (const QString & name)
 //----------------------------------------------------------------------------------------------
 bool EditSerie::inputsAreValid() const
 {
-    return (!_dialog->name ().isEmpty () && !_dialog->season ().isEmpty () &&
-            !_dialog->lastEpisodeDl ().isEmpty ());
+    return (!_dialog->name ().isEmpty () && _dialog->season() > 0);
 }
 
 //----------------------------------------------------------------------------------------------
 Serie EditSerie::seriesFromDialog () const
 {
     Q_ASSERT(inputsAreValid ());
-    return Serie(toCapitalize(_dialog->name ()), _dialog->season ().toUInt ());
+    return Serie(toCapitalize(_dialog->name ()), _dialog->season ());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -56,7 +55,7 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
     Q_ASSERT (inputsAreValid ());
 
     if (!_series->contains (seriesFromDialog()))  {
-        _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ().toUInt());
+        _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ());
     }
     else {
         _messageBox->displayWarning (QObject::tr("Warning"),
@@ -114,13 +113,13 @@ void EditSerie::runEditSerieDialog (const QModelIndex & selection)
 	
     if (_dialog->exec (QObject::tr("Edit a serie"),
 					   serieEdited.name (),
-                       QString("%1").arg(serieEdited.season ()),
-                       QString("%1").arg(lastEpisode))) {
+                       serieEdited.season (),
+                       lastEpisode)) {
         if (inputsAreValid ())  {
             // FIXME : find a better way of editing
             remove (selection);
             if (!_series->contains (seriesFromDialog ())) {
-                _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ().toUInt());
+                _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ());
             }
             else {
                 _series->addSerie (serieEdited, lastEpisode);

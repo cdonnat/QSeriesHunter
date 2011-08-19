@@ -93,13 +93,16 @@ void MainWindow::updateEnd()
 //----------------------------------------------------------------------------------------------
 void MainWindow::about()
 {
-	const int major = QSERIESHUNTER_MAJOR;
-	const int minor = QSERIESHUNTER_MINOR;
-	const int patch = QSERIESHUNTER_PATCH;
-	
+	const int     major        = QSERIESHUNTER_MAJOR;
+	const int     minor        = QSERIESHUNTER_MINOR;
+	const int     patch        = QSERIESHUNTER_PATCH;
+    
     QMessageBox::about(this, 
                        tr("About QSeriesHunter"),
-                       tr("QSeriesHunter Version %1.%2.%3").arg(major).arg(minor).arg(patch));
+                       tr("QSeriesHunter Version %1.%2.%3 by Charles")
+                       .arg(major)
+                       .arg(minor)
+                       .arg(patch));
 }
 
 //----------------------------------------------------------------------------------------------
