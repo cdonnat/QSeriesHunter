@@ -26,10 +26,9 @@ void EditSerieDialog::createForm()
     _seasonEdit  = new QSpinBox(_dialog);
     _seasonEdit->setRange(1, 100);
     
-    _lastEpisodeDownloadedLabel = new QLabel(QObject::tr("Last Episoded Downloaded:"), _dialog);
+    _lastEpisodeDownloadedLabel = new QLabel(QObject::tr("Last Episode Downloaded:"), _dialog);
     _lastEpisodeDownloadedEdit  = new QSpinBox(_dialog);
     _lastEpisodeDownloadedEdit->setRange(0, 100);
-    _lastEpisodeDownloadedEdit->setPrefix(QObject::tr("Episode "));
     _lastEpisodeDownloadedEdit->setSpecialValueText(QObject::tr("None"));
     
     _okButton = new QPushButton(QObject::tr("Ok"), _dialog);

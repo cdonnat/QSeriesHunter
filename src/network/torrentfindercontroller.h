@@ -2,11 +2,13 @@
 #define TORRENTFINDERCONTROLLER_H
 
 #include <QRegExp>
+#include <QList>
 #include <QSet>
 #include <QString>
 
 #include "itorrentfinder.h"
 
+class RegExpProvider;
 class Serie;
 
 class TorrentFinderController
@@ -64,7 +66,9 @@ private:
     void sortResultsBySeed ();
 
 private:
+    
     QSet<ITorrentFinder *>     _finders;
+    QList<RegExpProvider *>    _regExpProviders;
     TorrentFinderResults       _results;
     bool                       _episodeIsFound;
     QString                    _url;

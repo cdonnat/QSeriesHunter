@@ -1,4 +1,6 @@
 #include "torrentfindercontroller.h"
+#include "regexpprovider_se.h"
+#include "regexpprovider_x.h"
 
 #include "serie.h"
 
@@ -17,16 +19,10 @@ QString getNameForMatch (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-// REQ [None.]
-// ENS [Return format on 2 digits.]
-QString toTwoDigits (uint number)
-{
-    return QString::number (number).rightJustified (2, '0');
-}
-
-//----------------------------------------------------------------------------------------------
 TorrentFinderController::TorrentFinderController():_episodeIsFound(false)
 {
+    _regExpProviders << new RegExpProvider_Se;
+    _regExpProviders << new RegExpProvider_X;
     _regExp.setCaseSensitivity (Qt::CaseInsensitive);
 }
 
@@ -56,17 +52,11 @@ void TorrentFinderController::reset ()
 void TorrentFinderController::findEpisodeInAllFinders(const Serie & serie, uint episode)
 {
     foreach (ITorrentFinder * finder, _finders) {
-        finder->find (QString("%1 S%2E%3") // Season S??E??
-                        .arg (serie.name ())
-                        .arg (toTwoDigits (serie.season ()))
-                        .arg (toTwoDigits (episode)));
-        _results.append (finder->getResults ());
-        
-        finder->find (QString("%1 %2x%3") // Season ??x??
-                        .arg (serie.name ())
-                        .arg (serie.season ())
-                        .arg (toTwoDigits (episode)));
-        _results.append (finder->getResults ());
+        foreach (RegExpProvider * regExpProvider, _regExpProviders) {
+            finder->find (regExpProvider->getFindRegExp(serie, episode));
+            _results.append (finder->getResults ());
+
+        }
     }
     sortResultsBySeed ();
 }
