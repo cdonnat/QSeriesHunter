@@ -1,4 +1,5 @@
 #include "regexpprovider_x.h"
+#include "regexp_tools.h"
 
 #include "serie.h"
 
@@ -16,7 +17,7 @@ QString  RegExpProvider_X::getFindRegExp(const Serie & serie, uint episode) cons
     return QString("%1 %2x%3") // Season ??x??
     .arg (serie.name ())
     .arg (serie.season ())
-    .arg (QString::number (episode).rightJustified (2, '0')); 
+    .arg (toTwoDigits(episode)); 
 }
 
 //----------------------------------------------------------------------------------------------
@@ -25,8 +26,8 @@ bool RegExpProvider_X::resultIsMatching(const Serie & serie, uint episode, const
     QRegExp regExp;
     regExp.setCaseSensitivity (Qt::CaseInsensitive);
     regExp.setPattern (QString(".*%1.*%2x%3.*")
-                       .arg (QRegExp::escape (serie.name ()).replace (' ', ".*"))
+                       .arg (getSeriesNameForRegExp(serie))
                        .arg (serie.season ())
-                       .arg (episode));
+                       .arg (toTwoDigits(episode)));
     return regExp.exactMatch(result);
 }

@@ -89,4 +89,11 @@ void TestTorrentFinderController::testRegExp ()
     fixture._sut.findEpisode (merlinSeason2, 3);
     //
     QVERIFY2(!fixture._sut.episodeIsFound (), "Episode not found, the regexp doesnt match");
+    
+    fixture._finder1.setResults (
+                                 TorrentFinderResults () << TorrentFinderResult("Merlin 2x03", "http",1));
+    //
+    fixture._sut.findEpisode (merlinSeason2, 3);
+    //
+    QVERIFY2(fixture._sut.episodeIsFound (), "Episode found, the regexp match");
 }
