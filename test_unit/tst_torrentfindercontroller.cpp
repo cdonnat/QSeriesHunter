@@ -75,3 +75,18 @@ void TestTorrentFinderController::testSerieWithSpaces ()
     QVERIFY2(fixture._sut.episodeIsFound (), "Episode found");
     QVERIFY2(fixture._finder1.getRequest () == "|The Event S01E01|The Event 1x01", "Request Finder 1");
 }
+
+//----------------------------------------------------------------------------------------------
+void TestTorrentFinderController::testRegExp ()
+{
+    TestTorrentFinderController fixture;
+    
+    fixture._finder1.setResults (
+                                 TorrentFinderResults () << TorrentFinderResult("Merlin Season 1-2-3", "http",1));
+    //
+    fixture._sut.addTorrentFinder (&fixture._finder1);
+    //
+    fixture._sut.findEpisode (merlinSeason2, 3);
+    //
+    QVERIFY2(!fixture._sut.episodeIsFound (), "Episode not found, the regexp doesnt match");
+}

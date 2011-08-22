@@ -24,6 +24,9 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual QString  getFindRegExp(const Serie & serie, uint episode) const;
     
+    //----------------------------------------------------------------------------------------------
+    virtual bool resultIsMatching(const Serie & serie, uint episode, const QString & result) const;
+
 };
 
 #endif // REGEXPPROVIDER_SE_H

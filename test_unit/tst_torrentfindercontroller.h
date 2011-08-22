@@ -17,6 +17,7 @@ private slots:
     void testNominalCase();
     void testRequestSent();
     void testSerieWithSpaces();
+    void testRegExp();
 
 private:
     TorrentFinderStub         _finder1, _finder2;

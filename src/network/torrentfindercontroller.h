@@ -1,7 +1,6 @@
 #ifndef TORRENTFINDERCONTROLLER_H
 #define TORRENTFINDERCONTROLLER_H
 
-#include <QRegExp>
 #include <QList>
 #include <QSet>
 #include <QString>
@@ -72,7 +71,6 @@ private:
     TorrentFinderResults       _results;
     bool                       _episodeIsFound;
     QString                    _url;
-    QRegExp                    _regExp;
 };
 
 #endif // TORRENTFINDERCONTROLLER_H

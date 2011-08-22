@@ -11,19 +11,10 @@ bool greaterThan (const TorrentFinderResult & l, const TorrentFinderResult & r)
 }
 
 //----------------------------------------------------------------------------------------------
-// REQ [None.]
-// ENS [Name is returne for matching (ex: The Event -> The.*Event)]
-QString getNameForMatch (const Serie & serie)
-{
-    return QRegExp::escape (serie.name ()).replace (' ', ".*");
-}
-
-//----------------------------------------------------------------------------------------------
 TorrentFinderController::TorrentFinderController():_episodeIsFound(false)
 {
     _regExpProviders << new RegExpProvider_Se;
     _regExpProviders << new RegExpProvider_X;
-    _regExp.setCaseSensitivity (Qt::CaseInsensitive);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -38,6 +29,7 @@ void TorrentFinderController::findEpisode (const Serie & serie, uint episode)
 {
     this->reset();
     this->findEpisodeInAllFinders (serie, episode);
+    this->sortResultsBySeed ();
     this->findBestMatch (serie, episode);
 }
 
@@ -58,19 +50,17 @@ void TorrentFinderController::findEpisodeInAllFinders(const Serie & serie, uint 
 
         }
     }
-    sortResultsBySeed ();
 }
 
 //----------------------------------------------------------------------------------------------
 void TorrentFinderController::findBestMatch (const Serie & serie, uint episode)
 {
-    _regExp.setPattern (QString(".*%1.*%2.*%3.*")
-                        .arg (getNameForMatch (serie))
-                        .arg (serie.season ())
-                        .arg (episode));
-
+    _episodeIsFound = false;
     foreach(TorrentFinderResult res, _results) {
-        _episodeIsFound =_regExp.exactMatch (res.name ());
+        foreach (RegExpProvider * regExpProvider, _regExpProviders) {
+        _episodeIsFound = _episodeIsFound || 
+            regExpProvider->resultIsMatching(serie, episode, res.name ());
+        }
         if (_episodeIsFound) {
             _url            = res.url ();
             break;
