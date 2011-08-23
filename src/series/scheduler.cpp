@@ -55,14 +55,14 @@ QString Scheduler::nextEpisodeFullName(const Serie & serie)
     return  QObject::tr("%1 Season %2 Episode %3")
             .arg(serie.name ())
             .arg(serie.season ())
-            .arg(_seriesController->nextEpisode (serie));
+            .arg(serie.lastEpisode () + 1);
 }
 
 //----------------------------------------------------------------------------------------------
 void Scheduler::lookForNewEpisode (const Serie & serie)
 {
     _logger->logInfo (QObject::tr ("Looking for %1 ...").arg (nextEpisodeFullName(serie)));
-    _finder->findEpisode (serie, _seriesController->nextEpisode (serie));
+    _finder->findNextEpisode (serie);
 
     if (_finder->episodeIsFound ()) {
 

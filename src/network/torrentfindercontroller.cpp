@@ -25,12 +25,12 @@ void TorrentFinderController::addTorrentFinder (ITorrentFinder * torrentFinder)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findEpisode (const Serie & serie, uint episode)
+void TorrentFinderController::findNextEpisode (const Serie & serie)
 {
     this->reset();
-    this->findEpisodeInAllFinders (serie, episode);
+    this->findNextEpisodeInAllFinders (serie);
     this->sortResultsBySeed ();
-    this->findBestMatch (serie, episode);
+    this->findBestMatch (serie);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -41,11 +41,11 @@ void TorrentFinderController::reset ()
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findEpisodeInAllFinders(const Serie & serie, uint episode)
+void TorrentFinderController::findNextEpisodeInAllFinders(const Serie & serie)
 {
     foreach (ITorrentFinder * finder, _finders) {
         foreach (RegExpProvider * regExpProvider, _regExpProviders) {
-            finder->find (regExpProvider->getFindRegExp(serie, episode));
+            finder->find (regExpProvider->getFindRegExp(serie, serie.lastEpisode() + 1));
             _results.append (finder->getResults ());
 
         }
@@ -53,14 +53,17 @@ void TorrentFinderController::findEpisodeInAllFinders(const Serie & serie, uint 
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findBestMatch (const Serie & serie, uint episode)
+void TorrentFinderController::findBestMatch (const Serie & serie)
 {
     _episodeIsFound = false;
+    
     foreach(TorrentFinderResult res, _results) {
+        
         foreach (RegExpProvider * regExpProvider, _regExpProviders) {
-        _episodeIsFound = _episodeIsFound || 
-            regExpProvider->resultIsMatching(serie, episode, res.name ());
+            _episodeIsFound = _episodeIsFound || 
+                              regExpProvider->resultIsMatching(serie, serie.lastEpisode() + 1, res.name ());
         }
+        
         if (_episodeIsFound) {
             _url            = res.url ();
             break;

@@ -1,7 +1,7 @@
 #ifndef SERIESMEMENTO_H
 #define SERIESMEMENTO_H
 
-#include <QMap>
+#include <QList>
 #include "serie.h"
 
 class QString;
@@ -21,14 +21,14 @@ public:
 
 private:
     //----------------------------------------------------------------------------------------------
-    SeriesMemento(const QMap<Serie, uint> & series);
+    SeriesMemento(const QList<Serie> & series);
 
     //----------------------------------------------------------------------------------------------
-    const QMap<Serie, uint> & get () const;
+    const QList<Serie> & get () const;
 
     friend class SeriesController;
 
-    QMap<Serie, uint>  _save;
+    QList<Serie>  _save;
 };
 
 #endif // SERIESMEMENTO_H

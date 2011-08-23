@@ -1,6 +1,8 @@
 #include "seriescontroller.h"
 #include "seriesmemento.h"
 
+#include <QtAlgorithms>
+
 //----------------------------------------------------------------------------------------------
 SeriesController::SeriesController()
 {
@@ -9,7 +11,7 @@ SeriesController::SeriesController()
 //----------------------------------------------------------------------------------------------
 bool SeriesController::contains (const Serie & serie) const
 {
-    return _series.keys ().contains (serie);
+    return _series.contains(serie);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -21,21 +23,7 @@ uint SeriesController::nbSeries() const
 //----------------------------------------------------------------------------------------------
 const Serie & SeriesController::at (uint index) const
 {
-    return (_series.constBegin () + int(index)).key ();
-}
-
-//----------------------------------------------------------------------------------------------
-uint SeriesController::lastEpisodeDl (const Serie & serie) const
-{
-    Q_ASSERT (this->contains (serie));
-    return _series.value (serie);
-}
-
-//----------------------------------------------------------------------------------------------
-uint SeriesController::nextEpisode (const Serie & serie) const
-{
-    Q_ASSERT (this->contains (serie));
-    return _series.value (serie) + 1;
+    return _series.at(index);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -45,24 +33,26 @@ SeriesMemento SeriesController::createMemento () const
 }
 
 //----------------------------------------------------------------------------------------------
-void SeriesController::addSerie (const Serie & serie, uint episode)
+void SeriesController::addSerie (const Serie & serie)
 {
     Q_ASSERT (!this->contains (serie));
-    _series.insert (serie, episode);
+    _series << serie;
+    qSort(_series.begin(), _series.end());
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesController::removeSerie(const Serie & serie)
 {
     Q_ASSERT (this->contains (serie));
-    _series.remove (serie);
+    _series.removeOne(serie);
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesController::inc (const Serie & serie)
 {
     Q_ASSERT (this->contains (serie));
-    _series[serie]++;
+    Series::iterator  it = qBinaryFind(_series.begin(), _series.end(), serie);
+    it->inc();
 }
 
 //----------------------------------------------------------------------------------------------

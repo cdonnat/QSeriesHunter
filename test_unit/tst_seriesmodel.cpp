@@ -52,21 +52,24 @@ void TestSeriesModel::testData()
 
     checkDisplayRole (fixture._sut, 0, 0, QVariant (), "no data");
 
-    fixture._sut.addSerie (houseSeason1, 2);
-    fixture._sut.addSerie (himymSeason3, 3);
+    Serie serie1 = Serie("House", 1 , 2);
+    Serie serie2 = Serie("How I Met Your Mother", 3, 3);
+    
+    fixture._sut.addSerie (serie1);
+    fixture._sut.addSerie (serie2);
 
     checkDecorationRole (fixture._sut, 0, 0, QVariant (), "decoration role");
-    checkDisplayRole (fixture._sut, 0, 0, QVariant (houseSeason1.name ()),
+    checkDisplayRole (fixture._sut, 0, 0, QVariant (serie1.name ()),
                       "index (1,1)");
-    checkDisplayRole (fixture._sut, 0, 1, QVariant (houseSeason1.season ()),
+    checkDisplayRole (fixture._sut, 0, 1, QVariant (serie1.season ()),
                       "index (1,2)");
-    checkDisplayRole (fixture._sut, 0, 2, QVariant (fixture._sut.lastEpisodeDl (houseSeason1)),
+    checkDisplayRole (fixture._sut, 0, 2, QVariant (serie1.lastEpisode ()),
                       "index (1,3)");
-    checkDisplayRole (fixture._sut, 1, 0, QVariant (himymSeason3.name ()),
+    checkDisplayRole (fixture._sut, 1, 0, QVariant (serie2.name ()),
                       "index (2,1)");
-    checkDisplayRole (fixture._sut, 1, 1, QVariant (himymSeason3.season ()),
+    checkDisplayRole (fixture._sut, 1, 1, QVariant (serie2.season ()),
                       "index (2,2)");
-    checkDisplayRole (fixture._sut, 1, 2, QVariant (fixture._sut.lastEpisodeDl (himymSeason3)),
+    checkDisplayRole (fixture._sut, 1, 2, QVariant (serie2.lastEpisode ()),
                       "index (2,3)");
     checkDisplayRole (fixture._sut, 4, 0, QVariant (), "invalid index");
 }

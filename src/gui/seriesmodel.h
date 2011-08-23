@@ -37,12 +37,6 @@ public:
     virtual const Serie & at(uint index) const;
 
     //----------------------------------------------------------------------------------------------
-    virtual uint lastEpisodeDl (const Serie & serie) const;
-
-    //----------------------------------------------------------------------------------------------
-    virtual uint nextEpisode (const Serie & serie) const;
-
-    //----------------------------------------------------------------------------------------------
     virtual uint nbSeries () const;
 
     //----------------------------------------------------------------------------------------------
@@ -51,7 +45,7 @@ public:
     // Commands:
 
     //----------------------------------------------------------------------------------------------
-    virtual void addSerie (const Serie & serie, uint episode = 0);
+    virtual void addSerie (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
     virtual void removeSerie (const Serie & serie);

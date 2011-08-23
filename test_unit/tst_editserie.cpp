@@ -28,7 +28,7 @@ void TestEditSerie::testAdd ()
     fixture._editDialog->setup (true, "dr  house", 1, 2);
     fixture._sut->add ();
     QVERIFY2(fixture._series->contains (Serie("Dr House", 1)), "Serie added - 1");
-    QVERIFY2(fixture._series->lastEpisodeDl (Serie("Dr House", 1)) == 2, "Serie added - 2");
+    QVERIFY2(fixture._series->at(0).lastEpisode() == 2, "Serie added - 2");
     //
     fixture._sut->add ();
     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning called");
@@ -83,13 +83,13 @@ void TestEditSerie::testRemove ()
 	 QVERIFY2(fixture._editDialog->title() == "Edit a serie", "Edit title");
      QVERIFY2(fixture._series->contains (Serie("Himym", 3)),
               "1 - Serie correctly edited");
-     QVERIFY2(fixture._series->lastEpisodeDl (Serie("Himym", 3)) == 4,
+     QVERIFY2(fixture._series->at(1).lastEpisode () == 4,
               "2 - Serie correctly edited");
 
      // Change only last episode
      fixture._editDialog->setup (true, "himym", 3, 5);
      fixture._sut->edit (fixture._series->index (1,0));
-     QVERIFY2(fixture._series->lastEpisodeDl (Serie("Himym", 3)) == 5,
+     QVERIFY2(fixture._series->at(1).lastEpisode () == 5,
               "Only last episode changed");
 
      // Try to add an existing serie

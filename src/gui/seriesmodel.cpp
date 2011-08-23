@@ -38,7 +38,7 @@ QVariant SeriesModel::data (const QModelIndex &index, int role) const
         {
         case COLUMN_NAME    : return current.name();
         case COLUMN_SEASON  : return current.season();
-        case COLUMN_EPISODE : return _series->lastEpisodeDl(current);
+        case COLUMN_EPISODE : return current.lastEpisode();
         default             : break;
         }
     }
@@ -89,22 +89,10 @@ const Serie & SeriesModel::at (uint index) const
 }
 
 //----------------------------------------------------------------------------------------------
-uint SeriesModel::lastEpisodeDl (const Serie & serie) const
-{
-    return _series->lastEpisodeDl (serie);
-}
-
-//----------------------------------------------------------------------------------------------
-uint SeriesModel::nextEpisode (const Serie & serie) const
-{
-    return _series->nextEpisode (serie);
-}
-
-//----------------------------------------------------------------------------------------------
-void SeriesModel::addSerie (const Serie & serie, uint episode)
+void SeriesModel::addSerie (const Serie & serie)
 {
     beginResetModel ();
-    _series->addSerie (serie, episode);
+    _series->addSerie (serie);
     endResetModel ();
 }
 

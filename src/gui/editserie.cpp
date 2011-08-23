@@ -46,7 +46,7 @@ bool EditSerie::inputsAreValid() const
 Serie EditSerie::seriesFromDialog () const
 {
     Q_ASSERT(inputsAreValid ());
-    return Serie(toCapitalize(_dialog->name ()), _dialog->season ());
+    return Serie(toCapitalize(_dialog->name ()), _dialog->season (), _dialog->lastEpisodeDl ());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ void EditSerie::addSerieIfNotAlreadyFollowed ()
     Q_ASSERT (inputsAreValid ());
 
     if (!_series->contains (seriesFromDialog()))  {
-        _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ());
+        _series->addSerie (seriesFromDialog());
     }
     else {
         _messageBox->displayWarning (QObject::tr("Warning"),
@@ -109,20 +109,19 @@ void EditSerie::runEditSerieDialog (const QModelIndex & selection)
     Q_ASSERT (selection.isValid ());
 
     Serie serieEdited = _series->at (selection.row ());
-    uint  lastEpisode = _series->lastEpisodeDl (serieEdited);
 	
     if (_dialog->exec (QObject::tr("Edit a serie"),
 					   serieEdited.name (),
                        serieEdited.season (),
-                       lastEpisode)) {
+                       serieEdited.lastEpisode())) {
         if (inputsAreValid ())  {
             // FIXME : find a better way of editing
             remove (selection);
             if (!_series->contains (seriesFromDialog ())) {
-                _series->addSerie (seriesFromDialog(), _dialog->lastEpisodeDl ());
+                _series->addSerie (seriesFromDialog());
             }
             else {
-                _series->addSerie (serieEdited, lastEpisode);
+                _series->addSerie (serieEdited);
                 _messageBox->displayWarning (QObject::tr("Warning"),
                                              QObject::tr("You are already following this serie!"));
             }

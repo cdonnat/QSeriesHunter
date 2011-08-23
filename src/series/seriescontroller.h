@@ -4,7 +4,7 @@
 #include "iseriescontroller.h"
 #include "serie.h"
 
-#include <QMap>
+#include <QList>
 
 class SerieMemento;
 
@@ -27,18 +27,12 @@ public:
     virtual const Serie & at (uint index) const;
 
     //----------------------------------------------------------------------------------------------
-    virtual uint lastEpisodeDl (const Serie & serie) const;
-
-    //----------------------------------------------------------------------------------------------
-    virtual uint nextEpisode (const Serie & serie) const;
-
-    //----------------------------------------------------------------------------------------------
     virtual SeriesMemento createMemento () const;
 
     // Commands :
 
     //----------------------------------------------------------------------------------------------
-    virtual void addSerie (const Serie & serie, uint episode = 0);
+    virtual void addSerie (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
     virtual void removeSerie (const Serie & serie);
@@ -50,9 +44,9 @@ public:
     virtual void loadFrom (const SeriesMemento &memento);
 
 private :
-    typedef QMap<Serie, uint> MapSeries;
+    typedef QList<Serie> Series;
 
-    MapSeries  _series;
+    Series  _series;
 };
 
 #endif // SERIESCONTROLLER_H

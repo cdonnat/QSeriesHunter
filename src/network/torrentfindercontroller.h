@@ -27,8 +27,8 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [A request to find the episode of the serie is returned.]
-    void findEpisode (const Serie & serie, uint episode);
+    // ENS [A request to find the next episode of the serie is returned.]
+    void findNextEpisode (const Serie & serie);
 
     // Queries:
 
@@ -52,12 +52,12 @@ private:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Results are ready and sorted by seed.]
-    void findEpisodeInAllFinders(const Serie & serie, uint episode);
+    void findNextEpisodeInAllFinders(const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [The best url is stored.]
-    void findBestMatch (const Serie & serie, uint episode);
+    void findBestMatch (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]

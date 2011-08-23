@@ -12,11 +12,18 @@ public:
     Serie() {}; // Provided for convenience.
 
     //----------------------------------------------------------------------------------------------
-    Serie(const QString & name, uint season);
+    Serie(const QString & name, uint season, uint lastEpisode = 0);
 
     //----------------------------------------------------------------------------------------------
     Serie (const Serie & serie);
 
+    // Commands:
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Increment the last episode.]
+    void inc ();
+    
     // Queries:
 
     //----------------------------------------------------------------------------------------------
@@ -31,6 +38,11 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
+    // ENS [The last episode is returned.]
+    uint lastEpisode() const;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
     // ENS [True is returned if l and r have the same name and the same season.]
     bool operator==(const Serie & r);
 
@@ -42,6 +54,7 @@ public:
 private:
     QString    _name;
     uint       _season;
+    uint       _lastEpisode;
 };
 
 // Operators:
@@ -50,5 +63,6 @@ private:
 // REQ [None.]
 // ENS [True is returned if l.name < r.name and l.season < r.season.]
 bool operator<(const Serie & l, const Serie & r);
+
 
 #endif // SERIE_H

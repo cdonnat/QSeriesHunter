@@ -31,16 +31,6 @@ public:
     virtual uint nbSeries () const = 0;
 
     //----------------------------------------------------------------------------------------------
-    // REQ [contains (serie).]
-    // ENS [The last episode downloaded is returned (0 if none).]
-    virtual uint lastEpisodeDl (const Serie & serie) const = 0;
-
-    //----------------------------------------------------------------------------------------------
-    // REQ [containts (serie).]
-    // ENS [The next episode is returned (>0).]
-    virtual uint nextEpisode (const Serie & serie) const = 0;
-
-    //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Return a memento that represents the state of the series controller.]
     virtual SeriesMemento createMemento() const = 0;
@@ -50,7 +40,7 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [Serie does not exist.]
     // ENS [Serie is added.]
-    virtual void addSerie (const Serie & serie, uint episode = 0) = 0;
+    virtual void addSerie (const Serie & serie) = 0;
 
     //----------------------------------------------------------------------------------------------
     // REQ [Serie exists.]

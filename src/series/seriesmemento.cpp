@@ -6,12 +6,12 @@
 #include <QString>
 
 //----------------------------------------------------------------------------------------------
-SeriesMemento::SeriesMemento(const QMap<Serie, uint> & series): _save(series)
+SeriesMemento::SeriesMemento(const QList<Serie> & series): _save(series)
 {
 }
 
 //----------------------------------------------------------------------------------------------
-const QMap<Serie, uint> & SeriesMemento::get () const
+const QList<Serie> & SeriesMemento::get () const
 {
     return _save;
 }
@@ -23,7 +23,7 @@ SeriesMemento SeriesMemento::loadFromInitFile(const QString & absolutePathInitFi
     initFile.open(QIODevice::ReadOnly);
 
     QDataStream in(&initFile);
-    QMap<Serie, uint >  series;
+    QList<Serie>  series;
 
     in.setVersion (QDataStream::Qt_4_7);
     in >> series;
@@ -36,9 +36,11 @@ QDataStream & operator>> (QDataStream & dataStream, Serie & serie)
 {
     QString name;
     uint    season;
+    uint    episode;
     dataStream >> name;
     dataStream >> season;
-    serie = Serie(name, season);
+    dataStream >> episode;
+    serie = Serie(name, season, episode);
     return dataStream;
 }
 
@@ -47,6 +49,7 @@ QDataStream & operator<< (QDataStream & dataStream, const Serie & serie)
 {
     dataStream << serie.name ();
     dataStream << serie.season ();
+    dataStream << serie.lastEpisode();
     return dataStream;
 }
 
