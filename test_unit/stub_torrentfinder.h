@@ -16,7 +16,7 @@ public:
     virtual void find(const QString & name);
 
     //----------------------------------------------------------------------------------------------
-    void setResults (const TorrentFinderResults & results);
+    void setResults (const FinderResults & results);
 
     //----------------------------------------------------------------------------------------------
     void reset();
@@ -24,14 +24,14 @@ public:
     // Queries:
 
     //----------------------------------------------------------------------------------------------
-    virtual const TorrentFinderResults & getResults() const;
+    virtual const FinderResults & getResults() const;
 
     //----------------------------------------------------------------------------------------------
     const QString & getRequest() const;
 
 private:
-    QString               _request;
-    TorrentFinderResults  _results;
+    QString        _request;
+    FinderResults  _results;
 };
 
 #endif // STUB_TORRENTFINDER_H

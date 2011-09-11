@@ -20,13 +20,13 @@ void TorrentFinderStub::find(const QString & name)
     _request.append("|" + name);
 }
 
-void TorrentFinderStub::setResults (const TorrentFinderResults & results)
+void TorrentFinderStub::setResults (const FinderResults & results)
 {
     _results = results;
 }
 
 //----------------------------------------------------------------------------------------------
-const TorrentFinderResults & TorrentFinderStub::getResults() const
+const FinderResults & TorrentFinderStub::getResults() const
 {
     return _results;
 }

@@ -5,7 +5,7 @@
 #include "serie.h"
 
 //----------------------------------------------------------------------------------------------
-bool greaterThan (const TorrentFinderResult & l, const TorrentFinderResult & r)
+bool greaterThan (const FinderResult & l, const FinderResult & r)
 {
     return l.seed () > r.seed ();
 }
@@ -57,7 +57,7 @@ void TorrentFinderController::findBestMatch (const Serie & serie)
 {
     _episodeIsFound = false;
     
-    foreach(TorrentFinderResult res, _results) {
+    foreach(FinderResult res, _results) {
         
         foreach (RegExpProvider * regExpProvider, _regExpProviders) {
             _episodeIsFound = _episodeIsFound || 

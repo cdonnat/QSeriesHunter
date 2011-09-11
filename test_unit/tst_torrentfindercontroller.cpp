@@ -44,10 +44,10 @@ void TestTorrentFinderController::testNominalCase ()
     TestTorrentFinderController fixture;
 
     fixture._finder1.setResults (
-                TorrentFinderResults () << TorrentFinderResult("House", "http", 1));
+                FinderResults () << FinderResult("House", "http", 1));
     fixture._finder2.setResults (
-                TorrentFinderResults() << TorrentFinderResult("houseief", "url", 15)
-                                       << TorrentFinderResult("house.S02E07.LOL", "xxx", 2));
+                FinderResults() << FinderResult("houseief", "url", 15)
+                                       << FinderResult("house.S02E07.LOL", "xxx", 2));
     //
     fixture._sut.addTorrentFinder (&fixture._finder1);
     fixture._sut.addTorrentFinder (&fixture._finder2);
@@ -66,7 +66,7 @@ void TestTorrentFinderController::testSerieWithSpaces ()
     TestTorrentFinderController fixture;
 
     fixture._finder1.setResults (
-                TorrentFinderResults () << TorrentFinderResult("-The-Event-S01-E01", "http",1));
+                FinderResults () << FinderResult("-The-Event-S01-E01", "http",1));
     //
     fixture._sut.addTorrentFinder (&fixture._finder1);
     //
@@ -81,8 +81,7 @@ void TestTorrentFinderController::testRegExp ()
 {
     TestTorrentFinderController fixture;
     
-    fixture._finder1.setResults (
-                                 TorrentFinderResults () << TorrentFinderResult("Merlin Season 1-2-3", "http",1));
+    fixture._finder1.setResults (FinderResults () << FinderResult("Merlin Season 1-2-3", "http",1));
     //
     fixture._sut.addTorrentFinder (&fixture._finder1);
     //
@@ -91,7 +90,7 @@ void TestTorrentFinderController::testRegExp ()
     QVERIFY2(!fixture._sut.episodeIsFound (), "Episode not found, the regexp doesnt match");
     
     fixture._finder1.setResults (
-                                 TorrentFinderResults () << TorrentFinderResult("Merlin 2x03", "http",1));
+                                 FinderResults () << FinderResult("Merlin 2x03", "http",1));
     //
     fixture._sut.findNextEpisode (Serie("Merlin", 2, 2));
     //

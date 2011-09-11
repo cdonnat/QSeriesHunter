@@ -20,11 +20,11 @@ public:
     // Queries:
 
     //----------------------------------------------------------------------------------------------
-    virtual const TorrentFinderResults & getResults  () const;
+    virtual const FinderResults & getResults  () const;
 
 private :
-    INetworkAccess         * const _networkAccess;
-    TorrentFinderResults           _results;
+    INetworkAccess  * const _networkAccess;
+    FinderResults           _results;
 
   // Commands:
 

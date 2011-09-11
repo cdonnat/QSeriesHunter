@@ -68,7 +68,7 @@ private:
     
     QSet<ITorrentFinder *>     _finders;
     QList<RegExpProvider *>    _regExpProviders;
-    TorrentFinderResults       _results;
+    FinderResults              _results;
     bool                       _episodeIsFound;
     QString                    _url;
 };

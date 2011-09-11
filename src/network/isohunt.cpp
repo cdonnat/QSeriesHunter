@@ -27,9 +27,9 @@ void Isohunt::startRequest(const QString & serieTitle)
 void Isohunt::addItemToResults(const QVariant & item)
 {
     QVariantMap  map = item.toMap();
-    _results.append(TorrentFinderResult(map["title"].toString(),
-                                        map["enclosure_url"].toString(),
-                                        map["Seeds"].toUInt()));
+    _results.append(FinderResult(map["title"].toString(),
+                                 map["enclosure_url"].toString(),
+                                 map["Seeds"].toUInt()));
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ void Isohunt::find (const QString & name)
 }
 
 //--------------------------------------------------------------------------------------------------
-const TorrentFinderResults & Isohunt::getResults () const
+const FinderResults & Isohunt::getResults () const
 {
    return _results;
 }

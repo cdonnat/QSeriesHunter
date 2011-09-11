@@ -1,10 +1,10 @@
 #ifndef ITORRENFINDER_H
 #define ITORRENFINDER_H
 
-#include "torrentfinderresult.h"
+#include "finderresult.h"
 #include <QList>
 
-typedef QList<TorrentFinderResult> TorrentFinderResults;
+typedef QList<FinderResult> FinderResults;
 
 class ITorrentFinder
 {
@@ -24,8 +24,8 @@ public:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Torrent results are returned.]
-    virtual const TorrentFinderResults & getResults() const = 0;
+    // ENS [Results are returned.]
+    virtual const FinderResults & getResults() const = 0;
 };
 
 #endif // ITORRENFINDER_H

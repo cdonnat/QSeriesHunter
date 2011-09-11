@@ -43,8 +43,8 @@ TestScheduler::TestScheduler(QObject *parent) :
      TestScheduler fixture;
 
      fixture._series->addSerie (houseSeason1);
-     fixture._finder->setResults (TorrentFinderResults () <<
-                                  TorrentFinderResult("House.S01.E01", "house_torrent", 10));
+     fixture._finder->setResults (FinderResults () <<
+                                  FinderResult("House.S01.E01", "house_torrent", 10));
      fixture._network->setIsReady (true);
 
      fixture._sut->update ();

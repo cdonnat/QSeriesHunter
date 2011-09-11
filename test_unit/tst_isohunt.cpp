@@ -27,8 +27,8 @@ TestIsohunt::~TestIsohunt()
 
 void TestIsohunt::testRequestFailed()
 {
-    TestIsohunt          fixture;
-    TorrentFinderResults results;
+    TestIsohunt   fixture;
+    FinderResults results;
 
     fixture._sut->find("How I Met Your Mother");
     results = fixture._sut->getResults();
@@ -41,7 +41,7 @@ void TestIsohunt::nominalCase ()
     this->_networkAccess->setIsReady(true);
 
     this->_sut->find("How I Met Your Mother");
-    TorrentFinderResults results = this->_sut->getResults();
+    FinderResults results = this->_sut->getResults();
 
     QVERIFY2(this->_networkAccess->url() ==
              "http://ca.isohunt.com/js/json.php?ihq=How+I+Met+Your+Mother",
@@ -70,7 +70,7 @@ void TestIsohunt::testEmptyJsonContent()
 
     fixture._sut->find("House");
 
-    TorrentFinderResults results = fixture._sut->getResults();
+    FinderResults results = fixture._sut->getResults();
 
     QVERIFY2(fixture._networkAccess->url() ==
              "http://ca.isohunt.com/js/json.php?ihq=House",
