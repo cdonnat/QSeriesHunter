@@ -1,12 +1,12 @@
 #ifndef ISOHUNT_H
 #define ISOHUNT_H
 
-#include "itorrentfinder.h"
+#include "abstractfinder.h"
 
 class INetworkAccess;
 class QVariant;
 
-class Isohunt : public ITorrentFinder
+class Isohunt : public AbstractFinder
 {
 public:
     //----------------------------------------------------------------------------------------------

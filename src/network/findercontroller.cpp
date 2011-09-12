@@ -1,4 +1,4 @@
-#include "torrentfindercontroller.h"
+#include "findercontroller.h"
 #include "regexpprovider_se.h"
 #include "regexpprovider_x.h"
 
@@ -11,21 +11,21 @@ bool greaterThan (const FinderResult & l, const FinderResult & r)
 }
 
 //----------------------------------------------------------------------------------------------
-TorrentFinderController::TorrentFinderController():_episodeIsFound(false)
+FinderController::FinderController():_episodeIsFound(false)
 {
     _regExpProviders << new RegExpProvider_Se;
     _regExpProviders << new RegExpProvider_X;
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::addTorrentFinder (ITorrentFinder * torrentFinder)
+void FinderController::addFinder (AbstractFinder * finder)
 {
-    Q_ASSERT (torrentFinder);
-    _finders.insert (torrentFinder);
+    Q_ASSERT (finder);
+    _finders.insert (finder);
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findNextEpisode (const Serie & serie)
+void FinderController::findNextEpisode (const Serie & serie)
 {
     this->reset();
     this->findNextEpisodeInAllFinders (serie);
@@ -34,16 +34,16 @@ void TorrentFinderController::findNextEpisode (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::reset ()
+void FinderController::reset ()
 {
     _episodeIsFound = false;
     _results.clear ();
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findNextEpisodeInAllFinders(const Serie & serie)
+void FinderController::findNextEpisodeInAllFinders(const Serie & serie)
 {
-    foreach (ITorrentFinder * finder, _finders) {
+    foreach (AbstractFinder * finder, _finders) {
         foreach (RegExpProvider * regExpProvider, _regExpProviders) {
             finder->find (regExpProvider->getFindRegExp(serie, serie.lastEpisode() + 1));
             _results.append (finder->getResults ());
@@ -53,7 +53,7 @@ void TorrentFinderController::findNextEpisodeInAllFinders(const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::findBestMatch (const Serie & serie)
+void FinderController::findBestMatch (const Serie & serie)
 {
     _episodeIsFound = false;
     
@@ -72,20 +72,20 @@ void TorrentFinderController::findBestMatch (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderController::sortResultsBySeed ()
+void FinderController::sortResultsBySeed ()
 {
     qSort (_results.begin (), _results.end (), greaterThan);
 }
 
 
 //----------------------------------------------------------------------------------------------
-bool TorrentFinderController::episodeIsFound () const
+bool FinderController::episodeIsFound () const
 {
     return _episodeIsFound;
 }
 
 //----------------------------------------------------------------------------------------------
-const QString & TorrentFinderController::getEpisodeUrl () const
+const QString & FinderController::getEpisodeUrl () const
 {
     Q_ASSERT (this->episodeIsFound ());
     return _url;

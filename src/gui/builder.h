@@ -8,7 +8,7 @@ class MementoController;
 class NetworkAccess;
 class Scheduler;
 class SeriesModel;
-class TorrentFinderController;
+class FinderController;
 
 class QString;
 class QTableView;
@@ -49,7 +49,7 @@ private:
     NetworkAccess           * _networkAccess;
     SeriesModel             * _model;
     Scheduler               * _scheduler;
-    TorrentFinderController * _torrentFinderController;
+    FinderController        * _finderController;
 };
 
 #endif // BUILDER_H

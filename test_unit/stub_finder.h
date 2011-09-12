@@ -3,12 +3,12 @@
 
 #include <QString>
 
-#include "itorrentfinder.h"
+#include "abstractfinder.h"
 
-class TorrentFinderStub : public ITorrentFinder
+class FinderStub : public AbstractFinder
 {
 public:
-    TorrentFinderStub();
+    FinderStub();
 
     // Commands:
 

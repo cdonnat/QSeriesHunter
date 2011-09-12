@@ -1,29 +1,29 @@
-#include "tst_torrentfindercontroller.h"
+#include "tst_findercontroller.h"
 
 #include <QTest>
 
 #include "shared.h"
 
 //----------------------------------------------------------------------------------------------
-TestTorrentFinderController::TestTorrentFinderController(QObject *parent) :
+TestFinderController::TestFinderController(QObject *parent) :
     QObject(parent)
 {
 }
 
 //----------------------------------------------------------------------------------------------
-void TestTorrentFinderController::testInitialResult()
+void TestFinderController::testInitialResult()
 {
-    TestTorrentFinderController fixture;
+    TestFinderController fixture;
     QVERIFY2 (!fixture._sut.episodeIsFound (), "Initial is found");
     fixture._sut.findNextEpisode (Serie("House", 1, 2));
     QVERIFY2 (!fixture._sut.episodeIsFound (), "Initial is found 2");
 }
 
 //----------------------------------------------------------------------------------------------
-void TestTorrentFinderController::testRequestSent ()
+void TestFinderController::testRequestSent ()
 {
-    TestTorrentFinderController fixture;
-    fixture._sut.addTorrentFinder (&fixture._finder1);
+    TestFinderController fixture;
+    fixture._sut.addFinder (&fixture._finder1);
 
     fixture._sut.findNextEpisode (Serie("House", 1, 0));
     QVERIFY2(fixture._finder1.getRequest () == "|House S01E01|House 1x01", "Test 1");
@@ -39,9 +39,9 @@ void TestTorrentFinderController::testRequestSent ()
 }
 
 //----------------------------------------------------------------------------------------------
-void TestTorrentFinderController::testNominalCase ()
+void TestFinderController::testNominalCase ()
 {
-    TestTorrentFinderController fixture;
+    TestFinderController fixture;
 
     fixture._finder1.setResults (
                 FinderResults () << FinderResult("House", "http", 1));
@@ -49,8 +49,8 @@ void TestTorrentFinderController::testNominalCase ()
                 FinderResults() << FinderResult("houseief", "url", 15)
                                        << FinderResult("house.S02E07.LOL", "xxx", 2));
     //
-    fixture._sut.addTorrentFinder (&fixture._finder1);
-    fixture._sut.addTorrentFinder (&fixture._finder2);
+    fixture._sut.addFinder (&fixture._finder1);
+    fixture._sut.addFinder (&fixture._finder2);
     //
     fixture._sut.findNextEpisode (Serie("House", 2, 6));
     //
@@ -61,14 +61,14 @@ void TestTorrentFinderController::testNominalCase ()
 }
 
 //----------------------------------------------------------------------------------------------
-void TestTorrentFinderController::testSerieWithSpaces ()
+void TestFinderController::testSerieWithSpaces ()
 {
-    TestTorrentFinderController fixture;
+    TestFinderController fixture;
 
     fixture._finder1.setResults (
                 FinderResults () << FinderResult("-The-Event-S01-E01", "http",1));
     //
-    fixture._sut.addTorrentFinder (&fixture._finder1);
+    fixture._sut.addFinder (&fixture._finder1);
     //
     fixture._sut.findNextEpisode (Serie("The Event", 1 , 0));
     //
@@ -77,13 +77,13 @@ void TestTorrentFinderController::testSerieWithSpaces ()
 }
 
 //----------------------------------------------------------------------------------------------
-void TestTorrentFinderController::testRegExp ()
+void TestFinderController::testRegExp ()
 {
-    TestTorrentFinderController fixture;
+    TestFinderController fixture;
     
     fixture._finder1.setResults (FinderResults () << FinderResult("Merlin Season 1-2-3", "http",1));
     //
-    fixture._sut.addTorrentFinder (&fixture._finder1);
+    fixture._sut.addFinder (&fixture._finder1);
     //
     fixture._sut.findNextEpisode (Serie("Merlin", 2, 2));
     //

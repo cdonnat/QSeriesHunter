@@ -6,11 +6,11 @@
 #include "serie.h"
 #include "seriesmodel.h"
 #include "downloader.h"
-#include "torrentfindercontroller.h"
+#include "findercontroller.h"
 
 #include "stub_logger.h"
 #include "stub_networkaccess.h"
-#include "stub_torrentfinder.h"
+#include "stub_finder.h"
 #include "stub_defaultapprunner.h"
 
 #include <QFile>
@@ -20,15 +20,15 @@ TestScheduler::TestScheduler(QObject *parent) :
     QObject(parent)
 {
     _series          = new SeriesModel();
-    _finders         = new TorrentFinderController();
-    _finder          = new TorrentFinderStub();
+    _finders         = new FinderController();
+    _finder          = new FinderStub();
     _network         = new NetworkAccessStub;
     _serieDownloader = new DefaultAppRunnerStub;
     _downloader      = new Downloader(_network, _serieDownloader);
     _logger          = new LoggerStub;
     _sut             = new Scheduler(_series, _finders, _downloader, _logger);
 
-    _finders->addTorrentFinder (_finder);
+    _finders->addFinder (_finder);
 }
 
  void TestScheduler::testNoSeries()

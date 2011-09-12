@@ -4,14 +4,14 @@
 #include "ilogger.h"
 #include "serie.h"
 #include "seriesmodel.h"
-#include "torrentfindercontroller.h"
+#include "findercontroller.h"
 #include "downloader.h"
 
 #include <QObject>
 
 //----------------------------------------------------------------------------------------------
 Scheduler::Scheduler(ISeriesController       * const seriesController,
-                     TorrentFinderController * const finder,
+                     FinderController        * const finder,
                      Downloader              * const downloader,
                      ILogger                 * const logger)
     : _seriesController(seriesController),

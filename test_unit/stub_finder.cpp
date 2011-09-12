@@ -1,37 +1,37 @@
-#include "stub_torrentfinder.h"
+#include "stub_finder.h"
 
 #include <QList>
 
 //----------------------------------------------------------------------------------------------
-TorrentFinderStub::TorrentFinderStub()
+FinderStub::FinderStub()
 {
 }
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderStub::reset()
+void FinderStub::reset()
 {
     _request.clear();
 }
 
 
 //----------------------------------------------------------------------------------------------
-void TorrentFinderStub::find(const QString & name)
+void FinderStub::find(const QString & name)
 {
     _request.append("|" + name);
 }
 
-void TorrentFinderStub::setResults (const FinderResults & results)
+void FinderStub::setResults (const FinderResults & results)
 {
     _results = results;
 }
 
 //----------------------------------------------------------------------------------------------
-const FinderResults & TorrentFinderStub::getResults() const
+const FinderResults & FinderStub::getResults() const
 {
     return _results;
 }
 
-const QString & TorrentFinderStub::getRequest() const
+const QString & FinderStub::getRequest() const
 {
     return _request;
 }

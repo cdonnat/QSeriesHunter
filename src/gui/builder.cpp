@@ -11,7 +11,7 @@
 #include "networkaccess.h"
 #include "seriesmodel.h"
 #include "scheduler.h"
-#include "torrentfindercontroller.h"
+#include "findercontroller.h"
 
 #include <QDir>
 #include <QTableView>
@@ -63,8 +63,8 @@ void Builder::buildModel ()
 void Builder::buildNetwork()
 {
     _networkAccess           = new NetworkAccess();
-    _torrentFinderController = new TorrentFinderController();
-    _torrentFinderController->addTorrentFinder (new Isohunt(_networkAccess));
+    _finderController = new FinderController();
+    _finderController->addFinder (new Isohunt(_networkAccess));
 
 }
 
@@ -74,8 +74,8 @@ void Builder::buildScheduler()
     Q_ASSERT (_logger != NULL);
     Q_ASSERT (_model != NULL);
     Q_ASSERT (_networkAccess != NULL);
-    Q_ASSERT (_torrentFinderController != NULL);
-    _scheduler = new Scheduler(_model, _torrentFinderController,
+    Q_ASSERT (_finderController != NULL);
+    _scheduler = new Scheduler(_model, _finderController,
                                new Downloader(_networkAccess, new DefaultExternalAppRunner()),
                                _logger);
 }

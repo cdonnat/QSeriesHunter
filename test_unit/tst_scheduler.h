@@ -5,12 +5,12 @@
 
 class Scheduler;
 class SeriesModel;
-class TorrentFinderController;
+class FinderController;
 class DefaultAppRunnerStub;
 class Downloader;
 class LoggerStub;
 class NetworkAccessStub;
-class TorrentFinderStub;
+class FinderStub;
 
 class TestScheduler : public QObject
 {
@@ -26,12 +26,12 @@ private Q_SLOTS:
 private:
     Scheduler                * _sut;
     SeriesModel              * _series;
-    TorrentFinderController  * _finders;
+    FinderController         * _finders;
     DefaultAppRunnerStub     * _serieDownloader;
     Downloader               * _downloader;
     LoggerStub               * _logger;
     NetworkAccessStub        * _network;
-    TorrentFinderStub        * _finder;
+    FinderStub               * _finder;
 };
 
 #endif // TST_SCHEDULER_H

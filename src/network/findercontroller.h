@@ -1,29 +1,29 @@
-#ifndef TORRENTFINDERCONTROLLER_H
-#define TORRENTFINDERCONTROLLER_H
+#ifndef FINDERCONTROLLER_H
+#define FINDERCONTROLLER_H
 
 #include <QList>
 #include <QSet>
 #include <QString>
 
-#include "itorrentfinder.h"
+#include "abstractfinder.h"
 
 class RegExpProvider;
 class Serie;
 
-class TorrentFinderController
+class FinderController
 {
 public:
 
     //----------------------------------------------------------------------------------------------
     // Constuctors
-    explicit TorrentFinderController();
+    explicit FinderController();
 
     // Commands:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [A new torrent finder is added.]
-    void addTorrentFinder (ITorrentFinder * torrentFinder);
+    // ENS [A new finder is added.]
+    void addFinder (AbstractFinder * finder);
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
@@ -66,11 +66,11 @@ private:
 
 private:
     
-    QSet<ITorrentFinder *>     _finders;
+    QSet<AbstractFinder *>     _finders;
     QList<RegExpProvider *>    _regExpProviders;
     FinderResults              _results;
     bool                       _episodeIsFound;
     QString                    _url;
 };
 
-#endif // TORRENTFINDERCONTROLLER_H
+#endif // FINDERCONTROLLER_H

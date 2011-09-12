@@ -1,17 +1,17 @@
-#ifndef ITORRENFINDER_H
-#define ITORRENFINDER_H
+#ifndef ABSTRACTFINDER_H
+#define ABSTRACTFINDER_H
 
 #include "finderresult.h"
 #include <QList>
 
 typedef QList<FinderResult> FinderResults;
 
-class ITorrentFinder
+class AbstractFinder
 {
 public:
 
     //----------------------------------------------------------------------------------------------
-    virtual ~ITorrentFinder () {}
+    virtual ~AbstractFinder () {}
 
     // Commands:
 
@@ -28,4 +28,4 @@ public:
     virtual const FinderResults & getResults() const = 0;
 };
 
-#endif // ITORRENFINDER_H
+#endif // ABSTRACTFINDER_H

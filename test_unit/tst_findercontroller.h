@@ -3,14 +3,14 @@
 
 #include <QObject>
 
-#include "torrentfindercontroller.h"
-#include "stub_torrentfinder.h"
+#include "findercontroller.h"
+#include "stub_finder.h"
 
-class TestTorrentFinderController : public QObject
+class TestFinderController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestTorrentFinderController(QObject *parent = 0);
+    explicit TestFinderController(QObject *parent = 0);
 
 private slots:
     void testInitialResult();
@@ -20,8 +20,8 @@ private slots:
     void testRegExp();
 
 private:
-    TorrentFinderStub         _finder1, _finder2;
-    TorrentFinderController   _sut;
+    FinderStub           _finder1, _finder2;
+    FinderController     _sut;
 };
 
 #endif // TST_TORRENTFINDERCONTROLLER_H

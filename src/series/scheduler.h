@@ -5,7 +5,7 @@ class Downloader;
 class ILogger;
 class ISeriesController;
 class Serie;
-class TorrentFinderController;
+class FinderController;
 class QString;
 
 class Scheduler
@@ -16,7 +16,7 @@ public:
     // Constructors
     // [Inputs are not null.]
     explicit Scheduler(ISeriesController       * const seriesController,
-                       TorrentFinderController * const finder,
+                       FinderController        * const finder,
                        Downloader              * const downloader,
                        ILogger                 * const logger);
 
@@ -48,7 +48,7 @@ private:
 
 private:
     ISeriesController       * const _seriesController;
-    TorrentFinderController * const _finder;
+    FinderController        * const _finder;
     Downloader              * const _downloader;
     ILogger                 * const _logger;
 };
