@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>input/json_input.txt</file>
+		<file>input/xml_input.xml</file>
     </qresource>
 </RCC>

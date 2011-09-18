@@ -13,6 +13,7 @@
 #include "tst_mementocontroller.h"
 #include "tst_serieswidget.h"
 #include "tst_mainwindow.h"
+#include "tst_filestube.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,5 +30,6 @@ int main(int argc, char *argv[])
             QTest::qExec (new TestEditSerie) ||
             QTest::qExec (new TestMementoController) ||
             QTest::qExec (new TestMainWindow) ||
-            QTest::qExec (new TestSeriesWidget);
+            QTest::qExec (new TestSeriesWidget) ||
+            QTest::qExec (new TestFilesTube);
 }
