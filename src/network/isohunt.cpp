@@ -8,7 +8,8 @@
 #include <qjson/parser.h>
 
 //--------------------------------------------------------------------------------------------------
-Isohunt::Isohunt(INetworkAccess * const networkAccess) : _networkAccess(networkAccess)
+Isohunt::Isohunt(INetworkAccess * const networkAccess) : AbstractFinder("Torrent"),
+_networkAccess(networkAccess)
 {
     Q_ASSERT (_networkAccess != NULL);
 }

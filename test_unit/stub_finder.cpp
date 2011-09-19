@@ -3,7 +3,7 @@
 #include <QList>
 
 //----------------------------------------------------------------------------------------------
-FinderStub::FinderStub()
+FinderStub::FinderStub(const QString & type) : AbstractFinder(type)
 {
 }
 

@@ -5,8 +5,10 @@
 #include "shared.h"
 
 //----------------------------------------------------------------------------------------------
-TestFinderController::TestFinderController(QObject *parent) :
-    QObject(parent)
+TestFinderController::TestFinderController(const QString & finder1Type,
+                                           const QString & finder2Type,
+                                           QObject *parent) :
+    QObject(parent), _finder1(finder1Type), _finder2(finder2Type)
 {
 }
 
@@ -96,3 +98,33 @@ void TestFinderController::testRegExp ()
     //
     QVERIFY2(fixture._sut.episodeIsFound (), "Episode found, the regexp match");
 }
+
+void TestFinderController::exercizeAndCheckFinderSelection(bool            torrentShouldBeEmpty,
+                                                           bool            ddlShouldBeEmpty,
+                                                           const QString & comment)
+{
+    _finder1.reset();
+    _finder2.reset();
+    _sut.findNextEpisode(Serie("House", 1 ,1));
+    QVERIFY2(_finder1.getRequest().isEmpty() == torrentShouldBeEmpty, "Torrent finder request ");
+    QVERIFY2(_finder2.getRequest().isEmpty() == ddlShouldBeEmpty, "DLL finder request ");
+}
+
+void TestFinderController::testFinderSelection()
+{
+    TestFinderController fixture("Torrent", "DirectDownload");
+    //
+    fixture._sut.addFinder(&fixture._finder1);
+    fixture._sut.addFinder(&fixture._finder2);
+    fixture.exercizeAndCheckFinderSelection(false, true, "Initial");
+    //
+    fixture._sut.enable("DirectDownload", true);
+    fixture.exercizeAndCheckFinderSelection(false, false, "Both active");
+    //
+    fixture._sut.enable("Torrent", false);
+    fixture.exercizeAndCheckFinderSelection(true, false, "DDL only");
+    //
+    fixture._sut.enable("DirectDownload", false);
+    fixture.exercizeAndCheckFinderSelection(true, true, "None");
+}
+

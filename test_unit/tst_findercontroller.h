@@ -10,7 +10,9 @@ class TestFinderController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestFinderController(QObject *parent = 0);
+    explicit TestFinderController(const QString & finder1Type = "Torrent",
+                                  const QString & finder2Type = "Torrent",
+                                  QObject *parent = 0);
 
 private slots:
     void testInitialResult();
@@ -18,10 +20,16 @@ private slots:
     void testRequestSent();
     void testSerieWithSpaces();
     void testRegExp();
+    void testFinderSelection();
 
 private:
     FinderStub           _finder1, _finder2;
     FinderController     _sut;
+    
+    void exercizeAndCheckFinderSelection
+    (bool torrentShouldBeEmpty,
+     bool ddlShouldBeEmpty,
+     const QString & comment);
 };
 
 #endif // TST_TORRENTFINDERCONTROLLER_H

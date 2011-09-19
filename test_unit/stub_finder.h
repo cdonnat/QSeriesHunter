@@ -8,7 +8,7 @@
 class FinderStub : public AbstractFinder
 {
 public:
-    FinderStub();
+    FinderStub(const QString & type = "Torrent");
 
     // Commands:
 

@@ -15,6 +15,8 @@ FinderController::FinderController():_episodeIsFound(false)
 {
     _regExpProviders << new RegExpProvider_Se;
     _regExpProviders << new RegExpProvider_X;
+    _typeAuthorized.insert("Torrent", true);
+    _typeAuthorized.insert("DirectDownload", false);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -22,6 +24,13 @@ void FinderController::addFinder (AbstractFinder * finder)
 {
     Q_ASSERT (finder);
     _finders.insert (finder);
+}
+
+//----------------------------------------------------------------------------------------------
+void FinderController::enable (const QString &  finderType, bool isEnable)
+{
+    Q_ASSERT(_typeAuthorized.contains (finderType));
+    _typeAuthorized[finderType] = isEnable;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -44,10 +53,11 @@ void FinderController::reset ()
 void FinderController::findNextEpisodeInAllFinders(const Serie & serie)
 {
     foreach (AbstractFinder * finder, _finders) {
-        foreach (RegExpProvider * regExpProvider, _regExpProviders) {
-            finder->find (regExpProvider->getFindRegExp(serie, serie.lastEpisode() + 1));
-            _results.append (finder->getResults ());
-
+        if (_typeAuthorized [finder->getType()]) {
+            foreach (RegExpProvider * regExpProvider,_regExpProviders) {
+                finder->find (regExpProvider->getFindRegExp(serie, serie.lastEpisode() + 1));
+                _results.append (finder->getResults ());
+            }
         }
     }
 }
@@ -61,7 +71,9 @@ void FinderController::findBestMatch (const Serie & serie)
         
         foreach (RegExpProvider * regExpProvider, _regExpProviders) {
             _episodeIsFound = _episodeIsFound || 
-                              regExpProvider->resultIsMatching(serie, serie.lastEpisode() + 1, res.name ());
+                              regExpProvider->resultIsMatching(serie, 
+                                                               serie.lastEpisode() + 1, 
+                                                               res.name ());
         }
         
         if (_episodeIsFound) {

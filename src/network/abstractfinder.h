@@ -3,6 +3,7 @@
 
 #include "finderresult.h"
 #include <QList>
+#include <QString>
 
 typedef QList<FinderResult> FinderResults;
 
@@ -10,6 +11,10 @@ class AbstractFinder
 {
 public:
 
+    //----------------------------------------------------------------------------------------------
+    AbstractFinder (const QString & type);
+
+    
     //----------------------------------------------------------------------------------------------
     virtual ~AbstractFinder () {}
 
@@ -26,6 +31,14 @@ public:
     // REQ [None.]
     // ENS [Results are returned.]
     virtual const FinderResults & getResults() const = 0;
+
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [The type of finder is returned "Torrent" or "DirectDownload".]
+    virtual const QString & getType () const;
+    
+private :
+    QString  _type;
 };
 
 #endif // ABSTRACTFINDER_H

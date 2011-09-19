@@ -22,6 +22,7 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual const FinderResults & getResults  () const;
 
+    
 private :
     INetworkAccess  * const _networkAccess;
     FinderResults           _results;

@@ -2,6 +2,7 @@
 #define FINDERCONTROLLER_H
 
 #include <QList>
+#include <QMap>
 #include <QSet>
 #include <QString>
 
@@ -30,6 +31,11 @@ public:
     // ENS [A request to find the next episode of the serie is returned.]
     void findNextEpisode (const Serie & serie);
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [finderType is "Torrent" or "DirectDownload".]
+    // ENS [A finder type is enabled or not.]
+    void enable (const QString & finderType, bool isEnable);
+    
     // Queries:
 
     //----------------------------------------------------------------------------------------------
@@ -71,6 +77,7 @@ private:
     FinderResults              _results;
     bool                       _episodeIsFound;
     QString                    _url;
+    QMap<QString, bool>        _typeAuthorized;
 };
 
 #endif // FINDERCONTROLLER_H

@@ -5,10 +5,10 @@
 #include <QStringList>
 #include <QVariantMap>
 #include <QXmlStreamReader>
-#include <QDebug>
 
 //--------------------------------------------------------------------------------------------------
-FilesTube::FilesTube(INetworkAccess * const networkAccess) : _networkAccess(networkAccess)
+FilesTube::FilesTube(INetworkAccess * const networkAccess) : AbstractFinder("DirectDownload"),
+_networkAccess(networkAccess)
 {
     Q_ASSERT (_networkAccess != NULL);
 }
