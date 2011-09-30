@@ -123,8 +123,5 @@ void TestFinderController::testFinderSelection()
     //
     fixture._sut.enable("Torrent", false);
     fixture.exercizeAndCheckFinderSelection(true, false, "DDL only");
-    //
-    fixture._sut.enable("DirectDownload", false);
-    fixture.exercizeAndCheckFinderSelection(true, true, "None");
 }
 

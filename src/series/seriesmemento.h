@@ -4,7 +4,7 @@
 #include <QList>
 #include "serie.h"
 
-class QString;
+class QDataStream;
 
 class SeriesMemento
 {
@@ -12,13 +12,10 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Last save memento is returned. An empty memento is returned if none are found.]
-    static SeriesMemento loadFromInitFile(const QString & absolutePathInitFile);
+    static SeriesMemento loadFromStream(QDataStream & o);
 
-    //----------------------------------------------------------------------------------------------
-    // REQ [None.]
-    // ENS [Memento is written in init file.]
-    void saveInInitFile(const QString & absolutePathInitFile);
-
+    friend QDataStream & operator<<(QDataStream & o, const SeriesMemento & serieMemento);
+    
 private:
     //----------------------------------------------------------------------------------------------
     SeriesMemento(const QList<Serie> & series);
@@ -30,5 +27,6 @@ private:
 
     QList<Serie>  _save;
 };
+
 
 #endif // SERIESMEMENTO_H

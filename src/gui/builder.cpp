@@ -43,7 +43,7 @@ void Builder::buildEditSerie ()
 void Builder::buildMementoController (const QString & initFile)
 {
     Q_ASSERT (_model != NULL);
-    _mementoController = new MementoController(_model, initFile);
+    _mementoController = new MementoController(_model, _finderController, initFile);
     _mementoController->loadMemento ();
 }
 
@@ -62,10 +62,9 @@ void Builder::buildModel ()
 //----------------------------------------------------------------------------------------------
 void Builder::buildNetwork()
 {
-    _networkAccess           = new NetworkAccess();
+    _networkAccess    = new NetworkAccess();
     _finderController = new FinderController();
     _finderController->addFinder (new Isohunt(_networkAccess));
-
 }
 
 //----------------------------------------------------------------------------------------------

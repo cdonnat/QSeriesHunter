@@ -17,17 +17,10 @@ const QList<Serie> & SeriesMemento::get () const
 }
 
 //----------------------------------------------------------------------------------------------
-SeriesMemento SeriesMemento::loadFromInitFile(const QString & absolutePathInitFile)
+SeriesMemento SeriesMemento::loadFromStream(QDataStream & dataStream)
 {
-    QFile  initFile(absolutePathInitFile);
-    initFile.open(QIODevice::ReadOnly);
-
-    QDataStream in(&initFile);
     QList<Serie>  series;
-
-    in.setVersion (QDataStream::Qt_4_7);
-    in >> series;
-    initFile.close ();
+    dataStream >> series;
     return SeriesMemento(series);
 }
 
@@ -53,14 +46,8 @@ QDataStream & operator<< (QDataStream & dataStream, const Serie & serie)
     return dataStream;
 }
 
-//----------------------------------------------------------------------------------------------
-void SeriesMemento::saveInInitFile(const QString & absolutePathInitFile)
+QDataStream & operator<<(QDataStream & o, const SeriesMemento & serieMemento)
 {
-    QFile  initFile(absolutePathInitFile);
-    initFile.open(QIODevice::WriteOnly);
-
-    QDataStream out(&initFile);
-    out.setVersion (QDataStream::Qt_4_7);
-    out << _save;
-    initFile.close ();
+    o << serieMemento._save;
+    return o;
 }

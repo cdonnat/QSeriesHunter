@@ -7,6 +7,7 @@
 #include <QString>
 
 #include "abstractfinder.h"
+#include "findersmemento.h"
 
 class RegExpProvider;
 class Serie;
@@ -27,7 +28,7 @@ public:
     void addFinder (AbstractFinder * finder);
 
     //----------------------------------------------------------------------------------------------
-    // REQ [None.]
+    // REQ [At least one finderType is enabled.]
     // ENS [A request to find the next episode of the serie is returned.]
     void findNextEpisode (const Serie & serie);
 
@@ -36,8 +37,18 @@ public:
     // ENS [A finder type is enabled or not.]
     void enable (const QString & finderType, bool isEnable);
     
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [finderType are initialized according to memento.]
+    void loadFrom (const FindersMemento & memento);
+    
     // Queries:
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [finderType is "Torrent" or "DirectDownload".]
+    // ENS [True is returned if the specified finderType is enabled, false otherwise.]
+    bool isEnabled (const QString & finderType);
+    
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [True is returned if the episode is found.]
@@ -47,7 +58,12 @@ public:
     // REQ [Next episode has been found.]
     // ENS [The url of the episode is returned as a string.]
     const QString & getEpisodeUrl () const;
-
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Memento of finderType is returned.]
+    FindersMemento createMemento() const;
+    
 private:
 
     //----------------------------------------------------------------------------------------------

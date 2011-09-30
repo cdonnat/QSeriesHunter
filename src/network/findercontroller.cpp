@@ -34,8 +34,16 @@ void FinderController::enable (const QString &  finderType, bool isEnable)
 }
 
 //----------------------------------------------------------------------------------------------
+bool FinderController::isEnabled (const QString & finderType)
+{
+    Q_ASSERT(_typeAuthorized.contains (finderType));
+    return _typeAuthorized[finderType];
+}
+
+//----------------------------------------------------------------------------------------------
 void FinderController::findNextEpisode (const Serie & serie)
 {
+    Q_ASSERT(isEnabled("Torrent") || isEnabled("DirectDownload"));
     this->reset();
     this->findNextEpisodeInAllFinders (serie);
     this->sortResultsBySeed ();
@@ -102,3 +110,18 @@ const QString & FinderController::getEpisodeUrl () const
     Q_ASSERT (this->episodeIsFound ());
     return _url;
 }
+
+//----------------------------------------------------------------------------------------------
+FindersMemento FinderController::createMemento() const
+{
+    return FindersMemento(_typeAuthorized["Torrent"], _typeAuthorized["DirectDownload"]);
+}
+
+
+//----------------------------------------------------------------------------------------------
+void FinderController::loadFrom (const FindersMemento & memento)
+{
+    enable ("Torrent", memento.isTorrentEnable());
+    enable ("DirectDownload", memento.isDirectDownloadEnable());
+}
+
