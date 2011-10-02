@@ -12,6 +12,7 @@ class FinderController;
 class EditFinder;
 class EditFinderWidget;
 class SeriesWidget;
+class FindersWidget;
 
 class QString;
 class QTableView;
@@ -24,19 +25,7 @@ public:
     explicit Builder(const QString & initFile);
 
     //----------------------------------------------------------------------------------------------
-    Scheduler * const getScheduler() const;
-
-    //----------------------------------------------------------------------------------------------
-    MementoController * const getMementoController() const;
-
-    //----------------------------------------------------------------------------------------------
-    EditSerie * const getEditSerie() const;
-
-    //----------------------------------------------------------------------------------------------
-    QTableView * const getView() const;
-    
-    //----------------------------------------------------------------------------------------------
-    QWidget    * const getEditFinderWidget() const;
+    QWidget      * const getFindersWidget() const;
 
     //----------------------------------------------------------------------------------------------
     LoggerWidget * const getLoggerWidget() const;
@@ -66,6 +55,7 @@ private:
     EditFinder              * _editFinder;
     SeriesWidget            * _seriesWidget;
     LoggerWidget            * _loggerWidget;
+    FindersWidget           * _findersWidget;
 };
 
 #endif // BUILDER_H

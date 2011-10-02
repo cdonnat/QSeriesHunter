@@ -15,6 +15,7 @@
 #include "editfinder.h"
 #include "editfinderwidget.h"
 #include "serieswidget.h"
+#include "finderswidget.h";
 
 #include <QDir>
 #include <QTableView>
@@ -35,6 +36,7 @@ Builder::Builder(const QString & initFile)
     buildView();
     
     _seriesWidget = new SeriesWidget(_loggerWidget, _view, _editSerie, _scheduler, _mementoController);
+    _findersWidget = new FindersWidget(_editFinder, _editFinderWidget, _mementoController);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -103,6 +105,7 @@ void Builder::buildView ()
 	_view->resizeColumnsToContents();
 }
 
+/*
 //----------------------------------------------------------------------------------------------
 Scheduler * const Builder::getScheduler() const
 {
@@ -132,6 +135,11 @@ QTableView * const Builder::getView() const
 QWidget * const Builder::getEditFinderWidget() const
 {
     return _editFinderWidget;
+}
+*/
+QWidget * const Builder::getFindersWidget () const
+{
+    return _findersWidget->getWidget();
 }
 
 LoggerWidget * const Builder::getLoggerWidget() const
