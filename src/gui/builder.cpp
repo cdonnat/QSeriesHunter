@@ -12,8 +12,8 @@
 #include "seriesmodel.h"
 #include "scheduler.h"
 #include "findercontroller.h"
-#include "finderselection.h"
-#include "finderselectionwidget.h"
+#include "editfinder.h"
+#include "editfinderwidget.h"
 #include "serieswidget.h"
 
 #include <QDir>
@@ -49,9 +49,9 @@ void Builder::buildEditSerie ()
 void Builder::buildMementoController (const QString & initFile)
 {
     Q_ASSERT (_model != NULL);
-    _finderSelectionWidget = new FinderSelectionWidget; 
-    _finderSelection       = new FinderSelection (_finderController, _finderSelectionWidget);
-    _mementoController     = new MementoController(_model, _finderSelection, initFile);
+    _editFinderWidget  = new EditFinderWidget; 
+    _editFinder        = new EditFinder (_finderController, _editFinderWidget);
+    _mementoController = new MementoController(_model, _editFinder, initFile);
     _mementoController->loadMemento ();
 }
 
@@ -129,9 +129,9 @@ QTableView * const Builder::getView() const
 
 
 //----------------------------------------------------------------------------------------------
-QWidget * const Builder::getFinderSelection() const
+QWidget * const Builder::getEditFinderWidget() const
 {
-    return _finderSelectionWidget;
+    return _editFinderWidget;
 }
 
 LoggerWidget * const Builder::getLoggerWidget() const

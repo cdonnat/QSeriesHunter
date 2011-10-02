@@ -5,7 +5,7 @@
 
 #include "mementocontroller.h"
 #include "seriescontroller.h"
-#include "finderselection.h"
+#include "editfinder.h"
 
 class FinderController;
 
@@ -22,7 +22,7 @@ private Q_SLOTS:
 
 private:
     FinderController  * _finderController;
-    FinderSelection   * _finderSelection;
+    EditFinder        * _editFinder;
     SeriesController    _series;
     MementoController * _sut;
 };

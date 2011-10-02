@@ -27,7 +27,7 @@ FILE(GLOB NETWORK_SRC "network/*.*")
 FILE(GLOB SERIES_SRC "series/*.*")
 FILE(GLOB GUI_SRC "gui/*.*")
 
-SET(MOC_HEADERS gui/mainwindow.h gui/serieswidget.h gui/loggerwidget.h gui/finderselectionwidget.h)
+SET(MOC_HEADERS gui/mainwindow.h gui/serieswidget.h gui/loggerwidget.h gui/finderswidget.h gui/editfinderwidget.h)
     
 QT4_WRAP_CPP(HEADERS_MOC ${MOC_HEADERS})
 QT4_ADD_RESOURCES(SOURCES_RC_SRC ${SOURCES_RC} )

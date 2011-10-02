@@ -1,6 +1,6 @@
 #include "mementocontroller.h"
 #include "iseriescontroller.h"
-#include "finderselection.h"
+#include "editfinder.h"
 #include "seriesmemento.h"
 #include "findersmemento.h"
 
@@ -9,7 +9,7 @@
 
 //----------------------------------------------------------------------------------------------
 MementoController::MementoController(ISeriesController * const series,
-                                     FinderSelection   * const finders,
+                                     EditFinder        * const finders,
                                      const QString &           absoluteFilePath):
     _series(series),_finders(finders), _initFile(absoluteFilePath)
 {

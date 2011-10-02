@@ -1,7 +1,7 @@
 #include "tst_mementocontroller.h"
 
 #include "findercontroller.h"
-#include "finderselectionwidget.h"
+#include "editfinderwidget.h"
 
 #include <QString>
 #include <QDir>
@@ -16,9 +16,9 @@ TestMementoController::TestMementoController(QObject *parent) :
     QObject(parent)
 {
     _finderController = new FinderController;
-    _finderSelection  = new FinderSelection(_finderController, 
-                                            new FinderSelectionWidget);
-    _sut = new MementoController(&_series, _finderSelection, initFile);
+    _editFinder       = new EditFinder(_finderController, 
+                                       new EditFinderWidget);
+    _sut = new MementoController(&_series, _editFinder, initFile);
 }
 
 void TestMementoController::initTestCase()

@@ -18,7 +18,7 @@
 #include <QStatusBar>
 #include <QToolBar>
 #include <QVBoxLayout>
-#include "finderselectionwidget.h"
+#include "editfinderwidget.h"
 
 const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
@@ -48,7 +48,7 @@ void MainWindow::createWidgets()
     QWidget     * centralWidget = new QWidget;
     QVBoxLayout * centralLayout = new QVBoxLayout;
     
-    centralLayout->addWidget(builder.getFinderSelection());
+    centralLayout->addWidget(builder.getEditFinderWidget());
     centralLayout->addWidget(_seriesWidget);
     centralLayout->setContentsMargins(0, 0, 0, 0);
     centralWidget->setLayout(centralLayout);

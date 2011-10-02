@@ -4,7 +4,7 @@
 #include <QString>
 
 class ISeriesController;
-class FinderSelection;
+class EditFinder;
 
 class MementoController
 {
@@ -12,7 +12,7 @@ public:
 
     //----------------------------------------------------------------------------------------------
     MementoController(ISeriesController * const series,
-                      FinderSelection   * const finders,
+                      EditFinder        * const finders,
                       const QString &           absoluteFilePath);
 
     // Commands :
@@ -25,7 +25,7 @@ public:
 
 private:
     ISeriesController  * const _series;
-    FinderSelection    * const _finders;
+    EditFinder         * const _finders;
     QString                    _initFile;
 };
 

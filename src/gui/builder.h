@@ -9,8 +9,8 @@ class NetworkAccess;
 class Scheduler;
 class SeriesModel;
 class FinderController;
-class FinderSelection;
-class FinderSelectionWidget;
+class EditFinder;
+class EditFinderWidget;
 class SeriesWidget;
 
 class QString;
@@ -36,7 +36,7 @@ public:
     QTableView * const getView() const;
     
     //----------------------------------------------------------------------------------------------
-    QWidget    * const getFinderSelection() const;
+    QWidget    * const getEditFinderWidget() const;
 
     //----------------------------------------------------------------------------------------------
     LoggerWidget * const getLoggerWidget() const;
@@ -62,8 +62,8 @@ private:
     SeriesModel             * _model;
     Scheduler               * _scheduler;
     FinderController        * _finderController;
-    FinderSelectionWidget   * _finderSelectionWidget;
-    FinderSelection         * _finderSelection;
+    EditFinderWidget        * _editFinderWidget;
+    EditFinder              * _editFinder;
     SeriesWidget            * _seriesWidget;
     LoggerWidget            * _loggerWidget;
 };
