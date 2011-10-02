@@ -12,25 +12,12 @@
 #include <QVBoxLayout>
 
 //----------------------------------------------------------------------------------------------
-SeriesWidget::SeriesWidget(ILogger * logger, const QString & initFile, QWidget *parent) :
-    QWidget(parent)
-{
-    createAttributes(logger, initFile);
-    createLayouts ();
-}
-
-//----------------------------------------------------------------------------------------------
-void SeriesWidget::createAttributes (ILogger * logger, const QString & initFile)
-{
-    Builder   builder(logger, initFile);
-    _view              = builder.getView();
-    _scheduler         = builder.getScheduler ();
-    _mementoController = builder.getMementoController ();
-    _editSerie         = builder.getEditSerie ();
-}
-
-//----------------------------------------------------------------------------------------------
-void SeriesWidget::createLayouts ()
+SeriesWidget::SeriesWidget(ILogger           * logger, 
+                           QTableView        * view,
+                           EditSerie         * editSerie,
+                           Scheduler         * scheduler,
+                           MementoController * mementoController) :
+    QWidget(), _view(view), _editSerie(editSerie), _scheduler(scheduler),  _mementoController(mementoController)
 {
     QVBoxLayout  * layout = new QVBoxLayout(this);
     layout->addWidget(_view);

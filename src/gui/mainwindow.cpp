@@ -3,6 +3,7 @@
 #include "config.h"
 #include "loggerwidget.h"
 #include "serieswidget.h"
+#include "builder.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -16,6 +17,8 @@
 #include <QProgressBar>
 #include <QStatusBar>
 #include <QToolBar>
+#include <QVBoxLayout>
+#include "finderselectionwidget.h"
 
 const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 
@@ -32,14 +35,25 @@ MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")
 //----------------------------------------------------------------------------------------------
 void MainWindow::createWidgets()
 {
-    _loggerWidget = new LoggerWidget();
-    _dockLog = new QDockWidget(tr("Console Log"), this);
+    Builder   builder(initFile);
+    
+    _loggerWidget = builder.getLoggerWidget();
+    _seriesWidget = builder.getSeriesWidget();
+
+    _dockLog      = new QDockWidget(tr("Console Log"), this);
     _dockLog->setWidget(_loggerWidget);
     _dockLog->setVisible(false);
     this->addDockWidget(Qt::BottomDockWidgetArea, _dockLog);
 
-    _seriesWidget = new SeriesWidget(_loggerWidget, initFile, this);
-    this->setCentralWidget (_seriesWidget);
+    QWidget     * centralWidget = new QWidget;
+    QVBoxLayout * centralLayout = new QVBoxLayout;
+    
+    centralLayout->addWidget(builder.getFinderSelection());
+    centralLayout->addWidget(_seriesWidget);
+    centralLayout->setContentsMargins(0, 0, 0, 0);
+    centralWidget->setLayout(centralLayout);
+    
+    this->setCentralWidget (centralWidget);
     this->setWindowTitle ("QSeriesHunter");
 }
 

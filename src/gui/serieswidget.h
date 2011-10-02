@@ -17,7 +17,11 @@ class SeriesWidget : public QWidget
     Q_OBJECT
 public:
     //----------------------------------------------------------------------------------------------
-    explicit SeriesWidget(ILogger * logger, const QString & initFile, QWidget *parent = 0);
+    explicit SeriesWidget(ILogger           * logger, 
+                          QTableView        * view,
+                          EditSerie         * editSerie,
+                          Scheduler         * scheduler,
+                          MementoController * mementoController);
 
 signals:
     
@@ -43,12 +47,6 @@ public slots:
     void update();
 
 private:
-
-    //----------------------------------------------------------------------------------------------
-    void createAttributes(ILogger * logger, const QString & initFile);
-
-    //----------------------------------------------------------------------------------------------
-    void createLayouts();
 
     //----------------------------------------------------------------------------------------------
     QModelIndex getModelIndexSelected() const;

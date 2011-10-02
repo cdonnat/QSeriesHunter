@@ -34,7 +34,7 @@ void FinderController::enable (const QString &  finderType, bool isEnable)
 }
 
 //----------------------------------------------------------------------------------------------
-bool FinderController::isEnabled (const QString & finderType)
+bool FinderController::isEnabled (const QString & finderType) const
 {
     Q_ASSERT(_typeAuthorized.contains (finderType));
     return _typeAuthorized[finderType];
@@ -114,7 +114,7 @@ const QString & FinderController::getEpisodeUrl () const
 //----------------------------------------------------------------------------------------------
 FindersMemento FinderController::createMemento() const
 {
-    return FindersMemento(_typeAuthorized["Torrent"], _typeAuthorized["DirectDownload"]);
+    return FindersMemento(isEnabled("Torrent"), isEnabled("DirectDownload"));
 }
 
 

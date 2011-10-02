@@ -12,6 +12,9 @@
 #include "seriesmodel.h"
 #include "scheduler.h"
 #include "findercontroller.h"
+#include "finderselection.h"
+#include "finderselectionwidget.h"
+#include "serieswidget.h"
 
 #include <QDir>
 #include <QTableView>
@@ -19,16 +22,19 @@
 
 
 //----------------------------------------------------------------------------------------------
-Builder::Builder(ILogger * logger, const QString & initFile):_logger(logger)
+Builder::Builder(const QString & initFile)
 {
-    Q_ASSERT(logger != NULL);
+    _loggerWidget = new LoggerWidget;
+    
     buildNetwork ();
     buildMessageBox ();
     buildModel();
     buildEditSerie ();
-    buildMementoController (initFile);
     buildScheduler ();
+    buildMementoController (initFile);
     buildView();
+    
+    _seriesWidget = new SeriesWidget(_loggerWidget, _view, _editSerie, _scheduler, _mementoController);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -43,7 +49,9 @@ void Builder::buildEditSerie ()
 void Builder::buildMementoController (const QString & initFile)
 {
     Q_ASSERT (_model != NULL);
-    _mementoController = new MementoController(_model, _finderController, initFile);
+    _finderSelectionWidget = new FinderSelectionWidget; 
+    _finderSelection       = new FinderSelection (_finderController, _finderSelectionWidget);
+    _mementoController     = new MementoController(_model, _finderSelection, initFile);
     _mementoController->loadMemento ();
 }
 
@@ -70,13 +78,13 @@ void Builder::buildNetwork()
 //----------------------------------------------------------------------------------------------
 void Builder::buildScheduler()
 {
-    Q_ASSERT (_logger != NULL);
+    Q_ASSERT (_loggerWidget != NULL);
     Q_ASSERT (_model != NULL);
     Q_ASSERT (_networkAccess != NULL);
     Q_ASSERT (_finderController != NULL);
     _scheduler = new Scheduler(_model, _finderController,
                                new Downloader(_networkAccess, new DefaultExternalAppRunner()),
-                               _logger);
+                               _loggerWidget);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -118,3 +126,22 @@ QTableView * const Builder::getView() const
 {
     return _view;
 }
+
+
+//----------------------------------------------------------------------------------------------
+QWidget * const Builder::getFinderSelection() const
+{
+    return _finderSelectionWidget;
+}
+
+LoggerWidget * const Builder::getLoggerWidget() const
+{
+    return _loggerWidget;
+}
+
+
+SeriesWidget * const Builder::getSeriesWidget() const
+{
+    return _seriesWidget;
+}
+

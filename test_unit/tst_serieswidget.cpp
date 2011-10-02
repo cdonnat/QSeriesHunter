@@ -1,5 +1,5 @@
 #include "tst_serieswidget.h"
-#include "stub_logger.h"
+#include "builder.h"
 
 #include <QTest>
 #include <QSignalSpy>
@@ -7,7 +7,8 @@
 TestSeriesWidget::TestSeriesWidget(QObject *parent) :
     QObject(parent)
 {
-    _sut = new SeriesWidget(new LoggerStub, "test.ini");
+    Builder builder("init.txt");
+    _sut = builder.getSeriesWidget();
 }
 
 void TestSeriesWidget::testUpdate()

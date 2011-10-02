@@ -5,7 +5,9 @@
 
 #include "mementocontroller.h"
 #include "seriescontroller.h"
-#include "findercontroller.h"
+#include "finderselection.h"
+
+class FinderController;
 
 class TestMementoController : public QObject
 {
@@ -19,9 +21,10 @@ private Q_SLOTS:
     virtual void cleanUpTestCase();
 
 private:
-    FinderController   _finderController;
-    SeriesController   _series;
-    MementoController  _sut;
+    FinderController  * _finderController;
+    FinderSelection   * _finderSelection;
+    SeriesController    _series;
+    MementoController * _sut;
 };
 
 #endif // TST_MEMENTOCONTROLLER_H

@@ -47,7 +47,7 @@ public:
     //----------------------------------------------------------------------------------------------
     // REQ [finderType is "Torrent" or "DirectDownload".]
     // ENS [True is returned if the specified finderType is enabled, false otherwise.]
-    bool isEnabled (const QString & finderType);
+    bool isEnabled (const QString & finderType) const;
     
     //----------------------------------------------------------------------------------------------
     // REQ [None.]

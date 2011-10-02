@@ -30,6 +30,7 @@ QT4_WRAP_CPP(HEADERS_MOC ${HEADERS})
 
 ADD_EXECUTABLE(test_qserieshunter
                 main.cpp
+                ${HEADERS}
                 ${SOURCES}
                 ${STUBS}
                 ${HEADERS_MOC}

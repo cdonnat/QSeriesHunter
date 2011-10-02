@@ -3,21 +3,25 @@
 
 class EditSerie;
 class IMessageBox;
-class ILogger;
+class LoggerWidget;
 class MementoController;
 class NetworkAccess;
 class Scheduler;
 class SeriesModel;
 class FinderController;
+class FinderSelection;
+class FinderSelectionWidget;
+class SeriesWidget;
 
 class QString;
 class QTableView;
+class QWidget;
 
 class Builder
 {
 public:
     //----------------------------------------------------------------------------------------------
-    explicit Builder(ILogger * logger, const QString & initFile);
+    explicit Builder(const QString & initFile);
 
     //----------------------------------------------------------------------------------------------
     Scheduler * const getScheduler() const;
@@ -30,7 +34,16 @@ public:
 
     //----------------------------------------------------------------------------------------------
     QTableView * const getView() const;
+    
+    //----------------------------------------------------------------------------------------------
+    QWidget    * const getFinderSelection() const;
 
+    //----------------------------------------------------------------------------------------------
+    LoggerWidget * const getLoggerWidget() const;
+    
+    //----------------------------------------------------------------------------------------------
+    SeriesWidget * const getSeriesWidget() const;
+    
 private:
 
     void buildEditSerie();
@@ -41,7 +54,6 @@ private:
     void buildScheduler();
     void buildView();
 
-    ILogger                 * _logger;
     QTableView              * _view;
     EditSerie               * _editSerie;
     IMessageBox             * _messageBox;
@@ -50,6 +62,10 @@ private:
     SeriesModel             * _model;
     Scheduler               * _scheduler;
     FinderController        * _finderController;
+    FinderSelectionWidget   * _finderSelectionWidget;
+    FinderSelection         * _finderSelection;
+    SeriesWidget            * _seriesWidget;
+    LoggerWidget            * _loggerWidget;
 };
 
 #endif // BUILDER_H
