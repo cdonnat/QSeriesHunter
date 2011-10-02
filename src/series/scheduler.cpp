@@ -6,6 +6,7 @@
 #include "seriesmodel.h"
 #include "findercontroller.h"
 #include "downloader.h"
+#include "messagebox.h"
 
 #include <QObject>
 
@@ -27,14 +28,27 @@ Scheduler::Scheduler(ISeriesController       * const seriesController,
 
 
 //----------------------------------------------------------------------------------------------
+bool atLeastOneFinderTypeIsActivated (FinderController * finder)
+{
+    return finder->isEnabled("Torrent") || finder->isEnabled("DirectDownload");
+}
+
+//----------------------------------------------------------------------------------------------
 void Scheduler::update ()
 {
     _logger->logInfo (QObject::tr ("Start updating..."));
-    if (_seriesController->nbSeries () > 0) {
-        lookForNewEpisodes ();
+    if (atLeastOneFinderTypeIsActivated(_finder)) {
+        if (_seriesController->nbSeries () > 0) {
+            lookForNewEpisodes ();
+        }
+        else {
+            _logger->logWarning (noSeriesFollowed);
+        }
     }
     else {
-        _logger->logWarning (noSeriesFollowed);
+        MessageBox message;
+        message.displayWarning(QObject::tr("Finder selection error"),
+                               QObject::tr("You have to select at least on finder type!"));
     }
     _logger->logInfo (QObject::tr ("Updating finished!"));
 }
