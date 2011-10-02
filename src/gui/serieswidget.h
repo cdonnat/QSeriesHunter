@@ -12,7 +12,7 @@ class QTableView;
 class QModelIndex;
 class QString;
 
-class SeriesWidget : public QWidget
+class SeriesWidget : public QObject
 {
     Q_OBJECT
 public:
@@ -23,6 +23,8 @@ public:
                           Scheduler         * scheduler,
                           MementoController * mementoController);
 
+    QWidget * const getWidget() const;
+    
 signals:
     
     //----------------------------------------------------------------------------------------------

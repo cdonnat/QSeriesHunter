@@ -17,11 +17,8 @@ SeriesWidget::SeriesWidget(ILogger           * logger,
                            EditSerie         * editSerie,
                            Scheduler         * scheduler,
                            MementoController * mementoController) :
-    QWidget(), _view(view), _editSerie(editSerie), _scheduler(scheduler),  _mementoController(mementoController)
+_view(view), _editSerie(editSerie), _scheduler(scheduler),  _mementoController(mementoController)
 {
-    QVBoxLayout  * layout = new QVBoxLayout(this);
-    layout->addWidget(_view);
-    setLayout (layout);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -64,4 +61,10 @@ void SeriesWidget::update ()
     _scheduler->update ();
     _mementoController->saveMemento ();
     emit updateEnd();
+}
+
+//----------------------------------------------------------------------------------------------
+QWidget * const SeriesWidget::getWidget() const
+{
+    return _view;
 }

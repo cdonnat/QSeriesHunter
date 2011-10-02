@@ -49,8 +49,7 @@ void MainWindow::createWidgets()
     QVBoxLayout * centralLayout = new QVBoxLayout;
     
     centralLayout->addWidget(builder.getFindersWidget());
-    centralLayout->addWidget(_seriesWidget);
-    centralLayout->setContentsMargins(0, 0, 0, 0);
+    centralLayout->addWidget(_seriesWidget->getWidget());
     centralWidget->setLayout(centralLayout);
     
     this->setCentralWidget (centralWidget);

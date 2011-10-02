@@ -16,6 +16,7 @@ EditFinderWidget::EditFinderWidget():QWidget()
     layout->addWidget(_torrentCheckBox);
     layout->addWidget(_ddlCheckBox);
     layout->addStretch();
+    layout->setContentsMargins(0, 0, 0, 0);
     
     setLayout(layout);
         

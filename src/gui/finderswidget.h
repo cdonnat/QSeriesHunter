@@ -7,7 +7,7 @@ class EditFinder;
 class EditFinderWidget;
 class MementoController;
 
-class FindersWidget : public QWidget
+class FindersWidget : public QObject
 {
     Q_OBJECT
 public:
