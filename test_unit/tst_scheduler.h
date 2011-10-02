@@ -20,7 +20,8 @@ public:
 
 private Q_SLOTS:
     void testNoSeries();
-    void testNominal();
+    void testNominalTorrent();
+    void testNominalDdl();
     void testFail();
 
 private:

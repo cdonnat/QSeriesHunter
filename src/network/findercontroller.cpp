@@ -11,7 +11,7 @@ bool greaterThan (const FinderResult & l, const FinderResult & r)
 }
 
 //----------------------------------------------------------------------------------------------
-FinderController::FinderController():_episodeIsFound(false)
+FinderController::FinderController():_episodeIsFound(false),_lastResult("", "", false, 0)
 {
     _regExpProviders << new RegExpProvider_Se;
     _regExpProviders << new RegExpProvider_X;
@@ -85,7 +85,7 @@ void FinderController::findBestMatch (const Serie & serie)
         }
         
         if (_episodeIsFound) {
-            _url            = res.url ();
+            _lastResult            = res;
             break;
         }
     }
@@ -108,7 +108,7 @@ bool FinderController::episodeIsFound () const
 const QString & FinderController::getEpisodeUrl () const
 {
     Q_ASSERT (this->episodeIsFound ());
-    return _url;
+    return _lastResult.url();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -123,5 +123,11 @@ void FinderController::loadFrom (const FindersMemento & memento)
 {
     enable ("Torrent", memento.isTorrentEnable());
     enable ("DirectDownload", memento.isDirectDownloadEnable());
+}
+
+//----------------------------------------------------------------------------------------------
+bool FinderController::episodeFoundIsFromTorrent () const
+{
+    return _lastResult.isTorrent();
 }
 

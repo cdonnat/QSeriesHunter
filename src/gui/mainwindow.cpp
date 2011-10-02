@@ -18,7 +18,6 @@
 #include <QStatusBar>
 #include <QToolBar>
 #include <QVBoxLayout>
-#include "editfinderwidget.h"
 
 const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
 

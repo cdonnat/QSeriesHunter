@@ -38,13 +38,13 @@ TestScheduler::TestScheduler(QObject *parent) :
     QVERIFY2 (fixture._logger->warning () == noSeriesFollowed, "Warning no series");
  }
 
- void TestScheduler::testNominal ()
+ void TestScheduler::testNominalTorrent ()
  {
      TestScheduler fixture;
 
      fixture._series->addSerie (houseSeason1);
      fixture._finder->setResults (FinderResults () <<
-                                  FinderResult("House.S01.E01", "house_torrent", 10));
+                                  FinderResult("House.S01.E01", "house_torrent", true, 10));
      fixture._network->setIsReady (true);
 
      fixture._sut->update ();
@@ -55,6 +55,23 @@ TestScheduler::TestScheduler(QObject *parent) :
      QVERIFY2 (fixture._logger->success ().contains ("Season 1 Episode 1"), "info display");
      QVERIFY2 (QFile::exists (fixture._serieDownloader->_absoluteFileName),
                "Torrent downloaded");
+}
+
+void TestScheduler::testNominalDdl ()
+{
+    TestScheduler fixture;
+    
+    fixture._series->addSerie (houseSeason1);
+    fixture._finder->setResults (FinderResults () <<
+                                 FinderResult("House.S01.E01", "house_ddl_url", false, 10));
+    fixture._network->setIsReady (true);
+    
+    fixture._sut->update ();
+    
+    QVERIFY2 (fixture._finder->getRequest () == "|House S01E01|House 1x01", "Nominal request");
+    QVERIFY2 (fixture._series->at(0).lastEpisode () == 1, "Nominal inc");
+    QVERIFY2 (fixture._logger->success ().contains ("Season 1 Episode 1"), "info display");
+    QVERIFY2 (fixture._logger->info ().contains ("house_ddl_url"), "url displayed");
 }
 
 void TestScheduler::testFail()

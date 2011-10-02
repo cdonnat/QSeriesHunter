@@ -6,6 +6,8 @@
 #include <QVariantMap>
 #include <QXmlStreamReader>
 
+const QString key = "ff5286516f86965dadfeb44bc87d4c36&sort=dd&phrase=";
+
 //--------------------------------------------------------------------------------------------------
 FilesTube::FilesTube(INetworkAccess * const networkAccess) : AbstractFinder("DirectDownload"),
 _networkAccess(networkAccess)
@@ -17,7 +19,8 @@ _networkAccess(networkAccess)
 void FilesTube::startRequest(const QString & serieTitle)
 {
     QString convertedTitle = serieTitle;
-    QString request = "http://api.filestube.com/?key=2c17a6258659780e0bc6d2ca41ab731e&sort=dd&phrase="
+    QString request = "http://api.filestube.com/?key=" +
+                       key
                       + convertedTitle.replace(' ', '+');
     _networkAccess->read(request);
 }
@@ -53,7 +56,7 @@ void FilesTube::addItemToResults(QXmlStreamReader & reader)
     const bool itemHasBeenCorrectlyRead = !(name.isEmpty() || url.isEmpty());
     if (itemHasBeenCorrectlyRead)
     {
-        _results << FinderResult(name, url, 0);
+        _results << FinderResult(name, url, false, 0);
     }
 }
 

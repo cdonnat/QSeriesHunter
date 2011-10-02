@@ -37,7 +37,6 @@ private:
 
     void buildEditSerie();
     void buildMementoController(const QString & initFile);
-    void buildMessageBox();
     void buildModel();
     void buildNetwork();
     void buildScheduler();

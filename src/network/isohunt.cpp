@@ -30,6 +30,7 @@ void Isohunt::addItemToResults(const QVariant & item)
     QVariantMap  map = item.toMap();
     _results.append(FinderResult(map["title"].toString(),
                                  map["enclosure_url"].toString(),
+                                 true,
                                  map["Seeds"].toUInt()));
 }
 

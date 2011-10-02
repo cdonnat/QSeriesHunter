@@ -13,7 +13,7 @@ TestFilesTube::TestFilesTube()
     this->_sut           = new FilesTube(this->_networkAccess);
 }
 
-const QString request = "http://api.filestube.com/?key=2c17a6258659780e0bc6d2ca41ab731e&sort=dd&phrase=";
+const QString request = "http://api.filestube.com/?key=ff5286516f86965dadfeb44bc87d4c36&sort=dd&phrase=";
 
 QString  geXmlInput()
 {
@@ -47,7 +47,7 @@ void TestFilesTube::nominalCase ()
     FinderResults results = this->_sut->getResults();
 
     QVERIFY2(this->_networkAccess->url() ==
-             "http://api.filestube.com/?key=2c17a6258659780e0bc6d2ca41ab731e&sort=dd&phrase=ubuntu",
+             "http://api.filestube.com/?key=ff5286516f86965dadfeb44bc87d4c36&sort=dd&phrase=ubuntu",
              "Expected request");
 
     QVERIFY2(results.size() == 10, "Results are retrieved");

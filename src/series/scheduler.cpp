@@ -59,22 +59,37 @@ QString Scheduler::nextEpisodeFullName(const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
-void Scheduler::lookForNewEpisode (const Serie & serie)
+void Scheduler::tryToDownloadEpisode (const Serie & serie)
 {
-    _logger->logInfo (QObject::tr ("Looking for %1 ...").arg (nextEpisodeFullName(serie)));
-    _finder->findNextEpisode (serie);
-
-    if (_finder->episodeIsFound ()) {
-
-        _logger->logSuccess (QObject::tr ("%1 found").arg (nextEpisodeFullName(serie)));
+    Q_ASSERT(_finder->episodeIsFound());
+    
+    if (_finder->episodeFoundIsFromTorrent()) {
         _downloader->downloadTorrent (_finder->getEpisodeUrl ());
-
+    
         if (_downloader->downloadIsSuccessful ()) {
             _downloader->runTorrentWithExternalDefaultApp ();
             _logger->logSuccess (QObject::tr ("%1 download started")
                                  .arg (nextEpisodeFullName(serie)));
             _seriesController->inc (serie);
         }
+    }
+    else
+    {
+        _logger->logInfo(_finder->getEpisodeUrl());
+        _seriesController->inc (serie);
+    }
+}
+
+
+//----------------------------------------------------------------------------------------------
+void Scheduler::lookForNewEpisode (const Serie & serie)
+{
+    _logger->logInfo (QObject::tr ("Looking for %1 ...").arg (nextEpisodeFullName(serie)));
+    _finder->findNextEpisode (serie);
+
+    if (_finder->episodeIsFound ()) {
+        _logger->logSuccess (QObject::tr ("%1 found").arg (nextEpisodeFullName(serie)));
+        tryToDownloadEpisode(serie);
     }
     else {
         _logger->logInfo (QObject::tr ("%1 not found").arg (nextEpisodeFullName(serie)));

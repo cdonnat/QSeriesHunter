@@ -21,7 +21,7 @@ EditFinderWidget::EditFinderWidget():QWidget()
     setLayout(layout);
         
     connect (_torrentCheckBox, SIGNAL(toggled(bool)), this, SIGNAL(torrentChecked(bool)));
-    connect (_ddlCheckBox, SIGNAL(toggled(bool)), this, SIGNAL(directDownloadChecked(bool)));
+    connect (_ddlCheckBox    , SIGNAL(toggled(bool)), this, SIGNAL(directDownloadChecked(bool)));
 }
 
 //----------------------------------------------------------------------------------------------

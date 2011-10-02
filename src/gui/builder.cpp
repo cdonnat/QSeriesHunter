@@ -5,6 +5,7 @@
 #include "editserie.h"
 #include "editseriedialog.h"
 #include "isohunt.h"
+#include "filestube.h"
 #include "loggerwidget.h"
 #include "mementocontroller.h"
 #include "messagebox.h"
@@ -28,23 +29,48 @@ Builder::Builder(const QString & initFile)
     _loggerWidget = new LoggerWidget;
     
     buildNetwork ();
-    buildMessageBox ();
     buildModel();
     buildEditSerie ();
     buildScheduler ();
     buildMementoController (initFile);
     buildView();
-    
-    _seriesWidget = new SeriesWidget(_loggerWidget, _view, _editSerie, _scheduler, _mementoController);
-    _findersWidget = new FindersWidget(_editFinder, _editFinderWidget, _mementoController);
+}
+
+//----------------------------------------------------------------------------------------------
+void Builder::buildNetwork()
+{
+    _networkAccess    = new NetworkAccess();
+    _finderController = new FinderController();
+    _finderController->addFinder (new Isohunt(_networkAccess));
+    _finderController->addFinder (new FilesTube(_networkAccess));
+}
+
+
+//----------------------------------------------------------------------------------------------
+void Builder::buildModel ()
+{
+    _model = new SeriesModel();
 }
 
 //----------------------------------------------------------------------------------------------
 void Builder::buildEditSerie ()
 {
     Q_ASSERT (_model != NULL);
-    Q_ASSERT (_messageBox != NULL);
+    _messageBox = new MessageBox();
     _editSerie  = new EditSerie(new EditSerieDialog(), _model, _messageBox);
+}
+
+//----------------------------------------------------------------------------------------------
+void Builder::buildScheduler()
+{
+    Q_ASSERT (_loggerWidget     != NULL);
+    Q_ASSERT (_model            != NULL);
+    Q_ASSERT (_networkAccess    != NULL);
+    Q_ASSERT (_finderController != NULL);
+    _scheduler = new Scheduler(_model,
+                               _finderController,
+                               new Downloader(_networkAccess, new DefaultExternalAppRunner()),
+                               _loggerWidget);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -55,38 +81,6 @@ void Builder::buildMementoController (const QString & initFile)
     _editFinder        = new EditFinder (_finderController, _editFinderWidget);
     _mementoController = new MementoController(_model, _editFinder, initFile);
     _mementoController->loadMemento ();
-}
-
-//----------------------------------------------------------------------------------------------
-void Builder::buildMessageBox()
-{
-     _messageBox = new MessageBox();
-}
-
-//----------------------------------------------------------------------------------------------
-void Builder::buildModel ()
-{
-    _model = new SeriesModel();
-}
-
-//----------------------------------------------------------------------------------------------
-void Builder::buildNetwork()
-{
-    _networkAccess    = new NetworkAccess();
-    _finderController = new FinderController();
-    _finderController->addFinder (new Isohunt(_networkAccess));
-}
-
-//----------------------------------------------------------------------------------------------
-void Builder::buildScheduler()
-{
-    Q_ASSERT (_loggerWidget != NULL);
-    Q_ASSERT (_model != NULL);
-    Q_ASSERT (_networkAccess != NULL);
-    Q_ASSERT (_finderController != NULL);
-    _scheduler = new Scheduler(_model, _finderController,
-                               new Downloader(_networkAccess, new DefaultExternalAppRunner()),
-                               _loggerWidget);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -103,51 +97,24 @@ void Builder::buildView ()
     _view->setSelectionMode(QAbstractItemView::SingleSelection);
     _view->setAlternatingRowColors (true);
 	_view->resizeColumnsToContents();
-}
-
-/*
-//----------------------------------------------------------------------------------------------
-Scheduler * const Builder::getScheduler() const
-{
-    return _scheduler;
+    //
+    _seriesWidget = new SeriesWidget(_loggerWidget, _view, _editSerie, _scheduler, _mementoController);
+    _findersWidget = new FindersWidget(_editFinder, _editFinderWidget, _mementoController);
 }
 
 //----------------------------------------------------------------------------------------------
-MementoController * const Builder::getMementoController() const
-{
-    return _mementoController;
-}
-
-//----------------------------------------------------------------------------------------------
-EditSerie * const Builder::getEditSerie() const
-{
-    return _editSerie;
-}
-
-//----------------------------------------------------------------------------------------------
-QTableView * const Builder::getView() const
-{
-    return _view;
-}
-
-
-//----------------------------------------------------------------------------------------------
-QWidget * const Builder::getEditFinderWidget() const
-{
-    return _editFinderWidget;
-}
-*/
 QWidget * const Builder::getFindersWidget () const
 {
     return _findersWidget->getWidget();
 }
 
+//----------------------------------------------------------------------------------------------
 LoggerWidget * const Builder::getLoggerWidget() const
 {
     return _loggerWidget;
 }
 
-
+//----------------------------------------------------------------------------------------------
 SeriesWidget * const Builder::getSeriesWidget() const
 {
     return _seriesWidget;

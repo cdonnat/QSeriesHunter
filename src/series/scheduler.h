@@ -43,8 +43,13 @@ private:
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Try to download next episode of the given serie.]
+    // ENS [Download next episode of the given serie.]
     void lookForNewEpisode (const Serie & serie);
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [Episode has been found.]
+    // ENS [Try to download next episode of the given serie.]
+    void tryToDownloadEpisode (const Serie & serie);
 
 private:
     ISeriesController       * const _seriesController;

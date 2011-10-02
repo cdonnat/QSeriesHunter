@@ -53,7 +53,12 @@ public:
     // REQ [None.]
     // ENS [True is returned if the episode is found.]
     bool episodeIsFound () const;
-
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [Episode is found.]
+    // ENS [True is returned if the episode found is on a torrent.]
+    bool episodeFoundIsFromTorrent () const;
+    
     //----------------------------------------------------------------------------------------------
     // REQ [Next episode has been found.]
     // ENS [The url of the episode is returned as a string.]
@@ -92,7 +97,7 @@ private:
     QList<RegExpProvider *>    _regExpProviders;
     FinderResults              _results;
     bool                       _episodeIsFound;
-    QString                    _url;
+    FinderResult               _lastResult;
     QMap<QString, bool>        _typeAuthorized;
 };
 

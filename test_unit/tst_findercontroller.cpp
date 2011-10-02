@@ -46,10 +46,10 @@ void TestFinderController::testNominalCase ()
     TestFinderController fixture;
 
     fixture._finder1.setResults (
-                FinderResults () << FinderResult("House", "http", 1));
+                FinderResults () << FinderResult("House", "http", true, 1));
     fixture._finder2.setResults (
-                FinderResults() << FinderResult("houseief", "url", 15)
-                                       << FinderResult("house.S02E07.LOL", "xxx", 2));
+                FinderResults() << FinderResult("houseief", "url", true, 15)
+                                       << FinderResult("house.S02E07.LOL", "xxx", true, 2));
     //
     fixture._sut.addFinder (&fixture._finder1);
     fixture._sut.addFinder (&fixture._finder2);
@@ -57,6 +57,7 @@ void TestFinderController::testNominalCase ()
     fixture._sut.findNextEpisode (Serie("House", 2, 6));
     //
     QVERIFY2(fixture._sut.episodeIsFound (), "Episode found");
+    QVERIFY2(fixture._sut.episodeFoundIsFromTorrent (), "Episode from torrent");
     QVERIFY2(fixture._sut.getEpisodeUrl () == "xxx", "Episode url");
     QVERIFY2(fixture._finder1.getRequest () == "|House S02E07|House 2x07", "Request Finder 1");
     QVERIFY2(fixture._finder2.getRequest () == "|House S02E07|House 2x07", "Request Finder 2");
@@ -68,7 +69,7 @@ void TestFinderController::testSerieWithSpaces ()
     TestFinderController fixture;
 
     fixture._finder1.setResults (
-                FinderResults () << FinderResult("-The-Event-S01-E01", "http",1));
+                FinderResults () << FinderResult("-The-Event-S01-E01", "http", true, 1));
     //
     fixture._sut.addFinder (&fixture._finder1);
     //
@@ -83,7 +84,8 @@ void TestFinderController::testRegExp ()
 {
     TestFinderController fixture;
     
-    fixture._finder1.setResults (FinderResults () << FinderResult("Merlin Season 1-2-3", "http",1));
+    fixture._finder1.setResults (FinderResults () << 
+                                 FinderResult("Merlin Season 1-2-3", "http", false, 1));
     //
     fixture._sut.addFinder (&fixture._finder1);
     //
@@ -92,13 +94,16 @@ void TestFinderController::testRegExp ()
     QVERIFY2(!fixture._sut.episodeIsFound (), "Episode not found, the regexp doesnt match");
     
     fixture._finder1.setResults (
-                                 FinderResults () << FinderResult("Merlin 2x03", "http",1));
+                                 FinderResults () << FinderResult("Merlin 2x03", "http", false, 1));
     //
     fixture._sut.findNextEpisode (Serie("Merlin", 2, 2));
     //
     QVERIFY2(fixture._sut.episodeIsFound (), "Episode found, the regexp match");
+    QVERIFY2(!fixture._sut.episodeFoundIsFromTorrent (), "Episode found not from torrent");
+
 }
 
+//----------------------------------------------------------------------------------------------
 void TestFinderController::exercizeAndCheckFinderSelection(bool            torrentShouldBeEmpty,
                                                            bool            ddlShouldBeEmpty,
                                                            const QString & comment)
@@ -110,6 +115,7 @@ void TestFinderController::exercizeAndCheckFinderSelection(bool            torre
     QVERIFY2(_finder2.getRequest().isEmpty() == ddlShouldBeEmpty, "DLL finder request ");
 }
 
+//----------------------------------------------------------------------------------------------
 void TestFinderController::testFinderSelection()
 {
     TestFinderController fixture("Torrent", "DirectDownload");

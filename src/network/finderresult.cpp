@@ -3,8 +3,9 @@
 //----------------------------------------------------------------------------------------------
 FinderResult::FinderResult(const QString &name,
                            const QString &url,
+                           bool           isTorrent,
                            uint           seed)
-    :_name(name), _url(url), _seed(seed)
+    :_name(name), _url(url), _isTorrent (isTorrent), _seed(seed)
 {}
 
 //----------------------------------------------------------------------------------------------
@@ -23,4 +24,11 @@ const QString & FinderResult::url()  const
 const uint FinderResult::seed() const
 {
     return _seed;
+}
+
+
+//----------------------------------------------------------------------------------------------
+bool FinderResult::isTorrent() const
+{
+    return _isTorrent;
 }

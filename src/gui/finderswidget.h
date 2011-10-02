@@ -16,6 +16,7 @@ public:
                            EditFinderWidget  * editFinderWidget,
                            MementoController * mementoController);
 
+    //----------------------------------------------------------------------------------------------
     QWidget * const getWidget() const;
     
 private slots:
