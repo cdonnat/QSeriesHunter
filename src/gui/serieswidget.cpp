@@ -19,6 +19,8 @@ SeriesWidget::SeriesWidget(ILogger           * logger,
                            MementoController * mementoController) :
 _view(view), _editSerie(editSerie), _scheduler(scheduler),  _mementoController(mementoController)
 {
+    connect(_view, SIGNAL(doubleClicked(const QModelIndex & )),
+            this , SLOT(editSerieAt(const QModelIndex &)));
 }
 
 //----------------------------------------------------------------------------------------------
@@ -37,6 +39,13 @@ QModelIndex SeriesWidget::getModelIndexSelected() const
 void SeriesWidget::add()
 {
     _editSerie->add ();
+    _mementoController->saveMemento ();
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesWidget::editSerieAt (const QModelIndex & index)
+{
+    _editSerie->edit(index);
     _mementoController->saveMemento ();
 }
 

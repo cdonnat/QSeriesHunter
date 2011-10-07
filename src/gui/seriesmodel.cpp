@@ -1,10 +1,11 @@
 #include "seriesmodel.h"
 #include "seriescontroller.h"
 
-const int NB_COLUMNS     = 3;
-const int COLUMN_NAME    = 0;
-const int COLUMN_SEASON  = 1;
-const int COLUMN_EPISODE = 2;
+const int NB_COLUMNS     = 4;
+const int COLUMN_ACTIVE  = 0;
+const int COLUMN_NAME    = 1;
+const int COLUMN_SEASON  = 2;
+const int COLUMN_EPISODE = 3;
 
 //----------------------------------------------------------------------------------------------
 SeriesModel::SeriesModel (QObject *parent) : QAbstractTableModel(parent)
@@ -27,22 +28,53 @@ int SeriesModel::columnCount (const QModelIndex &parent) const
 }
 
 //----------------------------------------------------------------------------------------------
+Qt::ItemFlags SeriesModel::flags (const QModelIndex & index) const
+{
+    if (index.column() == COLUMN_ACTIVE) {
+        return Qt::ItemIsEnabled|Qt::ItemIsSelectable|Qt::ItemIsUserCheckable;
+    }
+    else {
+        return Qt::ItemIsEnabled|Qt::ItemIsSelectable;
+    }
+}
+
+//----------------------------------------------------------------------------------------------
 QVariant SeriesModel::data (const QModelIndex &index, int role) const
 {
     if (!index.isValid ()) return QVariant();
 
-    if (role == Qt::DisplayRole)
+    Serie  current = _series->at (index.row ());
+    switch (role)
     {
-        Serie  current = _series->at (index.row ());
-        switch (index.column ())
-        {
-        case COLUMN_NAME    : return current.name();
-        case COLUMN_SEASON  : return current.season();
-        case COLUMN_EPISODE : return current.lastEpisode();
-        default             : break;
-        }
+        case Qt::DisplayRole :
+            switch (index.column ())
+            {
+                case COLUMN_NAME    : return current.name();
+                case COLUMN_SEASON  : return current.season();
+                case COLUMN_EPISODE : return current.lastEpisode();
+                default             : break;
+            }
+            break;
+        case Qt::CheckStateRole :
+            if (index.column() == COLUMN_ACTIVE){
+                return current.isEnable() ? Qt::Checked : Qt::Unchecked;
+            }
+        default : break;
     }
     return QVariant();
+}
+
+//----------------------------------------------------------------------------------------------
+bool SeriesModel::setData(const QModelIndex & index,const QVariant & value, int role) 
+{
+    if (!index.isValid()) return false;
+    
+    if (role == Qt::CheckStateRole && index.column() == COLUMN_ACTIVE)
+    {
+        enable(at(index.row()), value.toBool());
+        return true;
+    }
+    return false;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -55,6 +87,7 @@ QVariant SeriesModel::headerData (int              section,
 
     if (orientation == Qt::Horizontal) {
         switch (section) {
+            case COLUMN_ACTIVE  : return tr("State");
             case COLUMN_NAME    : return tr("Name");
             case COLUMN_SEASON  : return tr("Season");
             case COLUMN_EPISODE : return tr("Last Episode Downloaded");
@@ -109,6 +142,14 @@ void SeriesModel::inc (const Serie & serie)
 {
     beginResetModel ();
     _series->inc (serie);
+    endResetModel ();
+}
+
+//----------------------------------------------------------------------------------------------
+void SeriesModel::enable (const Serie & serie, bool isEnable)
+{
+    beginResetModel ();
+    _series->enable (serie, isEnable);
     endResetModel ();
 }
 

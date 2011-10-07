@@ -6,6 +6,11 @@
 
 class QDataStream;
 
+namespace YAML {
+    class Emitter;
+    class Node;
+}
+
 class SeriesMemento
 {
 public:
@@ -13,8 +18,12 @@ public:
     // REQ [None.]
     // ENS [Last save memento is returned. An empty memento is returned if none are found.]
     static SeriesMemento loadFromStream(QDataStream & o);
-
-    friend QDataStream & operator<<(QDataStream & o, const SeriesMemento & serieMemento);
+    
+    //----------------------------------------------------------------------------------------------
+    static SeriesMemento loadFromNode(const YAML::Node & node);
+    
+    //----------------------------------------------------------------------------------------------
+    friend YAML::Emitter & operator<< (YAML::Emitter& out, const SeriesMemento memento);
     
 private:
     //----------------------------------------------------------------------------------------------

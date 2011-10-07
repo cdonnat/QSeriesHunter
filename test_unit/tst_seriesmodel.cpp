@@ -5,7 +5,7 @@
 
 #include "shared.h"
 
-const int nbColumns = 3;
+const int nbColumns = 4;
 
 TestSeriesModel::TestSeriesModel(QObject *parent) :
     QObject(parent)
@@ -59,19 +59,19 @@ void TestSeriesModel::testData()
     fixture._sut.addSerie (serie2);
 
     checkDecorationRole (fixture._sut, 0, 0, QVariant (), "decoration role");
-    checkDisplayRole (fixture._sut, 0, 0, QVariant (serie1.name ()),
+    checkDisplayRole (fixture._sut, 0, 1, QVariant (serie1.name ()),
                       "index (1,1)");
-    checkDisplayRole (fixture._sut, 0, 1, QVariant (serie1.season ()),
+    checkDisplayRole (fixture._sut, 0, 2, QVariant (serie1.season ()),
                       "index (1,2)");
-    checkDisplayRole (fixture._sut, 0, 2, QVariant (serie1.lastEpisode ()),
+    checkDisplayRole (fixture._sut, 0, 3, QVariant (serie1.lastEpisode ()),
                       "index (1,3)");
-    checkDisplayRole (fixture._sut, 1, 0, QVariant (serie2.name ()),
+    checkDisplayRole (fixture._sut, 1, 1, QVariant (serie2.name ()),
                       "index (2,1)");
-    checkDisplayRole (fixture._sut, 1, 1, QVariant (serie2.season ()),
+    checkDisplayRole (fixture._sut, 1, 2, QVariant (serie2.season ()),
                       "index (2,2)");
-    checkDisplayRole (fixture._sut, 1, 2, QVariant (serie2.lastEpisode ()),
+    checkDisplayRole (fixture._sut, 1, 3, QVariant (serie2.lastEpisode ()),
                       "index (2,3)");
-    checkDisplayRole (fixture._sut, 4, 0, QVariant (), "invalid index");
+    checkDisplayRole (fixture._sut, 5, 0, QVariant (), "invalid index");
 }
 
 void checkHeaderData (const SeriesModel & sut,
@@ -89,12 +89,12 @@ void TestSeriesModel::testHeaderData()
 {
     TestSeriesModel fixture;
 
-    checkHeaderData (fixture._sut, 0, Qt::Horizontal, Qt::DisplayRole, "Name", "Name");
-    checkHeaderData (fixture._sut, 1, Qt::Horizontal, Qt::DisplayRole, "Season", "Season");
-    checkHeaderData (fixture._sut, 2, Qt::Horizontal, Qt::DisplayRole, "Last Episode Downloaded",
+    checkHeaderData (fixture._sut, 1, Qt::Horizontal, Qt::DisplayRole, "Name", "Name");
+    checkHeaderData (fixture._sut, 2, Qt::Horizontal, Qt::DisplayRole, "Season", "Season");
+    checkHeaderData (fixture._sut, 3, Qt::Horizontal, Qt::DisplayRole, "Last Episode Downloaded",
                      "Last episode");
-    checkHeaderData (fixture._sut, 0, Qt::Horizontal, Qt::DecorationRole, "", "Decoration Role");
-    checkHeaderData (fixture._sut, 0, Qt::Vertical, Qt::DecorationRole, "", "Vertical");
+    checkHeaderData (fixture._sut, 1, Qt::Horizontal, Qt::DecorationRole, "", "Decoration Role");
+    checkHeaderData (fixture._sut, 1, Qt::Vertical, Qt::DecorationRole, "", "Vertical");
     checkHeaderData (fixture._sut, -1, Qt::Horizontal, Qt::DecorationRole, "", "Invalid Section");
 }
 

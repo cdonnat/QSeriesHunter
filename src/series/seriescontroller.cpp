@@ -56,6 +56,14 @@ void SeriesController::inc (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
+void SeriesController::enable (const Serie & serie, bool isEnable)
+{
+    Q_ASSERT (this->contains (serie));
+    Series::iterator  it = qBinaryFind(_series.begin(), _series.end(), serie);
+    it->enable(isEnable);
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesController::loadFrom (const SeriesMemento &memento)
 {
     _series = memento.get ();

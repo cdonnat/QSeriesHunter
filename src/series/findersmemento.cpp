@@ -1,6 +1,6 @@
 #include "findersmemento.h"
 
-#include <QDataStream>
+#include "yaml-cpp/yaml.h"
 
 //----------------------------------------------------------------------------------------------
 FindersMemento::FindersMemento(bool torrentIsEnable, bool ddlIsEnable):
@@ -21,19 +21,27 @@ bool FindersMemento::isDirectDownloadEnable() const
     return _ddlIsEnable;
 }
 
+//----------------------------------------------------------------------------------------------
+FindersMemento FindersMemento::loadFromNode(const YAML::Node & node)
+{
+    const YAML::Node & findersNode = node["Finders"];
+    bool  torrentIsEnable, ddlIsEnable;
+    findersNode["Torrent"]        >> torrentIsEnable;
+    findersNode["DirectDownload"] >> ddlIsEnable;
+    return FindersMemento(torrentIsEnable, ddlIsEnable);
+ }
 
 //----------------------------------------------------------------------------------------------
-FindersMemento FindersMemento::loadFromStream(QDataStream & dataStream)
+YAML::Emitter & operator<<(YAML::Emitter & out, const FindersMemento & memento)
 {
-    bool torrentIsEnable, ddlIsEnable;
-    dataStream >> torrentIsEnable;
-    dataStream >> ddlIsEnable;
-    return FindersMemento(torrentIsEnable, ddlIsEnable);
-}
-
-QDataStream & operator<<(QDataStream & o, const FindersMemento & findersMemento)
-{
-    o << findersMemento._torrentIsEnable;
-    o << findersMemento._ddlIsEnable;
-    return o;
+    out << YAML::BeginMap;
+    out << YAML::Key << "Finders";
+    out << YAML::Value;
+    out << YAML::BeginMap;
+    out << YAML::Key << "Torrent";
+    out << YAML::Value << memento.isTorrentEnable();
+    out << YAML::Key << "DirectDownload";
+    out << YAML::Value << memento.isDirectDownloadEnable();
+    out << YAML::EndMap;
+    return out;
 }

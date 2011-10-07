@@ -5,7 +5,7 @@ FinderResult::FinderResult(const QString &name,
                            const QString &url,
                            bool           isTorrent,
                            uint           seed)
-    :_name(name), _url(url), _isTorrent (isTorrent), _seed(seed)
+    :_name(name), _url(url), _seed(seed), _isTorrent (isTorrent)
 {}
 
 //----------------------------------------------------------------------------------------------

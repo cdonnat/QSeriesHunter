@@ -1,17 +1,21 @@
 #ifndef FINDERSMEMENTO_H
 #define FINDERSMEMENTO_H
 
-class QDataStream;
+namespace YAML {
+    class Emitter;
+    class Node;
+}
 
 class FindersMemento
 {
 public:        
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
-    // ENS [Last save memento is returned. An empty memento is returned if none are found.]
-    static FindersMemento loadFromStream(QDataStream & o);
+    // ENS [Last save memento is returned.]
+    static FindersMemento loadFromNode(const YAML::Node & node);
 
-    friend QDataStream & operator<<(QDataStream & o, const FindersMemento & findersMemento);
+    //----------------------------------------------------------------------------------------------
+    friend YAML::Emitter & operator<<(YAML::Emitter & out, const FindersMemento & memento);
     
 private:
   

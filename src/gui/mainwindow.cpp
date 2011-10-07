@@ -19,7 +19,7 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 
-const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter.ini";
+const QString initFile = QDir::homePath() + QDir::separator() + ".QSeriesHunter";
 
 //----------------------------------------------------------------------------------------------
 MainWindow::MainWindow():QMainWindow(),_settings("DocDoc", "QSeriesHunter")

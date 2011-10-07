@@ -26,4 +26,7 @@ void TestSeriesController::test ()
 
     fixture._sut.removeSerie (houseSeason1);
     QVERIFY2(fixture._sut.nbSeries () == 1, "Size when 1'");
+    
+    fixture._sut.enable(houseSeason2, false);
+    QVERIFY2(!fixture._sut.at (0).isEnable(), "Is not enable");
 }

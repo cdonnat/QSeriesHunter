@@ -17,6 +17,7 @@ public:
 
 private Q_SLOTS:
     virtual void initTestCase();
+    void testIniFileReading();
     void testCase();
     virtual void cleanUpTestCase();
 

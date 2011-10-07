@@ -62,6 +62,7 @@ void TestScheduler::testNominalDdl ()
     TestScheduler fixture;
     
     fixture._series->addSerie (houseSeason1);
+    fixture._series->addSerie (Serie("House", 2, 1, false));
     fixture._finder->setResults (FinderResults () <<
                                  FinderResult("House.S01.E01", "house_ddl_url", false, 10));
     fixture._network->setIsReady (true);

@@ -3,11 +3,12 @@
 
 #include <QTest>
 #include <QSignalSpy>
+#include <QFile>
 
 TestSeriesWidget::TestSeriesWidget(QObject *parent) :
     QObject(parent)
 {
-    Builder builder("init.txt");
+    Builder builder("init");
     _sut = builder.getSeriesWidget();
 }
 
@@ -22,4 +23,5 @@ void TestSeriesWidget::testUpdate()
     
     QVERIFY2(spyUpdateBegin.count() == 1, "Update begin");
     QVERIFY2(spyUpdateEnd.count() == 1, "Update end");   
+    QFile::remove("init.yml");
 }

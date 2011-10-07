@@ -51,7 +51,12 @@ public:
     // REQ [Serie exists.]
     // ENS [Last episode downloaded of the serie is incremented.]
     virtual void inc (const Serie & serie) = 0;
-
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [Serie exists.]
+    // ENS [Enable or disable specified serie.]
+    virtual void enable (const Serie & serie, bool isEnable) = 0;
+    
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [Series controller is created from memento.]

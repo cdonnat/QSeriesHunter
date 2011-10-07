@@ -12,7 +12,7 @@ public:
     Serie() {}; // Provided for convenience.
 
     //----------------------------------------------------------------------------------------------
-    Serie(const QString & name, uint season, uint lastEpisode = 0);
+    Serie(const QString & name, uint season, uint lastEpisode = 0, bool isEnable = true);
 
     //----------------------------------------------------------------------------------------------
     Serie (const Serie & serie);
@@ -23,6 +23,11 @@ public:
     // REQ [None.]
     // ENS [Increment the last episode.]
     void inc ();
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [Enable/Disable serie.]
+    void enable (bool isEnable);
     
     // Queries:
 
@@ -43,18 +48,24 @@ public:
     
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
+    // ENS [True is returned if the serie is enable.]
+    bool isEnable() const;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
     // ENS [True is returned if l and r have the same name and the same season.]
-    bool operator==(const Serie & r);
+    bool operator==(const Serie & r) const;
 
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
     // ENS [True is returned if l and r have don't have the same name and the same season.]
-    bool operator!=(const Serie & r);
+    bool operator!=(const Serie & r) const;
 
 private:
     QString    _name;
     uint       _season;
     uint       _lastEpisode;
+    bool       _isEnable;
 };
 
 // Operators:

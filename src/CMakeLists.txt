@@ -44,7 +44,7 @@ ADD_LIBRARY(src
             ${HEADERS_MOC}
             ${SOURCES_RC_SRC})
 
-TARGET_LINK_LIBRARIES(src ${QT_LIBRARIES} qjson)
+TARGET_LINK_LIBRARIES(src ${QT_LIBRARIES} qjson yaml-cpp)
 
 #INSTALL(TARGETS src 
 #        BUNDLE DESTINATION . COMPONENT Runtime

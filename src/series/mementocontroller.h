@@ -5,6 +5,7 @@
 
 class ISeriesController;
 class EditFinder;
+class QFile;
 
 class MementoController
 {
@@ -13,7 +14,7 @@ public:
     //----------------------------------------------------------------------------------------------
     MementoController(ISeriesController * const series,
                       EditFinder        * const finders,
-                      const QString &           absoluteFilePath);
+                      const QString &           absoluteFilePathWithoutExtension);
 
     // Commands :
 
@@ -24,9 +25,13 @@ public:
     void saveMemento ();
 
 private:
+    
+    void readOldIniFileAndDeleteIt(QFile & iniFile);
+    
     ISeriesController  * const _series;
     EditFinder         * const _finders;
-    QString                    _initFile;
+    QString                    _yamlFile;
+    QString                    _iniFile;
 };
 
 #endif // MEMENTOCONTROLLER_H

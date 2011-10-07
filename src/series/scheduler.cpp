@@ -59,7 +59,10 @@ void Scheduler::lookForNewEpisodes()
     Q_ASSERT (_seriesController->nbSeries () > 0);
     for (uint i = 0; i < _seriesController->nbSeries (); ++i)
     {
-        lookForNewEpisode (_seriesController->at (i));
+        Serie current = _seriesController->at (i);
+        if (current.isEnable()) {
+            lookForNewEpisode (current);
+        }
     }
 }
 

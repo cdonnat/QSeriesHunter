@@ -23,6 +23,9 @@ public:
     virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
     //----------------------------------------------------------------------------------------------
+    virtual Qt::ItemFlags flags (const QModelIndex & index) const;
+    
+    //----------------------------------------------------------------------------------------------
     virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
     //----------------------------------------------------------------------------------------------
@@ -43,7 +46,10 @@ public:
     virtual SeriesMemento createMemento () const;
 
     // Commands:
-
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool setData(const QModelIndex & index,const QVariant & value, int role = Qt::EditRole); 
+    
     //----------------------------------------------------------------------------------------------
     virtual void addSerie (const Serie & serie);
 
@@ -52,7 +58,10 @@ public:
 
     //----------------------------------------------------------------------------------------------
     virtual void inc (const Serie & serie);
-
+    
+    //----------------------------------------------------------------------------------------------
+    virtual void enable (const Serie & serie, bool isEnable);
+    
     //----------------------------------------------------------------------------------------------
     virtual void loadFrom (const SeriesMemento &memento);
 

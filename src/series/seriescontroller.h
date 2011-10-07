@@ -41,6 +41,9 @@ public:
     virtual void inc (const Serie & serie);
 
     //----------------------------------------------------------------------------------------------
+    virtual void enable (const Serie & serie, bool isEnable);
+    
+    //----------------------------------------------------------------------------------------------
     virtual void loadFrom (const SeriesMemento &memento);
 
 private :

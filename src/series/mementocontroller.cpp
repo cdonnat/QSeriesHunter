@@ -6,44 +6,70 @@
 
 #include <QFile>
 #include <QDataStream>
+#include <fstream>
+
+#include "yaml-cpp/yaml.h"
 
 //----------------------------------------------------------------------------------------------
 MementoController::MementoController(ISeriesController * const series,
                                      EditFinder        * const finders,
-                                     const QString &           absoluteFilePath):
-    _series(series),_finders(finders), _initFile(absoluteFilePath)
+                                     const QString &           absoluteFilePathWithoutExtension):
+_series(series),
+_finders(finders),
+_yamlFile(absoluteFilePathWithoutExtension + ".yml"),
+_iniFile(absoluteFilePathWithoutExtension + ".ini")
 {
     Q_ASSERT(_series != NULL && _finders != NULL);
 }
 
 //----------------------------------------------------------------------------------------------
+void MementoController::readOldIniFileAndDeleteIt(QFile & iniFile)
+{
+    iniFile.open(QIODevice::ReadOnly);
+    
+    QDataStream in(&iniFile);       
+    in.setVersion (QDataStream::Qt_4_7);
+    
+    _series->loadFrom (SeriesMemento::loadFromStream (in));
+    
+    iniFile.close ();
+    iniFile.remove();
+}
+
+//----------------------------------------------------------------------------------------------
 void MementoController::loadMemento ()
 {
-    QFile  initFile(_initFile);
-    if (initFile.exists())
+    if (QFile::exists(_yamlFile))
     {
-        initFile.open(QIODevice::ReadOnly);
-    
-        QDataStream in(&initFile);       
-        in.setVersion (QDataStream::Qt_4_7);
-    
-        _series->loadFrom (SeriesMemento::loadFromStream (in));
-        _finders->loadFrom (FindersMemento::loadFromStream (in));
-        initFile.close ();
+        std::ifstream fin(_yamlFile.toStdString().c_str());
+        YAML::Parser  parser(fin);
+        YAML::Node    node;
+        parser.GetNextDocument(node);
+        _series->loadFrom(SeriesMemento::loadFromNode(node));
+        parser.GetNextDocument(node);
+        _finders->loadFrom(FindersMemento::loadFromNode(node));        
+    }
+    else
+    {
+        QFile  iniFile(_iniFile);
+        if (iniFile.exists())
+        {
+            readOldIniFileAndDeleteIt(iniFile);
+            saveMemento();
+        }
     }
 }
 
 //----------------------------------------------------------------------------------------------
 void MementoController::saveMemento ()
 {
-    QFile  initFile(_initFile);
-    initFile.open(QIODevice::WriteOnly);
+    std::ofstream  yamlFile(_yamlFile.toStdString().c_str());
     
-    QDataStream out(&initFile);
-    out.setVersion (QDataStream::Qt_4_7);
+    YAML::Emitter out;
     
-    out << _series->createMemento ();
-    out << _finders->createMemento ();
+    out << _series->createMemento();
+    out << _finders->createMemento();
+    yamlFile << out.c_str();
     
-    initFile.close ();
+    yamlFile.close();
 }
