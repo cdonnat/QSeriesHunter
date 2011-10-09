@@ -25,7 +25,8 @@ SET(LIBRARY_OUTPUT_PATH ${QSeriesHunter_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
 FIND_PACKAGE(Qt4 REQUIRED)
 
 if (WIN32)
-	LINK_DIRECTORIES("C:/Program Files/qjson/lib")
+	LINK_DIRECTORIES("C:/Program Files/qjson/lib"
+                         "C:/lib")
 endif (WIN32)
 
 ADD_SUBDIRECTORY (src)

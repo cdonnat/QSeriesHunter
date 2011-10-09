@@ -9,7 +9,9 @@ INCLUDE_DIRECTORIES(network
                     series
                     gui
                     ${CMAKE_CURRENT_SOURCE_DIR}
-                    "C:/Program Files/qjson/include")
+                    "C:/Program Files/qjson/include"
+                    "C:/include")
+link_directories("C:/lib")
 else (WIN32)
 INCLUDE_DIRECTORIES(network
                     series
