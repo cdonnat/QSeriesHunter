@@ -40,6 +40,7 @@ SeriesMemento SeriesMemento::loadFromStream(QDataStream & dataStream)
     return SeriesMemento(series);
 }
 
+//----------------------------------------------------------------------------------------------
 void operator >> (const YAML::Node & node, Serie & serie)
 {
     std::string    name;
