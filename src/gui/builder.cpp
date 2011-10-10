@@ -100,6 +100,8 @@ void Builder::buildView ()
     //
     _seriesWidget = new SeriesWidget(_loggerWidget, _view, _editSerie, _scheduler, _mementoController);
     _findersWidget = new FindersWidget(_editFinder, _editFinderWidget, _mementoController);
+    
+    QObject::connect (_model, SIGNAL(seriesChanged()), _seriesWidget, SLOT(saveMemento()));
 }
 
 //----------------------------------------------------------------------------------------------

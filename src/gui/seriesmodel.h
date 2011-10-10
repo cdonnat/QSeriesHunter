@@ -8,8 +8,10 @@
 
 class Serie;
 
-class SeriesModel : public ISeriesController, public QAbstractTableModel
+class SeriesModel : public QAbstractTableModel, public ISeriesController
 {
+    Q_OBJECT
+    
 public:
     // Constructor
     SeriesModel(QObject *parent = 0);
@@ -65,6 +67,9 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual void loadFrom (const SeriesMemento &memento);
 
+signals:
+    void seriesChanged();
+    
 private:
     ISeriesController  * _series;
 };

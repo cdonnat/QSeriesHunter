@@ -36,31 +36,37 @@ QModelIndex SeriesWidget::getModelIndexSelected() const
 }
 
 //----------------------------------------------------------------------------------------------
+void SeriesWidget::saveMemento()
+{
+    _mementoController->saveMemento ();
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesWidget::add()
 {
     _editSerie->add ();
-    _mementoController->saveMemento ();
+    saveMemento();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::editSerieAt (const QModelIndex & index)
 {
     _editSerie->edit(index);
-    _mementoController->saveMemento ();
+    saveMemento();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::edit()
 {
     _editSerie->edit(getModelIndexSelected());
-    _mementoController->saveMemento ();
+    saveMemento();
 }
 
 //----------------------------------------------------------------------------------------------
 void SeriesWidget::remove()
 {
     _editSerie->remove (getModelIndexSelected ());
-    _mementoController->saveMemento ();
+    saveMemento();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -68,7 +74,7 @@ void SeriesWidget::update ()
 {
     emit updateBegin();
     _scheduler->update ();
-    _mementoController->saveMemento ();
+    saveMemento();
     emit updateEnd();
 }
 

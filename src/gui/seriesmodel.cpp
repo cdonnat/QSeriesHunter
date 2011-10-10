@@ -1,5 +1,6 @@
 #include "seriesmodel.h"
 #include "seriescontroller.h"
+#include <QIcon>
 
 const int NB_COLUMNS     = 4;
 const int COLUMN_ACTIVE  = 0;
@@ -72,6 +73,7 @@ bool SeriesModel::setData(const QModelIndex & index,const QVariant & value, int 
     if (role == Qt::CheckStateRole && index.column() == COLUMN_ACTIVE)
     {
         enable(at(index.row()), value.toBool());
+        emit seriesChanged();
         return true;
     }
     return false;
