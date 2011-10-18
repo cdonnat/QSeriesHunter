@@ -28,7 +28,7 @@ QString getFileContent()
 void TestSeriesProvider::testNominalCase()
 {
     TestSeriesProvider fixture;
-    QString            expectedUrl = "http://api.betaseries.com/shows/display/all.xml?key=ce26d57deee0";
+    QString            expectedUrl = "http://api.betaseries.com/shows/display/all.json?key=ce26d57deee0";
     
     fixture._networkAccess->setContent(getFileContent());
     fixture._networkAccess->setIsReady(true);

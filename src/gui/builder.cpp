@@ -17,6 +17,7 @@
 #include "editfinderwidget.h"
 #include "serieswidget.h"
 #include "finderswidget.h";
+#include "seriesprovider.h";
 
 #include <QDir>
 #include <QTableView>
@@ -56,8 +57,11 @@ void Builder::buildModel ()
 void Builder::buildEditSerie ()
 {
     Q_ASSERT (_model != NULL);
+    SeriesProvider * seriesProvider = new SeriesProvider(_networkAccess);
+    seriesProvider->searchAllSeries();
+    
     _messageBox = new MessageBox();
-    _editSerie  = new EditSerie(new EditSerieDialog(), _model, _messageBox);
+    _editSerie  = new EditSerie(new EditSerieDialog(seriesProvider), _model, _messageBox);
 }
 
 //----------------------------------------------------------------------------------------------

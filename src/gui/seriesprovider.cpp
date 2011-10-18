@@ -5,10 +5,11 @@
 #include <QString>
 #include <QStringList>
 #include <QVariant>
+#include <QDebug>
 
 #include "qjson/parser.h"
 
-const QString allSeriesUrl = "http://api.betaseries.com/shows/display/all.xml?key=ce26d57deee0";
+const QString allSeriesUrl = "http://api.betaseries.com/shows/display/all.json?key=ce26d57deee0";
 
 //----------------------------------------------------------------------------------------------
 SeriesProvider::SeriesProvider(INetworkAccess  * network):_network(network)
@@ -41,8 +42,10 @@ void SeriesProvider::retrieveResults ()
     {
         QVariantMap   map = jsonResult["root"].toMap()["shows"].toMap();
         foreach (const QVariant & serie, map)
-        {            
-            _series.insert(serie.toMap()["url"].toString(), serie.toMap()["title"].toString());
+        {          
+            const QString url   =  serie.toMap()["url"].toString().remove('"');
+            const QString title =  serie.toMap()["title"].toString().remove('"');           
+            _series.insert(url, title);
         }
     }
 }

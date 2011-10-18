@@ -6,21 +6,30 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QSpinBox>
+#include <QCompleter>
+
+#include "seriesprovider.h"
 
 //----------------------------------------------------------------------------------------------
-EditSerieDialog::EditSerieDialog()
+EditSerieDialog::EditSerieDialog(SeriesProvider * seriesProvider)
 {
-    createForm();
+    Q_ASSERT(seriesProvider);
+    createForm(seriesProvider);
     createLayout();
     createConnection();
 }
 
 //----------------------------------------------------------------------------------------------
-void EditSerieDialog::createForm()
+void EditSerieDialog::createForm(SeriesProvider * seriesProvider)
 {
     _dialog    = new QDialog();
     _nameLabel = new QLabel(QObject::tr("Name:"), _dialog);
     _nameEdit  = new QLineEdit(_dialog);
+    
+    QCompleter * completer = new QCompleter(seriesProvider->getAllSeries());
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    
+    _nameEdit->setCompleter(completer);
     
     _seasonLabel = new QLabel(QObject::tr("Season:"), _dialog);
     _seasonEdit  = new QSpinBox(_dialog);

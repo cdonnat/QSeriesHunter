@@ -48,7 +48,7 @@ void Scheduler::update ()
     else {
         MessageBox message;
         message.displayWarning(QObject::tr("Finder selection error"),
-                               QObject::tr("You have to select at least on finder type!"));
+                               QObject::tr("You have to select at least one finder type!"));
     }
     _logger->logInfo (QObject::tr ("Updating finished!"));
 }

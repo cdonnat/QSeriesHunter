@@ -8,12 +8,13 @@ class QLabel;
 class QLineEdit;
 class QPushButton;
 class QSpinBox;
+class SeriesProvider;
 
 class EditSerieDialog : public IEditSerieDialog
 {
 public:
     //----------------------------------------------------------------------------------------------
-    explicit EditSerieDialog();
+    explicit EditSerieDialog(SeriesProvider * seriesProvider);
 
     // Commands:
 
@@ -36,7 +37,7 @@ public:
 
 private:
     
-    void createForm();
+    void createForm(SeriesProvider * seriesProvider);
     void createConnection();
     void createLayout();
     
