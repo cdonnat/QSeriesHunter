@@ -72,7 +72,8 @@ bool SeriesModel::setData(const QModelIndex & index,const QVariant & value, int 
     
     if (role == Qt::CheckStateRole && index.column() == COLUMN_ACTIVE)
     {
-        enable(at(index.row()), value.toBool());
+        Serie current = at(index.row());
+        enable(current, value.toBool());
         emit seriesChanged();
         return true;
     }

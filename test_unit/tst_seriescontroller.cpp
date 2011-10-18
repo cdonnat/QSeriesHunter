@@ -30,3 +30,14 @@ void TestSeriesController::test ()
     fixture._sut.enable(houseSeason2, false);
     QVERIFY2(!fixture._sut.at (0).isEnable(), "Is not enable");
 }
+
+
+void TestSeriesController::testRobustness ()
+{
+    TestSeriesController fixture;
+    
+    fixture._sut.addSerie(Serie("Desperate", 7));
+    fixture._sut.addSerie(Serie("Dexter", 1));
+    
+    QVERIFY2(fixture._sut.at(0) == Serie("Desperate", 7), "Desperate should be first");
+}

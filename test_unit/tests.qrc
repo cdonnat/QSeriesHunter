@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>input/json_input.txt</file>
 		<file>input/xml_input.xml</file>
+        <file>input/all_series.json</file>
     </qresource>
 </RCC>

@@ -15,6 +15,7 @@
 #include "tst_mainwindow.h"
 #include "tst_filestube.h"
 #include "tst_editfinder.h"
+#include "tst_seriesprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -33,5 +34,6 @@ int main(int argc, char *argv[])
             QTest::qExec (new TestMainWindow) ||
             QTest::qExec (new TestSeriesWidget) ||
             QTest::qExec (new TestFilesTube) ||
-            QTest::qExec (new TestEditFinder);
+            QTest::qExec (new TestEditFinder) ||
+            QTest::qExec (new TestSeriesProvider);
 }

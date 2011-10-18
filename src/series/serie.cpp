@@ -58,7 +58,10 @@ bool Serie::isEnable() const
 //----------------------------------------------------------------------------------------------
 bool operator<(const Serie & l, const Serie & r)
 {
-    return (l.name () < r.name ()) || (l.season () < r.season ());
+    if (l.name() == r.name())
+        return l.season() < r.season();
+    else
+        return l.name() < r.name();
 }
 
 //----------------------------------------------------------------------------------------------

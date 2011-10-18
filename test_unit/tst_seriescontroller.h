@@ -13,6 +13,7 @@ public:
 
 private slots:
     void test ();
+    void testRobustness ();
 
 private :
     SeriesController  _sut;
