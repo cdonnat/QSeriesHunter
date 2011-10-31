@@ -4,7 +4,6 @@
 
 #include <QTest>
 #include <QSignalSpy>
-
 #include "shared.h"
 
 const int nbColumns = 8;
@@ -67,20 +66,20 @@ void TestSeriesModel::testData()
     checkDecorationRole (fixture._sut, 0, 0, QVariant (), "decoration role");
     checkDisplayRole (fixture._sut, 0, 1, QVariant (serie1.name ()),
                       "index (1,1)");
-    checkDisplayRole (fixture._sut, 0, 2, QVariant (serie1.season ()),
+    checkDisplayRole (fixture._sut, 0, 2, QString ("Season %1").arg(serie1.season ()),
                       "index (1,2)");
-    checkDisplayRole (fixture._sut, 0, 3, QVariant (serie1.lastEpisode ()),
+    checkDisplayRole (fixture._sut, 0, 3, QString("Episode %1").arg(serie1.lastEpisode ()),
                       "index (1,3)");
-    checkDisplayRole (fixture._sut, 0, 4, QVariant (2), "index(1,4)");
-    //    checkDisplayRole (fixture._sut, 0, 5, 
-    checkDisplayRole (fixture._sut, 0, 6, QVariant (3), "index(1,6)");
-    //    checkDisplayRole (fixture._sut, 0, 7, QVariant (3), "index(1,6)");
+    checkDisplayRole (fixture._sut, 0, 4, QString ("Episode 2"), "index(1,4)");
+    checkDisplayRole (fixture._sut, 0, 5, QString ("dim. oct. 30 2011"), "index(1,5)");
+    checkDisplayRole (fixture._sut, 0, 6, QString ("Episode 3"), "index(1,6)");
+    checkDisplayRole (fixture._sut, 0, 7, QString ("ven. nov. 4 2011"), "index(1,7)");
     //
     checkDisplayRole (fixture._sut, 1, 1, QVariant (serie2.name ()),
                       "index (2,1)");
-    checkDisplayRole (fixture._sut, 1, 2, QVariant (serie2.season ()),
+    checkDisplayRole (fixture._sut, 1, 2, QString ("Season %1").arg(serie2.season ()),
                       "index (2,2)");
-    checkDisplayRole (fixture._sut, 1, 3, QVariant (serie2.lastEpisode ()),
+    checkDisplayRole (fixture._sut, 1, 3, QString ("Episode %1").arg(serie2.lastEpisode ()),
                       "index (2,3)");
     checkDisplayRole (fixture._sut, 1, 4, QVariant ("Unknown"), "index(2,4)");
     checkDisplayRole (fixture._sut, 1, 5, QVariant ("Unknown"), "index(2,5)");

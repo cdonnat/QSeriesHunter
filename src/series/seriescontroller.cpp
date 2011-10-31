@@ -83,8 +83,9 @@ bool SeriesController::aNewEpisodeIsAvailable(const Serie & serie) const
     Q_ASSERT(contains(serie));
     AiredEpisodeDetails lastAired = _seriesDetails[serie].first;
     
-    return lastAired.episode() > serie.lastEpisode() &&
-           lastAired.date() < _currentDate;
+    return !lastAiredEpisodeDetailsAreAvailable(serie) ||
+            (lastAired.episode() > serie.lastEpisode() &&
+                lastAired.date() < _currentDate);
 }
 
 //----------------------------------------------------------------------------------------------

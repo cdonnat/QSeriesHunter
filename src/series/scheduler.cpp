@@ -60,7 +60,7 @@ void Scheduler::lookForNewEpisodes()
     for (uint i = 0; i < _seriesController->nbSeries (); ++i)
     {
         Serie current = _seriesController->at (i);
-        if (current.isEnable()) {
+        if (current.isEnable() && _seriesController->aNewEpisodeIsAvailable(current)) {
             lookForNewEpisode (current);
         }
     }

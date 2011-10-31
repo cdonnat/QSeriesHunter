@@ -57,24 +57,27 @@ QVariant SeriesModel::data (const QModelIndex &index, int role) const
         case Qt::DisplayRole :
             switch (index.column ())
             {
-                case COLUMN_NAME    : return current.name();
-                case COLUMN_SEASON  : return current.season();
-                case COLUMN_EPISODE : return current.lastEpisode();
-                case COLUMN_LAST_EPISODE : return 
-                    lastAiredEpisodeDetailsAreAvailable(current)? QVariant(lastAiredEpisode(current)) : QVariant(tr("Unknown"));
-                case COLUMN_LAST_EPISODE_DATE : return 
-                    lastAiredEpisodeDetailsAreAvailable(current)? QVariant(lastAiredEpisodeDate(current).toString()) : QVariant(tr("Unknown"));
-                case COLUMN_NEXT_EPISODE : return 
-                    nextAiredEpisodeDetailsAreAvailable(current)? QVariant(nextAiredEpisode(current)) : QVariant(tr("Unknown"));
-                case COLUMN_NEXT_EPISODE_DATE : return 
-                    nextAiredEpisodeDetailsAreAvailable(current)? QVariant(nextAiredEpisodeDate(current).toString()) : QVariant(tr("Unknown"));
-                default             : break;
+                case COLUMN_NAME              : return current.name();
+                case COLUMN_SEASON            : return tr("Season %1").arg(current.season());
+                case COLUMN_EPISODE           : return getLastEpisodeDl(current);
+                case COLUMN_LAST_EPISODE      : return getLastAiredEpisode(current);
+                case COLUMN_LAST_EPISODE_DATE : return getLastAiredEpisodeDate(current);
+                case COLUMN_NEXT_EPISODE      : return getNextAiredEpisode(current);
+                case COLUMN_NEXT_EPISODE_DATE : return getNextAiredEpisodeDate(current);
+                default                       : break;
             }
             break;
         case Qt::CheckStateRole :
             if (index.column() == COLUMN_ACTIVE){
                 return current.isEnable() ? Qt::Checked : Qt::Unchecked;
             }
+            break;
+         
+        case Qt::TextAlignmentRole :
+            if (index.column() >= COLUMN_SEASON && index.column() <= COLUMN_NEXT_EPISODE_DATE){
+               return Qt::AlignCenter;
+            }
+            break;
         default : break;
     }
     return QVariant();
@@ -227,3 +230,44 @@ QDate SeriesModel::nextAiredEpisodeDate(const Serie & serie) const
     return _series->nextAiredEpisodeDate(serie);
 }
 
+//----------------------------------------------------------------------------------------------
+QString toEpisode(uint episode) 
+{
+    return QObject::tr("Episode %1").arg(episode);
+}
+
+//----------------------------------------------------------------------------------------------
+QVariant SeriesModel::getLastEpisodeDl(const Serie & serie)        const
+{
+    return serie.lastEpisode() == 0? tr("None") : toEpisode(serie.lastEpisode());
+}
+
+//----------------------------------------------------------------------------------------------
+QVariant SeriesModel::getLastAiredEpisode(const Serie & serie)     const
+{
+    return lastAiredEpisodeDetailsAreAvailable(serie)?
+            toEpisode(lastAiredEpisode(serie)) : tr("Unknown");
+}
+
+//----------------------------------------------------------------------------------------------
+QVariant SeriesModel::getLastAiredEpisodeDate(const Serie & serie) const
+{
+    return lastAiredEpisodeDetailsAreAvailable(serie)? 
+            lastAiredEpisodeDate(serie).toString() : QVariant(tr("Unknown"));
+}
+
+//----------------------------------------------------------------------------------------------
+QVariant SeriesModel::getNextAiredEpisode(const Serie & serie)     const
+{
+    return nextAiredEpisodeDetailsAreAvailable(serie)? 
+            toEpisode(nextAiredEpisode(serie)) : tr("Unknown");
+
+}
+
+//----------------------------------------------------------------------------------------------
+QVariant SeriesModel::getNextAiredEpisodeDate(const Serie & serie) const
+{
+    return nextAiredEpisodeDetailsAreAvailable(serie)? 
+            nextAiredEpisodeDate(serie).toString() : tr("Unknown");
+
+}

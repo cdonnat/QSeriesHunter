@@ -11,6 +11,7 @@ class Downloader;
 class LoggerStub;
 class NetworkAccessStub;
 class FinderStub;
+class SeriesProviderStub;
 
 class TestScheduler : public QObject
 {
@@ -22,6 +23,7 @@ private Q_SLOTS:
     void testNoSeries();
     void testNominalTorrent();
     void testNominalDdl();
+    void testNoNewEpisode();
     void testFail();
 
 private:
@@ -33,6 +35,7 @@ private:
     LoggerStub               * _logger;
     NetworkAccessStub        * _network;
     FinderStub               * _finder;
+    SeriesProviderStub       * _seriesProvider;
 };
 
 #endif // TST_SCHEDULER_H

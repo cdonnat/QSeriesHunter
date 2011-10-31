@@ -15,12 +15,16 @@
 #include "stub_seriesprovider.h"
 
 #include <QFile>
+#include <QDebug>
 #include <QTest>
+
+const QDate currentDate = QDate(2011, 10, 31);
 
 TestScheduler::TestScheduler(QObject *parent) :
     QObject(parent)
 {
-    _series          = new SeriesModel(new SeriesProviderStub, QDate::currentDate());
+    _seriesProvider  = new SeriesProviderStub;
+    _series          = new SeriesModel(_seriesProvider, currentDate);
     _finders         = new FinderController();
     _finder          = new FinderStub();
     _network         = new NetworkAccessStub;
@@ -74,6 +78,18 @@ void TestScheduler::testNominalDdl ()
     QVERIFY2 (fixture._series->at(0).lastEpisode () == 1, "Nominal inc");
     QVERIFY2 (fixture._logger->success ().contains ("Season 1 Episode 1"), "info display");
     QVERIFY2 (fixture._logger->info ().contains ("house_ddl_url"), "url displayed");
+    
+}
+
+void TestScheduler::testNoNewEpisode()
+{
+    TestScheduler fixture;
+    
+    fixture._seriesProvider->setAiredDetails(1, QDate(2011, 10, 30), 
+                                             2, QDate(2011, 11, 5));
+    fixture._series->addSerie(Serie("House", 2, 1));
+    fixture._sut->update();
+    QVERIFY2 (fixture._logger->info () == "Start updating...Updating finished!", "Nothing is done");
 }
 
 void TestScheduler::testFail()

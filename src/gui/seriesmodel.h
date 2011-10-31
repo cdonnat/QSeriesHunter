@@ -3,6 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <QDate>
+#include <QVariant>
 
 #include "seriesmemento.h"
 #include "iseriescontroller.h"
@@ -98,6 +99,13 @@ signals:
     
 private:
     ISeriesController  * _series;
+    
+    QVariant getLastEpisodeDl(const Serie & serie)        const;
+    QVariant getLastAiredEpisode(const Serie & serie)     const;
+    QVariant getLastAiredEpisodeDate(const Serie & serie) const;
+    QVariant getNextAiredEpisode(const Serie & serie)     const;
+    QVariant getNextAiredEpisodeDate(const Serie & serie) const;
+    
 };
 
 #endif // SERIESMODEL_H
