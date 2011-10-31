@@ -3,5 +3,6 @@
         <file>input/json_input.txt</file>
 		<file>input/xml_input.xml</file>
         <file>input/all_series.json</file>
+        <file>input/dexter_s06.json</file>
     </qresource>
 </RCC>

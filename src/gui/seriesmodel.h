@@ -2,10 +2,13 @@
 #define SERIESMODEL_H
 
 #include <QAbstractTableModel>
+#include <QDate>
 
 #include "seriesmemento.h"
 #include "iseriescontroller.h"
 
+class QDate;
+class SeriesProvider;
 class Serie;
 
 class SeriesModel : public QAbstractTableModel, public ISeriesController
@@ -14,7 +17,9 @@ class SeriesModel : public QAbstractTableModel, public ISeriesController
     
 public:
     // Constructor
-    SeriesModel(QObject *parent = 0);
+    SeriesModel(SeriesProvider * seriesProvider, 
+                const QDate    & currentDate,
+                QObject        * parent = 0);
 
     // Queries:
 
@@ -46,6 +51,27 @@ public:
 
     //----------------------------------------------------------------------------------------------
     virtual SeriesMemento createMemento () const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool aNewEpisodeIsAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool nextAiredEpisodeDetailsAreAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool lastAiredEpisodeDetailsAreAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual uint lastAiredEpisode(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual QDate lastAiredEpisodeDate(const Serie & serie) const;
+
+    //----------------------------------------------------------------------------------------------
+    virtual uint nextAiredEpisode(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual QDate nextAiredEpisodeDate(const Serie & serie) const;
 
     // Commands:
     

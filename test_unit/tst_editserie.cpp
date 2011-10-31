@@ -1,17 +1,19 @@
 #include "tst_editserie.h"
 
 #include <QTest>
+#include <QDate>
 
 #include "serie.h"
 #include "editserie.h"
 #include "seriesmodel.h"
 #include "stub_editseriedialog.h"
 #include "stub_messagebox.h"
+#include "stub_seriesprovider.h"
 
 TestEditSerie::TestEditSerie()
 {
     _editDialog = new EditSerieDialogStub();
-    _series     = new SeriesModel();
+    _series     = new SeriesModel(new SeriesProviderStub, QDate::currentDate());
     _message    = new MessageBoxStub();
     _sut        = new EditSerie(_editDialog, _series, _message);
 }

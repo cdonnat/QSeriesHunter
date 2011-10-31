@@ -5,6 +5,8 @@
 
 #include "seriesmodel.h"
 
+class SeriesProviderStub;
+
 class TestSeriesModel : public QObject
 {
     Q_OBJECT
@@ -18,7 +20,8 @@ private slots:
     void testHeaderData();
 
 private:
-    SeriesModel   _sut;
+    SeriesProviderStub * _seriesProvider;
+    SeriesModel          _sut;
 };
 
 #endif // TST_SERIESMODEL_H

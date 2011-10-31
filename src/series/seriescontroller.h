@@ -2,9 +2,13 @@
 #define SERIESCONTROLLER_H
 
 #include "iseriescontroller.h"
+#include "seriesprovider.h"
 #include "serie.h"
 
 #include <QList>
+#include <QMap>
+#include <QPair>
+#include <QDate>
 
 class SerieMemento;
 
@@ -13,7 +17,7 @@ class SeriesController : public ISeriesController
 public:
 
     //----------------------------------------------------------------------------------------------
-    explicit SeriesController();
+    SeriesController(SeriesProvider * seriesProvider, const QDate & currentDate);
 
     // Queries:
 
@@ -29,6 +33,28 @@ public:
     //----------------------------------------------------------------------------------------------
     virtual SeriesMemento createMemento () const;
 
+    //----------------------------------------------------------------------------------------------
+    virtual bool aNewEpisodeIsAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool nextAiredEpisodeDetailsAreAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual bool lastAiredEpisodeDetailsAreAvailable(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual uint nextAiredEpisode(const Serie & serie) const;
+       
+    //----------------------------------------------------------------------------------------------
+    virtual QDate nextAiredEpisodeDate(const Serie & serie) const;
+
+    //----------------------------------------------------------------------------------------------
+    virtual uint lastAiredEpisode(const Serie & serie) const;
+    
+    //----------------------------------------------------------------------------------------------
+    virtual QDate lastAiredEpisodeDate(const Serie & serie) const;
+
+    
     // Commands :
 
     //----------------------------------------------------------------------------------------------
@@ -47,9 +73,15 @@ public:
     virtual void loadFrom (const SeriesMemento &memento);
 
 private :
-    typedef QList<Serie> Series;
+    
+    typedef QList<Serie>                                           Series;
+    typedef QMap<Serie, 
+                QPair<AiredEpisodeDetails, AiredEpisodeDetails> >  SeriesDetails;
 
-    Series  _series;
+    SeriesProvider * _seriesProvider;
+    Series           _series;
+    SeriesDetails    _seriesDetails;
+    QDate            _currentDate;
 };
 
 #endif // SERIESCONTROLLER_H

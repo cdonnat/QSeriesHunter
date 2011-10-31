@@ -5,6 +5,8 @@
 
 #include "seriescontroller.h"
 
+class SeriesProviderStub;
+
 class TestSeriesController : public QObject
 {
     Q_OBJECT
@@ -14,9 +16,12 @@ public:
 private slots:
     void test ();
     void testRobustness ();
-
+    void testAiredEpisode ();
+    void testNoAiredEpisodeDetails ();
+    
 private :
-    SeriesController  _sut;
+    SeriesProviderStub * _seriesProvider;
+    SeriesController   * _sut;
 };
 
 #endif // TST_SERIESCONTROLLER_H

@@ -1,17 +1,24 @@
 #include "seriesmodel.h"
 #include "seriescontroller.h"
-#include <QIcon>
+#include <QDate>
 
-const int NB_COLUMNS     = 4;
-const int COLUMN_ACTIVE  = 0;
-const int COLUMN_NAME    = 1;
-const int COLUMN_SEASON  = 2;
-const int COLUMN_EPISODE = 3;
+const int NB_COLUMNS               = 8;
+const int COLUMN_ACTIVE            = 0;
+const int COLUMN_NAME              = 1;
+const int COLUMN_SEASON            = 2;
+const int COLUMN_EPISODE           = 3;
+const int COLUMN_LAST_EPISODE      = 4;
+const int COLUMN_LAST_EPISODE_DATE = 5;
+const int COLUMN_NEXT_EPISODE      = 6;
+const int COLUMN_NEXT_EPISODE_DATE = 7;
 
 //----------------------------------------------------------------------------------------------
-SeriesModel::SeriesModel (QObject *parent) : QAbstractTableModel(parent)
+SeriesModel::SeriesModel (SeriesProvider * seriesProvider, 
+                          const QDate &    currentDate,          
+                          QObject        * parent) : QAbstractTableModel(parent)
 {
-    _series = new SeriesController();
+    Q_ASSERT(seriesProvider);
+    _series = new SeriesController(seriesProvider, currentDate);
 }
 
 //----------------------------------------------------------------------------------------------
@@ -44,7 +51,7 @@ QVariant SeriesModel::data (const QModelIndex &index, int role) const
 {
     if (!index.isValid ()) return QVariant();
 
-    Serie  current = _series->at (index.row ());
+    Serie  current = at (index.row ());
     switch (role)
     {
         case Qt::DisplayRole :
@@ -53,6 +60,14 @@ QVariant SeriesModel::data (const QModelIndex &index, int role) const
                 case COLUMN_NAME    : return current.name();
                 case COLUMN_SEASON  : return current.season();
                 case COLUMN_EPISODE : return current.lastEpisode();
+                case COLUMN_LAST_EPISODE : return 
+                    lastAiredEpisodeDetailsAreAvailable(current)? QVariant(lastAiredEpisode(current)) : QVariant(tr("Unknown"));
+                case COLUMN_LAST_EPISODE_DATE : return 
+                    lastAiredEpisodeDetailsAreAvailable(current)? QVariant(lastAiredEpisodeDate(current).toString()) : QVariant(tr("Unknown"));
+                case COLUMN_NEXT_EPISODE : return 
+                    nextAiredEpisodeDetailsAreAvailable(current)? QVariant(nextAiredEpisode(current)) : QVariant(tr("Unknown"));
+                case COLUMN_NEXT_EPISODE_DATE : return 
+                    nextAiredEpisodeDetailsAreAvailable(current)? QVariant(nextAiredEpisodeDate(current).toString()) : QVariant(tr("Unknown"));
                 default             : break;
             }
             break;
@@ -90,10 +105,14 @@ QVariant SeriesModel::headerData (int              section,
 
     if (orientation == Qt::Horizontal) {
         switch (section) {
-            case COLUMN_ACTIVE  : return tr("State");
-            case COLUMN_NAME    : return tr("Name");
-            case COLUMN_SEASON  : return tr("Season");
-            case COLUMN_EPISODE : return tr("Last Episode Downloaded");
+            case COLUMN_ACTIVE            : return tr("State");
+            case COLUMN_NAME              : return tr("Name");
+            case COLUMN_SEASON            : return tr("Season");
+            case COLUMN_EPISODE           : return tr("Last Episode Downloaded");
+            case COLUMN_LAST_EPISODE      : return tr("Last Aired Episode");
+            case COLUMN_LAST_EPISODE_DATE : return tr("Last Aired Episode Date");
+            case COLUMN_NEXT_EPISODE      : return tr("Next Aired Episode");
+            case COLUMN_NEXT_EPISODE_DATE : return tr("Next Aired Episode Date");
             default             : break;
         }
     }
@@ -161,3 +180,50 @@ void SeriesModel::loadFrom (const SeriesMemento &memento)
 {
     _series->loadFrom (memento);
 }
+
+//----------------------------------------------------------------------------------------------
+bool SeriesModel::aNewEpisodeIsAvailable(const Serie & serie) const
+{
+    return _series->aNewEpisodeIsAvailable(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+bool SeriesModel::nextAiredEpisodeDetailsAreAvailable(const Serie & serie) const
+{
+    return _series->nextAiredEpisodeDetailsAreAvailable(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+bool SeriesModel::lastAiredEpisodeDetailsAreAvailable(const Serie & serie) const
+{
+    return _series->lastAiredEpisodeDetailsAreAvailable(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+uint SeriesModel::lastAiredEpisode(const Serie & serie) const
+{
+    Q_ASSERT(lastAiredEpisodeDetailsAreAvailable(serie));
+    return _series->lastAiredEpisode(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+QDate SeriesModel::lastAiredEpisodeDate(const Serie & serie) const
+{
+    Q_ASSERT(lastAiredEpisodeDetailsAreAvailable(serie));
+    return _series->lastAiredEpisodeDate(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+uint SeriesModel::nextAiredEpisode(const Serie & serie) const
+{
+    Q_ASSERT(nextAiredEpisodeDetailsAreAvailable(serie));
+    return _series->nextAiredEpisode(serie);
+}
+
+//----------------------------------------------------------------------------------------------
+QDate SeriesModel::nextAiredEpisodeDate(const Serie & serie) const
+{
+    Q_ASSERT(nextAiredEpisodeDetailsAreAvailable(serie));
+    return _series->nextAiredEpisodeDate(serie);
+}
+

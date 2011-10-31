@@ -17,7 +17,10 @@ public:
 private Q_SLOTS:
     void testNominalCase();
     void testFailCase();
-
+    void testNextAiredEpisode();
+    void testLastAiredEpisode();
+    void testNextAiredEpisodeRobustness();
+    
 private :
     NetworkAccessStub    * _networkAccess;
     SeriesProvider       * _sut;

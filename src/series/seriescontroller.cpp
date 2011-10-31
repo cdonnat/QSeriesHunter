@@ -4,7 +4,9 @@
 #include <QtAlgorithms>
 
 //----------------------------------------------------------------------------------------------
-SeriesController::SeriesController()
+SeriesController::SeriesController(SeriesProvider * seriesProvider,
+                                   const QDate & currentDate):
+_seriesProvider(seriesProvider), _currentDate(currentDate)
 {
 }
 
@@ -37,6 +39,9 @@ void SeriesController::addSerie (const Serie & serie)
 {
     Q_ASSERT (!this->contains (serie));
     _series << serie;
+    _seriesDetails.insert(serie, 
+                          qMakePair(_seriesProvider->lastAiredEpisode(serie),
+                                    _seriesProvider->nextAiredEpisode(serie)));
     qSort(_series.begin(), _series.end());
 }
 
@@ -66,5 +71,58 @@ void SeriesController::enable (const Serie & serie, bool isEnable)
 //----------------------------------------------------------------------------------------------
 void SeriesController::loadFrom (const SeriesMemento &memento)
 {
-    _series = memento.get ();
+    foreach (Serie serie, memento.get())
+    {
+        addSerie(serie);
+    }
 }
+
+//----------------------------------------------------------------------------------------------
+bool SeriesController::aNewEpisodeIsAvailable(const Serie & serie) const
+{
+    Q_ASSERT(contains(serie));
+    AiredEpisodeDetails lastAired = _seriesDetails[serie].first;
+    
+    return lastAired.episode() > serie.lastEpisode() &&
+           lastAired.date() < _currentDate;
+}
+
+//----------------------------------------------------------------------------------------------
+uint SeriesController::nextAiredEpisode(const Serie & serie) const
+{
+    Q_ASSERT(nextAiredEpisodeDetailsAreAvailable(serie));
+    return _seriesDetails[serie].second.episode();
+}
+
+//----------------------------------------------------------------------------------------------
+QDate SeriesController::nextAiredEpisodeDate(const Serie & serie) const
+{
+    Q_ASSERT(nextAiredEpisodeDetailsAreAvailable(serie));
+    return _seriesDetails[serie].second.date();
+}
+
+//----------------------------------------------------------------------------------------------
+uint SeriesController::lastAiredEpisode(const Serie & serie) const
+{
+    Q_ASSERT(lastAiredEpisodeDetailsAreAvailable(serie));
+    return _seriesDetails[serie].first.episode();
+}
+
+//----------------------------------------------------------------------------------------------
+QDate SeriesController::lastAiredEpisodeDate(const Serie & serie) const
+{
+    Q_ASSERT(lastAiredEpisodeDetailsAreAvailable(serie));
+    return _seriesDetails[serie].first.date();
+}
+
+//----------------------------------------------------------------------------------------------
+bool SeriesController::nextAiredEpisodeDetailsAreAvailable(const Serie & serie) const 
+{
+    return !_seriesDetails[serie].second.date().isNull();
+}
+
+//----------------------------------------------------------------------------------------------
+bool SeriesController::lastAiredEpisodeDetailsAreAvailable(const Serie & serie) const 
+{
+    return !_seriesDetails[serie].first.date().isNull();
+}    

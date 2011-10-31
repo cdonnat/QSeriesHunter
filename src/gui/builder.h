@@ -13,6 +13,7 @@ class EditFinder;
 class EditFinderWidget;
 class SeriesWidget;
 class FindersWidget;
+class SeriesProvider;
 
 class QString;
 class QTableView;
@@ -55,6 +56,7 @@ private:
     SeriesWidget            * _seriesWidget;
     LoggerWidget            * _loggerWidget;
     FindersWidget           * _findersWidget;
+    SeriesProvider          * _seriesProvider;
 };
 
 #endif // BUILDER_H

@@ -16,10 +16,11 @@
 #include "editfinder.h"
 #include "editfinderwidget.h"
 #include "serieswidget.h"
-#include "finderswidget.h";
-#include "seriesprovider.h";
+#include "finderswidget.h"
+#include "seriesprovider.h"
 
 #include <QDir>
+#include <QDateTime>
 #include <QTableView>
 #include <QHeaderView>
 
@@ -50,18 +51,18 @@ void Builder::buildNetwork()
 //----------------------------------------------------------------------------------------------
 void Builder::buildModel ()
 {
-    _model = new SeriesModel();
+    _seriesProvider = new SeriesProvider(_networkAccess, 
+                                         QDateTime::currentDateTime());
+    _seriesProvider->searchAllSeries();
+    _model          = new SeriesModel(_seriesProvider, QDate::currentDate());
 }
 
 //----------------------------------------------------------------------------------------------
 void Builder::buildEditSerie ()
 {
     Q_ASSERT (_model != NULL);
-    SeriesProvider * seriesProvider = new SeriesProvider(_networkAccess);
-    seriesProvider->searchAllSeries();
-    
     _messageBox = new MessageBox();
-    _editSerie  = new EditSerie(new EditSerieDialog(seriesProvider), _model, _messageBox);
+    _editSerie  = new EditSerie(new EditSerieDialog(_seriesProvider), _model, _messageBox);
 }
 
 //----------------------------------------------------------------------------------------------

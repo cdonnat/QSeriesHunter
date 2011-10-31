@@ -12,6 +12,7 @@
 #include "stub_networkaccess.h"
 #include "stub_finder.h"
 #include "stub_defaultapprunner.h"
+#include "stub_seriesprovider.h"
 
 #include <QFile>
 #include <QTest>
@@ -19,7 +20,7 @@
 TestScheduler::TestScheduler(QObject *parent) :
     QObject(parent)
 {
-    _series          = new SeriesModel();
+    _series          = new SeriesModel(new SeriesProviderStub, QDate::currentDate());
     _finders         = new FinderController();
     _finder          = new FinderStub();
     _network         = new NetworkAccessStub;

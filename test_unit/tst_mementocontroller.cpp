@@ -2,8 +2,10 @@
 
 #include "findercontroller.h"
 #include "editfinderwidget.h"
+#include "stub_seriesprovider.h"
 
 #include <QString>
+#include <QDate>
 #include <QDir>
 #include <QFile>
 #include <QList>
@@ -15,7 +17,7 @@ const QString configFile = "test";
 
 
 TestMementoController::TestMementoController(QObject *parent) :
-    QObject(parent)
+QObject(parent), _series(new SeriesProviderStub, QDate::currentDate())
 {
     _finderController = new FinderController;
     _editFinder       = new EditFinder(_finderController, 
@@ -78,8 +80,8 @@ void TestMementoController::testIniFileReading ()
     fixture._sut->loadMemento();
     
     QVERIFY2(fixture._series.nbSeries() == 2, "Expected series number");
-    QVERIFY2(fixture._series.at(0) == houseSeason1, "Expected first serie");
-    QVERIFY2(fixture._series.at(1) == dexterSeason10, "Expected second serie");
+    QVERIFY2(fixture._series.at(0) == dexterSeason10, "Expected first serie");
+    QVERIFY2(fixture._series.at(1) == houseSeason1, "Expected second serie");
     QVERIFY2(!QFile::exists(configFile + ".ini"), "ini file deleted");
     QVERIFY2(QFile::exists(configFile + ".yml"), "yaml file created");
 }

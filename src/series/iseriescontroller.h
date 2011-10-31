@@ -5,6 +5,7 @@
 
 class Serie;
 class SeriesMemento;
+class QDate;
 
 class ISeriesController
 {
@@ -34,7 +35,42 @@ public:
     // REQ [None.]
     // ENS [Return a memento that represents the state of the series controller.]
     virtual SeriesMemento createMemento() const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [The serie has been already added.]
+    // ENS [True is returned if new episode a the serie available, false otherwise.]
+    virtual bool aNewEpisodeIsAvailable(const Serie & serie) const = 0;
 
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [True is returned if the details of the last episode are available.]
+    virtual bool lastAiredEpisodeDetailsAreAvailable(const Serie & serie) const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
+    // ENS [True is returned if the details of the next episode are available.]
+    virtual bool nextAiredEpisodeDetailsAreAvailable(const Serie & serie) const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [lastEpisodeDetailsAreAvailable.]
+    // ENS [The episode number of the last aired episode is returned.]
+    virtual uint lastAiredEpisode(const Serie & serie) const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [lastEpisodeDetailsAreAvailable.]
+    // ENS [The episode date of the last aired episode is returned.]
+    virtual QDate lastAiredEpisodeDate(const Serie & serie) const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [nextEpisodeDetailsAreAvailable.]
+    // ENS [The episode number of the next aired episode is returned.]
+    virtual uint nextAiredEpisode(const Serie & serie) const = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [nextEpisodeDetailsAreAvailable.]
+    // ENS [The episode date of the next aired episode is returned.]
+    virtual QDate nextAiredEpisodeDate(const Serie & serie) const = 0;
+    
     // Commands :
 
     //----------------------------------------------------------------------------------------------
