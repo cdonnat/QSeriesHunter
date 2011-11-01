@@ -76,7 +76,7 @@ void TestEditSerie::testRemove ()
      TestEditSerie fixture;
      fixture._editDialog->setup (true, "dr  house", 1, 2);
      fixture._sut->add ();
-     fixture._editDialog->setup (true, "dr  house", 2, 6);
+     fixture._editDialog->setup (true, "himym", 3, 6);
      fixture._sut->add ();
 
      // Nominal case
@@ -93,13 +93,6 @@ void TestEditSerie::testRemove ()
      fixture._sut->edit (fixture._series->index (1,0));
      QVERIFY2(fixture._series->at(1).lastEpisode () == 5,
               "Only last episode changed");
-
-     // Try to add an existing serie
-     // Change only last episode
-     fixture._editDialog->setup (true, "himym", 3, 5);
-     fixture._sut->edit (fixture._series->index (0,0));
-     QVERIFY2(fixture._message->displayWarningIsCalled (), "Warning serie already exists");
-     QVERIFY2(fixture._series->nbSeries () == 2, "Nothing changed");
 
      // Try to edit invalid selection
      fixture._message->clear ();

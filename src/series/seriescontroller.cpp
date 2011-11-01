@@ -77,6 +77,8 @@ void SeriesController::loadFrom (const SeriesMemento &memento)
     }
 }
 
+
+
 //----------------------------------------------------------------------------------------------
 bool SeriesController::aNewEpisodeIsAvailable(const Serie & serie) const
 {
@@ -84,8 +86,7 @@ bool SeriesController::aNewEpisodeIsAvailable(const Serie & serie) const
     AiredEpisodeDetails lastAired = _seriesDetails[serie].first;
     
     return !lastAiredEpisodeDetailsAreAvailable(serie) ||
-            (lastAired.episode() > serie.lastEpisode() &&
-                lastAired.date() < _currentDate);
+            (lastAired.episode() > serie.lastEpisode());
 }
 
 //----------------------------------------------------------------------------------------------
