@@ -171,6 +171,15 @@ void SeriesModel::inc (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
+void SeriesModel::setLastEpisode (const Serie & serie)
+{
+    beginResetModel();
+    _series->setLastEpisode(serie);
+    endResetModel();
+}
+
+
+//----------------------------------------------------------------------------------------------
 void SeriesModel::enable (const Serie & serie, bool isEnable)
 {
     beginResetModel ();

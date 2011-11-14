@@ -115,16 +115,7 @@ void EditSerie::runEditSerieDialog (const QModelIndex & selection)
                        serieEdited.season (),
                        serieEdited.lastEpisode())) {
         if (inputsAreValid ())  {
-            // FIXME : find a better way of editing
-            remove (selection);
-            if (!_series->contains (seriesFromDialog ())) {
-                _series->addSerie (seriesFromDialog());
-            }
-            else {
-                _series->addSerie (serieEdited);
-                _messageBox->displayWarning (QObject::tr("Warning"),
-                                             QObject::tr("You are already following this serie!"));
-            }
+            _series->setLastEpisode(seriesFromDialog());
         }
         else {
             _messageBox->displayWarning (QObject::tr("Warning"),

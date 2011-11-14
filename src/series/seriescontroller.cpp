@@ -61,6 +61,14 @@ void SeriesController::inc (const Serie & serie)
 }
 
 //----------------------------------------------------------------------------------------------
+void SeriesController::setLastEpisode(const Serie & serie)
+{
+    Q_ASSERT(this->contains(serie));
+    Series::iterator  it = qBinaryFind(_series.begin(), _series.end(), serie);
+    it->setLastEpisode(serie.lastEpisode());
+}
+
+//----------------------------------------------------------------------------------------------
 void SeriesController::enable (const Serie & serie, bool isEnable)
 {
     Q_ASSERT (this->contains (serie));
@@ -76,8 +84,6 @@ void SeriesController::loadFrom (const SeriesMemento &memento)
         addSerie(serie);
     }
 }
-
-
 
 //----------------------------------------------------------------------------------------------
 bool SeriesController::aNewEpisodeIsAvailable(const Serie & serie) const

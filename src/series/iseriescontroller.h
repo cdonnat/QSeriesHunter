@@ -90,6 +90,11 @@ public:
     
     //----------------------------------------------------------------------------------------------
     // REQ [Serie exists.]
+    // ENS [Last episode downloaded of the serie is set.]
+    virtual void setLastEpisode(const Serie & serie) = 0;
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [Serie exists.]
     // ENS [Enable or disable specified serie.]
     virtual void enable (const Serie & serie, bool isEnable) = 0;
     

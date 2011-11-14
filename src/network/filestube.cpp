@@ -6,7 +6,7 @@
 #include <QVariantMap>
 #include <QXmlStreamReader>
 
-const QString key = "ff5286516f86965dadfeb44bc87d4c36&sort=dd&phrase=";
+const QString key = "ff5286516f86965dadfeb44bc87d4c36&sort=dd&extension=avi&phrase=";
 
 //--------------------------------------------------------------------------------------------------
 FilesTube::FilesTube(INetworkAccess * const networkAccess) : AbstractFinder("DirectDownload"),

@@ -26,6 +26,11 @@ public:
     
     //----------------------------------------------------------------------------------------------
     // REQ [None.]
+    // ENS [The last episode is set.]
+    void setLastEpisode (uint lastEpisode);
+    
+    //----------------------------------------------------------------------------------------------
+    // REQ [None.]
     // ENS [Enable/Disable serie.]
     void enable (bool isEnable);
     

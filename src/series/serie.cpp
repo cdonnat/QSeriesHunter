@@ -25,6 +25,13 @@ void Serie::inc()
     ++_lastEpisode;
 }
 
+
+//----------------------------------------------------------------------------------------------
+void Serie::setLastEpisode (uint lastEpisode)
+{
+    _lastEpisode = lastEpisode;
+}
+
 //----------------------------------------------------------------------------------------------
 void Serie::enable(bool isEnable)
 {
